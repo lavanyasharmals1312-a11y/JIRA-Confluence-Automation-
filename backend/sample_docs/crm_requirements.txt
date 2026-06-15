@@ -1,0 +1,13 @@
+CRM System Requirements
+
+The system should allow sales executives to create and manage leads.
+
+The system should automatically send welcome emails to new customers.
+
+Managers should be able to view sales performance reports.
+
+The system should track customer churn and retention metrics.
+
+Users:
+- Sales Executive
+- Sales Manager
