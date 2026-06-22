@@ -1,0 +1,28 @@
+{
+  "project_name": "",
+  "generated_at": "",
+
+  "epics": [
+    {
+      "epic_id": "",
+      "title": "",
+      "description": "",
+
+      "stories": [
+        {
+          "story_id": "",
+          "title": "",
+          "description": "",
+
+          "tasks": [
+            {
+              "task_id": "",
+              "title": "",
+              "description": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
