@@ -11,7 +11,7 @@ def show_upload():
     # PAGE HEADER
     # -------------------------------------------------
 
-    st.title("Requirement Ingestion")
+    st.title("Upload Document")
 
     st.caption(
         "Upload requirement documents to automatically generate a structured Jira-ready backlog."
