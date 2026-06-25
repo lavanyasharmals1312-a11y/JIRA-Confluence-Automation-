@@ -2,33 +2,40 @@ import streamlit as st
 
 def show_dashboard():
 
-    st.title("AI Requirements Intelligence Platform")
-
-    st.caption(
-        "Transform requirement documents into structured Agile backlogs."
+    st.markdown(
+        "<div class='page-title'>Overview</div>",
+        unsafe_allow_html=True
     )
 
-    col1, col2, col3, col4 = st.columns(4)
+    st.markdown(
+        "<div class='page-subtitle'>AI-generated backlog pipeline status across all projects</div>",
+        unsafe_allow_html=True
+    )
 
-    with col1:
+    c1,c2,c3,c4 = st.columns(4)
+
+    with c1:
         st.metric(
             "Projects",
-            "12"
+            "12",
+            "+3"
         )
 
-    with col2:
+    with c2:
         st.metric(
-            "Backlogs",
-            "27"
+            "Backlogs Generated",
+            "27",
+            "+5"
         )
 
-    with col3:
+    with c3:
         st.metric(
             "Requirements Processed",
-            "84"
+            "84",
+            "+12"
         )
 
-    with col4:
+    with c4:
         st.metric(
             "Integrations",
             "2"
@@ -36,21 +43,24 @@ def show_dashboard():
 
     st.divider()
 
-    st.subheader("Recent Activity")
+    st.subheader("Recent Projects")
 
     st.dataframe(
         [
             {
-                "Project": "Project Alpha",
-                "Status": "Generated"
+                "Project":"Banking Portal",
+                "Status":"Generated",
+                "Last Updated":"Today"
             },
             {
-                "Project": "Project Beta",
-                "Status": "Reviewed"
+                "Project":"Healthcare Platform",
+                "Status":"Reviewed",
+                "Last Updated":"Yesterday"
             },
             {
-                "Project": "Project Gamma",
-                "Status": "Pending Approval"
+                "Project":"ERP System",
+                "Status":"Pending Approval",
+                "Last Updated":"2 Days Ago"
             }
         ],
         use_container_width=True

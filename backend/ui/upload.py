@@ -2,7 +2,26 @@ import streamlit as st
 import io
 from pypdf import PdfReader
 
+project_name = st.text_input(
+    "Project Name"
+)
 
+provider = st.selectbox(
+    "AI Provider",
+    [
+        "Azure OpenAI",
+        "Claude",
+        "Gemini"
+    ]
+)
+
+output_format = st.selectbox(
+    "Output Format",
+    [
+        "Jira Ready JSON",
+        "Standard JSON"
+    ]
+)
 def show_upload():
 
     st.title("Requirement Ingestion")
