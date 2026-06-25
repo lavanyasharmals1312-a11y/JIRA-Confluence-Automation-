@@ -43,48 +43,22 @@ st.sidebar.caption(
 
 st.sidebar.divider()
 
-st.sidebar.markdown("### Workspace")
-
-workspace_page = st.sidebar.radio(
-    "",
+page = st.sidebar.radio(
+    "Navigation",
     [
         "Dashboard",
         "Requirement Ingestion",
         "Project History",
-        "Backlog Review"
-    ],
-    key="workspace"
-)
-
-st.sidebar.divider()
-
-st.sidebar.markdown("### Integrations")
-
-integration_page = st.sidebar.radio(
-    "",
-    [
+        "Backlog Review",
         "Jira Integration",
-        "Confluence Integration"
-    ],
-    key="integration"
-)
-
-st.sidebar.divider()
-
-st.sidebar.markdown("### System")
-
-system_page = st.sidebar.radio(
-    "",
-    [
+        "Confluence Integration",
         "Settings"
-    ],
-    key="system"
+    ]
 )
 
 st.sidebar.divider()
 
 st.sidebar.caption("Version 1.0.0")
-
 # -----------------------------
 # PAGE ROUTING
 # -----------------------------
