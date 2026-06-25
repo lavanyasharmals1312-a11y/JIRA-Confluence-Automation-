@@ -1,31 +1,61 @@
-from google import genai
-from dotenv import load_dotenv
-from pathlib import Path
-import os
+import time
 
-env_path = Path(__file__).resolve().parents[2] / ".env"
+from google.genai.errors import ServerError
 
-load_dotenv(env_path)
-
-print("API KEY =", os.getenv("GEMINI_API_KEY"))
-
-client = genai.Client(
-    api_key=os.getenv("GEMINI_API_KEY")
+from backend.ai_engine.provider import (
+    get_provider
 )
 
-def generate_backlog(prompt, requirement):
+from backend.parsers.response_parser import (
+    parse_gemini_response
+)
 
-    full_prompt = f"""
-    {prompt}
 
-    Requirement Document:
+def generate_backlog(
 
-    {requirement}
-    """
+    prompt,
 
-    response = client.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=full_prompt
+    requirement,
+
+    provider_name="Gemini"
+
+):
+
+    provider = get_provider(
+        provider_name
     )
 
-    return response.text
+    full_prompt = f"""
+{prompt}
+
+Requirement Document
+
+{requirement}
+"""
+
+    retries = 3
+
+    for attempt in range(retries):
+
+        try:
+
+            response = provider.generate(
+                full_prompt
+            )
+
+            return parse_gemini_response(
+                response.text
+            )
+
+        except ServerError:
+
+            if attempt == retries - 1:
+                raise
+
+            wait = (attempt + 1) * 5
+
+            print(
+                f"Retrying in {wait} seconds..."
+            )
+
+            time.sleep(wait)

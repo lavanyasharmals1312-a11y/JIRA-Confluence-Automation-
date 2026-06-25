@@ -1,7 +1,9 @@
 import io
 import streamlit as st
 from pypdf import PdfReader
-
+from backend.services.backlog_service import (
+    generate_project
+)   
 
 def show_upload():
 
@@ -158,24 +160,31 @@ def show_upload():
             use_container_width=True,
             type="primary"
         ):
+            try:
 
-            with st.spinner(
-                "Generating project backlog..."
-            ):
+                with st.spinner(
+                    "Generating project backlog..."
+                ):
 
-                # -------------------------------------------------
-                # TODO
-                # Replace with actual AI call later
-                # -------------------------------------------------
+                    project = generate_project(
 
-                import time
-                time.sleep(2)
+                        requirement=document,
 
-            st.success(
-                "Backlog generated successfully."
-            )
+                        provider=provider,
 
-            # Navigate to backlog page
-            st.session_state.page = "Backlog Review"
+                        project_name=project_name
+                    )
 
-            st.rerun()
+                st.success(
+                    f"{project['project_name']} generated successfully."
+                )
+
+                st.session_state.page = "Backlog Review"
+
+                st.rerun()
+
+            except Exception as e:
+
+                st.error(
+                    f"Failed to generate backlog.\n\n{e}"
+                )

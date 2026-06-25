@@ -15,14 +15,14 @@ st.set_page_config(
 # IMPORTS
 # ---------------------------------------------------
 
-from ui.styles import load_css
-from ui.dashboard import show_dashboard
-from ui.upload import show_upload
-from ui.project_history import show_project_history
-from ui.backlog import show_backlog
-from ui.jira import show_jira
-from ui.confluence import show_confluence
-from ui.settings import show_settings
+from backend.ui.styles import load_css
+from backend.ui.dashboard import show_dashboard
+from backend.ui.upload import show_upload
+from backend.ui.project_history import show_project_history
+from backend.ui.backlog import show_backlog
+from backend.ui.jira import show_jira
+from backend.ui.confluence import show_confluence
+from backend.ui.settings import show_settings
 
 # ---------------------------------------------------
 # LOAD CSS
