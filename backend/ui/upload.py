@@ -1,79 +1,181 @@
-import streamlit as st
 import io
+import streamlit as st
 from pypdf import PdfReader
 
-project_name = st.text_input(
-    "Project Name"
-)
 
-provider = st.selectbox(
-    "AI Provider",
-    [
-        "Azure OpenAI",
-        "Claude",
-        "Gemini"
-    ]
-)
-
-output_format = st.selectbox(
-    "Output Format",
-    [
-        "Jira Ready JSON",
-        "Standard JSON"
-    ]
-)
 def show_upload():
+
+    # -------------------------------------------------
+    # PAGE HEADER
+    # -------------------------------------------------
 
     st.title("Requirement Ingestion")
 
-    source = st.selectbox(
-        "Requirement Source",
-        [
-            "File Upload",
-            "Confluence (Coming Soon)"
-        ]
+    st.caption(
+        "Upload requirement documents to automatically generate a structured Jira-ready backlog."
     )
+
+    st.divider()
+
+    # -------------------------------------------------
+    # PROJECT INFORMATION
+    # -------------------------------------------------
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+
+        project_name = st.text_input(
+            "Project Name",
+            placeholder="e.g. Employee Leave Management System"
+        )
+
+    with col2:
+
+        source = st.selectbox(
+            "Requirement Source",
+            [
+                "PDF Document",
+                "Text File",
+                "Confluence (Coming Soon)"
+            ]
+        )
+
+    col3, col4 = st.columns(2)
+
+    with col3:
+
+        provider = st.selectbox(
+            "AI Provider",
+            [
+                "Azure OpenAI",
+                "Gemini",
+                "Claude"
+            ]
+        )
+
+    with col4:
+
+        output_format = st.selectbox(
+            "Output Format",
+            [
+                "Jira Ready JSON",
+                "Standard JSON"
+            ]
+        )
+
+    st.divider()
+
+    # -------------------------------------------------
+    # FILE UPLOAD
+    # -------------------------------------------------
 
     uploaded_file = st.file_uploader(
         "Upload Requirement Document",
-        type=["pdf", "txt"]
+        type=["pdf", "txt"],
+        help="Supported formats: PDF and TXT"
     )
 
-    if uploaded_file:
+    if uploaded_file is not None:
 
         document = ""
 
+        # -------------------------
+        # TXT
+        # -------------------------
+
         if uploaded_file.type == "text/plain":
 
-            document = uploaded_file.read().decode(
-                "utf-8"
-            )
+            document = uploaded_file.read().decode("utf-8")
 
-        else:
+        # -------------------------
+        # PDF
+        # -------------------------
+
+        elif uploaded_file.type == "application/pdf":
 
             pdf_reader = PdfReader(
-                io.BytesIO(
-                    uploaded_file.read()
-                )
+                io.BytesIO(uploaded_file.read())
             )
 
             for page in pdf_reader.pages:
 
-                text = page.extract_text()
+                page_text = page.extract_text()
 
-                if text:
-                    document += text
+                if page_text:
 
-        st.success(
-            "Document uploaded successfully."
-        )
+                    document += page_text + "\n"
 
-        st.text_area(
-            "Document Preview",
-            document,
-            height=300
-        )
+        st.success("Document uploaded successfully.")
 
-        st.button(
-            "Generate Backlog"
-        )
+        with st.expander(
+            "Preview Extracted Content",
+            expanded=False
+        ):
+
+            st.text_area(
+                "Requirement Content",
+                document,
+                height=300
+            )
+
+        st.divider()
+
+        # -------------------------------------------------
+        # SUMMARY
+        # -------------------------------------------------
+
+        st.subheader("Generation Summary")
+
+        c1, c2, c3 = st.columns(3)
+
+        with c1:
+            st.metric(
+                "Project",
+                project_name if project_name else "Untitled"
+            )
+
+        with c2:
+            st.metric(
+                "Provider",
+                provider
+            )
+
+        with c3:
+            st.metric(
+                "Output",
+                output_format
+            )
+
+        st.divider()
+
+        # -------------------------------------------------
+        # GENERATE BUTTON
+        # -------------------------------------------------
+
+        if st.button(
+            "Generate Backlog",
+            use_container_width=True,
+            type="primary"
+        ):
+
+            with st.spinner(
+                "Generating project backlog..."
+            ):
+
+                # -------------------------------------------------
+                # TODO
+                # Replace with actual AI call later
+                # -------------------------------------------------
+
+                import time
+                time.sleep(2)
+
+            st.success(
+                "Backlog generated successfully."
+            )
+
+            # Navigate to backlog page
+            st.session_state.page = "Backlog Review"
+
+            st.rerun()
