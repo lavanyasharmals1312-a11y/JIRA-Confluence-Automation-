@@ -16,7 +16,6 @@ st.set_page_config(
 # -----------------------------
 
 from ui.styles import load_css
-
 from ui.dashboard import show_dashboard
 from ui.upload import show_upload
 from ui.project_history import show_project_history
@@ -26,7 +25,7 @@ from ui.confluence import show_confluence
 from ui.settings import show_settings
 
 # -----------------------------
-# LOAD GLOBAL CSS
+# LOAD CSS
 # -----------------------------
 
 load_css()
@@ -44,37 +43,48 @@ st.sidebar.caption(
 st.sidebar.divider()
 
 page = st.sidebar.radio(
-    "Navigation",
+    "WORKSPACE",
     [
         "Dashboard",
         "Requirement Ingestion",
         "Project History",
         "Backlog Review",
-        "Jira Integration",
-        "Confluence Integration",
-        "Settings"
     ]
 )
 
 st.sidebar.divider()
 
+integration = st.sidebar.radio(
+    "INTEGRATIONS",
+    [
+        "None",
+        "Jira Integration",
+        "Confluence Integration",
+    ]
+)
+
+if integration != "None":
+    page = integration
+
+st.sidebar.divider()
+
+system = st.sidebar.radio(
+    "SYSTEM",
+    [
+        "None",
+        "Settings",
+    ]
+)
+
+if system != "None":
+    page = system
+
+st.sidebar.divider()
+
 st.sidebar.caption("Version 1.0.0")
+
 # -----------------------------
 # PAGE ROUTING
-# -----------------------------
-
-page = workspace_page
-
-if integration_page:
-    if st.session_state.integration != "":
-        page = integration_page
-
-if system_page:
-    if st.session_state.system != "":
-        page = system_page
-
-# -----------------------------
-# RENDER PAGE
 # -----------------------------
 
 if page == "Dashboard":
