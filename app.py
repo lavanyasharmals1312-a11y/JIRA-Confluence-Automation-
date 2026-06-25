@@ -51,8 +51,8 @@ st.sidebar.markdown("### Workspace")
 if st.sidebar.button("Dashboard", use_container_width=True):
     st.session_state.page = "Dashboard"
 
-if st.sidebar.button("Requirement Ingestion", use_container_width=True):
-    st.session_state.page = "Requirement Ingestion"
+if st.sidebar.button("Upload Document", use_container_width=True):
+    st.session_state.page = "Upload Document"
 
 if st.sidebar.button("Project History", use_container_width=True):
     st.session_state.page = "Project History"
@@ -95,7 +95,7 @@ if page == "Dashboard":
 
     show_dashboard()
 
-elif page == "Requirement Ingestion":
+elif page == "Upload Document":
 
     show_upload()
 
