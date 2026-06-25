@@ -52,6 +52,6 @@ def generate_project(
     # Save Project
     # -------------------------------
 
-    filepath = save_project(project)
+    save_project(project)
 
-    return project, filepath
+    return project
