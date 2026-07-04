@@ -1,9 +1,11 @@
 import io
 import streamlit as st
 from pypdf import PdfReader
+
 from backend.services.backlog_service import (
     generate_project
-)   
+)
+
 
 def show_upload():
 
@@ -14,13 +16,13 @@ def show_upload():
     st.title("Upload Document")
 
     st.caption(
-        "Upload requirement documents to automatically generate a structured Jira-ready backlog."
+        "Upload a Business Requirement Document (BRD) to automatically generate an AI-powered Jira backlog."
     )
 
     st.divider()
 
     # -------------------------------------------------
-    # PROJECT INFORMATION
+    # PROJECT DETAILS
     # -------------------------------------------------
 
     col1, col2 = st.columns(2)
@@ -50,8 +52,8 @@ def show_upload():
         provider = st.selectbox(
             "AI Provider",
             [
-                "Azure OpenAI",
                 "Gemini",
+                "Azure OpenAI",
                 "Claude"
             ]
         )
@@ -78,113 +80,128 @@ def show_upload():
         help="Supported formats: PDF and TXT"
     )
 
-    if uploaded_file is not None:
+    if uploaded_file is None:
+        return
 
-        document = ""
+    document = ""
 
-        # -------------------------
-        # TXT
-        # -------------------------
+    # -------------------------------------------------
+    # TXT
+    # -------------------------------------------------
 
-        if uploaded_file.type == "text/plain":
+    if uploaded_file.type == "text/plain":
 
-            document = uploaded_file.read().decode("utf-8")
+        document = uploaded_file.read().decode("utf-8")
 
-        # -------------------------
-        # PDF
-        # -------------------------
+    # -------------------------------------------------
+    # PDF
+    # -------------------------------------------------
 
-        elif uploaded_file.type == "application/pdf":
+    elif uploaded_file.type == "application/pdf":
 
-            pdf_reader = PdfReader(
-                io.BytesIO(uploaded_file.read())
-            )
+        pdf_reader = PdfReader(
+            io.BytesIO(uploaded_file.read())
+        )
 
-            for page in pdf_reader.pages:
+        for page in pdf_reader.pages:
 
-                page_text = page.extract_text()
+            text = page.extract_text()
 
-                if page_text:
+            if text:
 
-                    document += page_text + "\n"
+                document += text + "\n"
 
-        st.success("Document uploaded successfully.")
+    st.success("Document uploaded successfully.")
 
-        with st.expander(
-            "Preview Extracted Content",
-            expanded=False
-        ):
+    # -------------------------------------------------
+    # PREVIEW
+    # -------------------------------------------------
 
-            st.text_area(
-                "Requirement Content",
-                document,
-                height=300
-            )
+    with st.expander(
+        "Preview Extracted Content",
+        expanded=False
+    ):
 
-        st.divider()
+        st.text_area(
+            "Requirement Content",
+            document,
+            height=300
+        )
 
-        # -------------------------------------------------
-        # SUMMARY
-        # -------------------------------------------------
+    st.divider()
 
-        st.subheader("Generation Summary")
+    # -------------------------------------------------
+    # SUMMARY
+    # -------------------------------------------------
 
-        c1, c2, c3 = st.columns(3)
+    st.subheader("Generation Summary")
 
-        with c1:
-            st.metric(
-                "Project",
-                project_name if project_name else "Untitled"
-            )
+    c1, c2, c3 = st.columns(3)
 
-        with c2:
-            st.metric(
-                "Provider",
-                provider
-            )
+    with c1:
 
-        with c3:
-            st.metric(
-                "Output",
-                output_format
-            )
+        st.metric(
+            "Project",
+            project_name if project_name else "Untitled"
+        )
 
-        st.divider()
+    with c2:
 
-        # -------------------------------------------------
-        # GENERATE BUTTON
-        # -------------------------------------------------
+        st.metric(
+            "Provider",
+            provider
+        )
 
-        if st.button(
-            "Generate Backlog",
-            use_container_width=True,
-            type="primary"
-        ):
-            try:
+    with c3:
 
-                with st.spinner(
-                    "Generating project backlog..."
-                ):
+        st.metric(
+            "Output",
+            output_format
+        )
 
-                    project = generate_project(
+    st.divider()
 
-                        requirement=document,
+    # -------------------------------------------------
+    # GENERATE BACKLOG
+    # -------------------------------------------------
 
-                        provider=provider,
+    if st.button(
+        "Generate Backlog",
+        type="primary",
+        width="stretch"
+    ):
 
-                        project_name=project_name
-                    )
+        try:
 
-                st.success(
-                    f"{project['project_name']} generated successfully."
+            with st.spinner(
+                "Generating AI backlog..."
+            ):
+
+                project, filepath = generate_project(
+
+                    requirement=document,
+
+                    provider=provider,
+
+                    project_name=project_name
+
                 )
 
-                st.session_state.page = "Backlog Review"
+            st.success(
+                f"Project '{project['project_name']}' generated successfully."
+            )
 
-                st.rerun()
+            st.toast(
+                "Backlog generated successfully.",
+                icon="✅"
+            )
 
-            except Exception as e:
+            st.session_state.page = "Backlog Review"
 
-                st.error(
-                    f"Failed to generate backlog.\n\n{e}"
-                )
+            st.rerun()
+
+        except Exception as e:
+
+            st.error(
+                f"Failed to generate backlog.\n\n{e}"
+            )
