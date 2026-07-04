@@ -1,0 +1,411 @@
+{
+    "project_name": "Jira Integration Test",
+    "epics": [
+        {
+            "epic_id": "E1",
+            "title": "User Authentication & Access",
+            "description": "To provide secure and controlled access to the CRM system for all users, including login, registration, password management, and role-based authorization.",
+            "stories": [
+                {
+                    "story_id": "S1.1",
+                    "title": "User Login",
+                    "description": "As a user, I want to securely log into the CRM system so I can access my personalized dashboard and manage customer information.",
+                    "tasks": [
+                        {
+                            "task_id": "T1.1.1",
+                            "title": "Design Login Page UI/UX",
+                            "description": "Create wireframes and mockups for the login interface, ensuring a user-friendly and secure design."
+                        },
+                        {
+                            "task_id": "T1.1.2",
+                            "title": "Implement Login Backend API",
+                            "description": "Develop the API endpoint for user authentication, including password hashing and session management."
+                        },
+                        {
+                            "task_id": "T1.1.3",
+                            "title": "Develop Login Frontend Component",
+                            "description": "Build the client-side login form, handle user input, and communicate with the backend API."
+                        },
+                        {
+                            "task_id": "T1.1.4",
+                            "title": "Handle Failed Login Attempts",
+                            "description": "Implement mechanisms for incorrect credentials and account lockout policies."
+                        },
+                        {
+                            "task_id": "T1.1.5",
+                            "title": "Integrate Session Management",
+                            "description": "Ensure secure session creation and management upon successful login."
+                        }
+                    ]
+                },
+                {
+                    "story_id": "S1.2",
+                    "title": "Password Management",
+                    "description": "As a user, I want to be able to reset or change my password so I can maintain the security of my account.",
+                    "tasks": [
+                        {
+                            "task_id": "T1.2.1",
+                            "title": "Design 'Forgot Password' UI/UX",
+                            "description": "Create the user interface for the password reset request and new password entry."
+                        },
+                        {
+                            "task_id": "T1.2.2",
+                            "title": "Implement 'Forgot Password' Backend Flow",
+                            "description": "Develop the backend logic for generating and validating password reset tokens, and sending reset emails."
+                        },
+                        {
+                            "task_id": "T1.2.3",
+                            "title": "Implement 'Change Password' Functionality",
+                            "description": "Develop the UI and backend logic allowing a logged-in user to change their current password."
+                        },
+                        {
+                            "task_id": "T1.2.4",
+                            "title": "Secure Password Storage",
+                            "description": "Ensure all passwords are securely hashed and salted in the database."
+                        }
+                    ]
+                },
+                {
+                    "story_id": "S1.3",
+                    "title": "User Registration (Admin Controlled)",
+                    "description": "As an administrator, I want to register new users with specific roles so they can access the CRM system with appropriate permissions.",
+                    "tasks": [
+                        {
+                            "task_id": "T1.3.1",
+                            "title": "Design 'Add New User' Form",
+                            "description": "Create the UI for administrators to input new user details and assign roles."
+                        },
+                        {
+                            "task_id": "T1.3.2",
+                            "title": "Implement 'Create User' Backend API",
+                            "description": "Develop the API endpoint for administrators to create new user accounts, including password generation and role assignment."
+                        },
+                        {
+                            "task_id": "T1.3.3",
+                            "title": "Develop 'User Registration' Frontend Component",
+                            "description": "Build the client-side form and logic for administrators to register new users."
+                        },
+                        {
+                            "task_id": "T1.3.4",
+                            "title": "Implement Role Assignment Logic",
+                            "description": "Ensure new users can be assigned predefined roles upon creation."
+                        }
+                    ]
+                },
+                {
+                    "story_id": "S1.4",
+                    "title": "User Authorization & Role Management",
+                    "description": "As an administrator, I want to define and assign roles to users so I can control what features and data they can access within the CRM.",
+                    "tasks": [
+                        {
+                            "task_id": "T1.4.1",
+                            "title": "Define Core User Roles",
+                            "description": "Identify and document the standard roles (e.g., Admin, Sales, Marketing) and their respective permissions."
+                        },
+                        {
+                            "task_id": "T1.4.2",
+                            "title": "Implement Role-Based Access Control (RBAC)",
+                            "description": "Develop the backend logic to enforce permissions based on assigned user roles for all API endpoints."
+                        },
+                        {
+                            "task_id": "T1.4.3",
+                            "title": "Design 'Manage User Roles' UI",
+                            "description": "Create the interface for administrators to view existing users and modify their assigned roles."
+                        },
+                        {
+                            "task_id": "T1.4.4",
+                            "title": "Develop 'Manage User Roles' Frontend",
+                            "description": "Build the client-side components for displaying and updating user roles."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "epic_id": "E2",
+            "title": "System Overview & Navigation",
+            "description": "To provide users with a comprehensive dashboard for quick insights and an intuitive navigation system to easily access all CRM functionalities.",
+            "stories": [
+                {
+                    "story_id": "S2.1",
+                    "title": "View Dashboard Overview",
+                    "description": "As a user, I want to see a personalized dashboard with key metrics and recent activities so I can quickly understand the current state of my CRM operations.",
+                    "tasks": [
+                        {
+                            "task_id": "T2.1.1",
+                            "title": "Design Dashboard Layout",
+                            "description": "Create wireframes and mockups for the dashboard, including placement of widgets and overall structure."
+                        },
+                        {
+                            "task_id": "T2.1.2",
+                            "title": "Identify & Integrate Key Metrics",
+                            "description": "Determine essential metrics (e.g., total customers, new leads, open tasks) and integrate backend APIs to fetch this data."
+                        },
+                        {
+                            "task_id": "T2.1.3",
+                            "title": "Develop 'Recent Activities' Widget",
+                            "description": "Build a component to display a chronological list of recent customer interactions or system events."
+                        },
+                        {
+                            "task_id": "T2.1.4",
+                            "title": "Build Dashboard Frontend Components",
+                            "description": "Develop the UI components to display various dashboard widgets and data visualizations."
+                        }
+                    ]
+                },
+                {
+                    "story_id": "S2.2",
+                    "title": "Navigate CRM Sections",
+                    "description": "As a user, I want to easily navigate between different sections of the CRM (e.g., Customers, Reports) so I can efficiently perform my tasks.",
+                    "tasks": [
+                        {
+                            "task_id": "T2.2.1",
+                            "title": "Design Global Navigation Menu",
+                            "description": "Create the UI/UX design for the primary navigation (e.g., sidebar, top menu) across the application."
+                        },
+                        {
+                            "task_id": "T2.2.2",
+                            "title": "Implement Frontend Routing",
+                            "description": "Configure client-side routing to load different CRM sections without full page reloads."
+                        },
+                        {
+                            "task_id": "T2.2.3",
+                            "title": "Ensure Responsive Navigation",
+                            "description": "Optimize the navigation menu for various screen sizes (desktop, tablet, mobile)."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "epic_id": "E3",
+            "title": "Customer Relationship Management",
+            "description": "To enable users to efficiently manage customer profiles, including creation, viewing, editing, searching, and tracking interactions.",
+            "stories": [
+                {
+                    "story_id": "S3.1",
+                    "title": "Create New Customer Profile",
+                    "description": "As a sales representative, I want to create new customer profiles so I can accurately capture and store details for new leads or clients.",
+                    "tasks": [
+                        {
+                            "task_id": "T3.1.1",
+                            "title": "Design 'Add Customer' Form UI",
+                            "description": "Create the user interface for inputting all relevant customer information."
+                        },
+                        {
+                            "task_id": "T3.1.2",
+                            "title": "Define Customer Data Fields",
+                            "description": "Identify all necessary fields for a customer profile (e.g., name, contact, company, status)."
+                        },
+                        {
+                            "task_id": "T3.1.3",
+                            "title": "Implement Customer Creation Backend API",
+                            "description": "Develop the API endpoint to receive customer data and save it to the database."
+                        },
+                        {
+                            "task_id": "T3.1.4",
+                            "title": "Add Form Validation (Frontend & Backend)",
+                            "description": "Implement data validation rules for all input fields to ensure data integrity."
+                        }
+                    ]
+                },
+                {
+                    "story_id": "S3.2",
+                    "title": "View Customer Details",
+                    "description": "As a sales representative, I want to view a comprehensive customer profile so I can quickly access all relevant information and interaction history.",
+                    "tasks": [
+                        {
+                            "task_id": "T3.2.1",
+                            "title": "Design Customer Profile View UI",
+                            "description": "Create the layout for displaying all customer details, including contact info, company details, and related activities."
+                        },
+                        {
+                            "task_id": "T3.2.2",
+                            "title": "Implement 'Get Customer' Backend API",
+                            "description": "Develop the API endpoint to retrieve a single customer's complete data from the database."
+                        },
+                        {
+                            "task_id": "T3.2.3",
+                            "title": "Develop Customer Details Frontend Component",
+                            "description": "Build the client-side component to fetch and display customer information dynamically."
+                        },
+                        {
+                            "task_id": "T3.2.4",
+                            "title": "Display Associated Interactions/Notes",
+                            "description": "Ensure related customer interactions and notes are visible on the profile page."
+                        }
+                    ]
+                },
+                {
+                    "story_id": "S3.3",
+                    "title": "Edit Customer Information",
+                    "description": "As a sales representative, I want to edit existing customer information so I can keep their profiles accurate and up-to-date.",
+                    "tasks": [
+                        {
+                            "task_id": "T3.3.1",
+                            "title": "Design 'Edit Customer' Form UI",
+                            "description": "Create an editable version of the customer profile display, pre-populated with current data."
+                        },
+                        {
+                            "task_id": "T3.3.2",
+                            "title": "Implement Customer Update Backend API",
+                            "description": "Develop the API endpoint to handle updates to customer records in the database."
+                        },
+                        {
+                            "task_id": "T3.3.3",
+                            "title": "Develop 'Edit Customer' Frontend Component",
+                            "description": "Build the client-side component to allow users to modify customer details and submit updates."
+                        },
+                        {
+                            "task_id": "T3.3.4",
+                            "title": "Implement Audit Logging for Changes",
+                            "description": "Ensure changes to customer data are logged for historical tracking."
+                        }
+                    ]
+                },
+                {
+                    "story_id": "S3.4",
+                    "title": "Search and Filter Customers",
+                    "description": "As a sales representative, I want to search and filter customers by various criteria so I can quickly find specific profiles or segments.",
+                    "tasks": [
+                        {
+                            "task_id": "T3.4.1",
+                            "title": "Design Customer List View with Search/Filter",
+                            "description": "Create the UI for displaying a list of customers, including search bar and filter options."
+                        },
+                        {
+                            "task_id": "T3.4.2",
+                            "title": "Implement Backend Search Functionality",
+                            "description": "Develop the API endpoint and database queries for searching customers by name, email, company, etc."
+                        },
+                        {
+                            "task_id": "T3.4.3",
+                            "title": "Implement Backend Filtering Options",
+                            "description": "Develop logic for filtering customers by status, tags, assigned representative, etc."
+                        },
+                        {
+                            "task_id": "T3.4.4",
+                            "title": "Develop Search & Filter Frontend Components",
+                            "description": "Build the UI components for the search bar, filter dropdowns, and displaying filtered results."
+                        }
+                    ]
+                },
+                {
+                    "story_id": "S3.5",
+                    "title": "Manage Customer Interactions & Notes",
+                    "description": "As a sales representative, I want to log interactions (e.g., calls, emails) and add notes to a customer's profile so I can maintain a complete communication history.",
+                    "tasks": [
+                        {
+                            "task_id": "T3.5.1",
+                            "title": "Design 'Add Interaction/Note' UI",
+                            "description": "Create the user interface for adding new interactions or notes to a customer's timeline."
+                        },
+                        {
+                            "task_id": "T3.5.2",
+                            "title": "Implement 'Log Interaction' Backend API",
+                            "description": "Develop the API endpoint for saving new interaction records associated with a specific customer."
+                        },
+                        {
+                            "task_id": "T3.5.3",
+                            "title": "Develop Interaction List Frontend Component",
+                            "description": "Build the component to display a chronological list of all interactions and notes on the customer profile."
+                        },
+                        {
+                            "task_id": "T3.5.4",
+                            "title": "Allow Editing/Deleting Interactions (with permissions)",
+                            "description": "Implement functionality for authorized users to modify or remove existing interaction records."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "epic_id": "E4",
+            "title": "Business Intelligence & Reporting",
+            "description": "To provide users with various reports and data visualizations to gain insights into customer data and CRM performance.",
+            "stories": [
+                {
+                    "story_id": "S4.1",
+                    "title": "Generate Standard Reports",
+                    "description": "As an administrator, I want to generate predefined reports so I can quickly analyze key aspects of my CRM data, such as customer growth or activity summaries.",
+                    "tasks": [
+                        {
+                            "task_id": "T4.1.1",
+                            "title": "Identify Initial Standard Reports",
+                            "description": "Determine the first set of essential reports (e.g., 'New Customers by Month', 'Interaction Summary')."
+                        },
+                        {
+                            "task_id": "T4.1.2",
+                            "title": "Design Report Selection UI",
+                            "description": "Create the user interface for selecting and generating different standard reports."
+                        },
+                        {
+                            "task_id": "T4.1.3",
+                            "title": "Implement Backend Data Aggregation for Reports",
+                            "description": "Develop the backend logic and database queries to collect and aggregate data for each standard report."
+                        },
+                        {
+                            "task_id": "T4.1.4",
+                            "title": "Develop Report Generation API",
+                            "description": "Create API endpoints that trigger the generation of specific standard reports."
+                        }
+                    ]
+                },
+                {
+                    "story_id": "S4.2",
+                    "title": "View Report Data",
+                    "description": "As an administrator, I want to view the generated report data in an understandable format so I can interpret the insights.",
+                    "tasks": [
+                        {
+                            "task_id": "T4.2.1",
+                            "title": "Design Report Viewer UI",
+                            "description": "Create the user interface to display report results, including tables and potentially basic charts."
+                        },
+                        {
+                            "task_id": "T4.2.2",
+                            "title": "Implement Tabular Data Display",
+                            "description": "Develop the frontend component to render report data in a clear, sortable table format."
+                        },
+                        {
+                            "task_id": "T4.2.3",
+                            "title": "Integrate Basic Charting Library",
+                            "description": "Add a charting library to visualize key report metrics (e.g., bar charts for growth)."
+                        },
+                        {
+                            "task_id": "T4.2.4",
+                            "title": "Implement Pagination/Sorting for Large Reports",
+                            "description": "Ensure large report datasets can be easily navigated and sorted."
+                        }
+                    ]
+                },
+                {
+                    "story_id": "S4.3",
+                    "title": "Export Report Data",
+                    "description": "As an administrator, I want to export report data in common formats (e.g., CSV, PDF) so I can use it for further analysis or share it externally.",
+                    "tasks": [
+                        {
+                            "task_id": "T4.3.1",
+                            "title": "Design Export Options UI",
+                            "description": "Add buttons or dropdowns to the report viewer for selecting export formats (e.g., 'Export to CSV', 'Export to PDF')."
+                        },
+                        {
+                            "task_id": "T4.3.2",
+                            "title": "Implement Backend CSV Export Logic",
+                            "description": "Develop the backend functionality to convert report data into a downloadable CSV file."
+                        },
+                        {
+                            "task_id": "T4.3.3",
+                            "title": "Implement Backend PDF Export Logic",
+                            "description": "Develop the backend functionality to generate a PDF version of the report (including basic formatting)."
+                        },
+                        {
+                            "task_id": "T4.3.4",
+                            "title": "Develop Frontend Export Trigger",
+                            "description": "Build the client-side logic to initiate report downloads when an export option is selected."
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

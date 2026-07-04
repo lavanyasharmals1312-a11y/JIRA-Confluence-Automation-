@@ -4,6 +4,10 @@ from backend.storage.latest_project import (
     load_latest_project
 )
 
+from backend.services.jira_service import (
+    push_project
+)
+
 from backend.ui.renderers.backlog_renderer import (
     render_backlog
 )
@@ -11,8 +15,10 @@ from backend.ui.renderers.backlog_renderer import (
 
 def show_backlog():
 
-    st.title(
-        "Backlog Review"
+    st.title("Generated Backlog")
+
+    st.caption(
+        "Review the AI-generated backlog before publishing it to Jira."
     )
 
     data = load_latest_project()
@@ -24,6 +30,10 @@ def show_backlog():
         )
 
         return
+
+    # -------------------------------------------------
+    # METRICS
+    # -------------------------------------------------
 
     epics = len(
         data["epics"]
@@ -37,7 +47,7 @@ def show_backlog():
 
     )
 
-    tasks = sum(
+    subtasks = sum(
 
         len(story["tasks"])
 
@@ -50,46 +60,112 @@ def show_backlog():
     c1, c2, c3, c4 = st.columns(4)
 
     with c1:
+
         st.metric(
             "Epics",
             epics
         )
 
     with c2:
+
         st.metric(
             "Stories",
             stories
         )
 
     with c3:
+
         st.metric(
-            "Tasks",
-            tasks
+            "Subtasks",
+            subtasks
         )
 
     with c4:
+
         st.metric(
             "Status",
-            "Generated"
-        )
-
-    col1, col2, col3 = st.columns(3)
-
-    with col1:
-        st.button(
-            "Approve"
-        )
-
-    with col2:
-        st.button(
-            "Request Changes"
-        )
-
-    with col3:
-        st.button(
-            "Push to Jira"
+            "Ready"
         )
 
     st.divider()
 
+    # -------------------------------------------------
+    # BACKLOG
+    # -------------------------------------------------
+
     render_backlog(data)
+
+    st.divider()
+
+    st.subheader("Actions")
+
+    col1, col2 = st.columns(2)
+
+    # -------------------------------------------------
+    # REGENERATE
+    # -------------------------------------------------
+
+    with col1:
+
+        if st.button(
+
+            "🔄 Regenerate Backlog",
+
+            width="stretch"
+
+        ):
+
+            st.session_state.page = "Upload Document"
+
+            st.rerun()
+
+    # -------------------------------------------------
+    # PUSH TO JIRA
+    # -------------------------------------------------
+
+    with col2:
+
+        if st.button(
+
+            "🚀 Push to Jira",
+
+            type="primary",
+
+            width="stretch"
+
+        ):
+
+            try:
+
+                with st.spinner(
+
+                    "Publishing backlog to Jira..."
+
+                ):
+
+                    result = push_project(data)
+
+                st.success(
+                    f"""
+Successfully published to Jira!
+
+Epics Created: {len(result['epics'])}
+
+Stories Created: {len(result['stories'])}
+
+Subtasks Created: {len(result['subtasks'])}
+"""
+                )
+
+                st.toast(
+                    "Backlog successfully published.",
+                    icon="🚀"
+                )
+
+                st.balloons()
+
+            except Exception as e:
+
+                st.error(
+                    f"Failed to publish backlog.\n\n{e}"
+                )
