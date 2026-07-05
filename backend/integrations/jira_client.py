@@ -10,6 +10,7 @@ class JiraClient:
     def __init__(self):
 
         creds = get_jira_credentials()
+        print("JIRA CREDS:", creds)
 
         self.base_url = creds["base_url"]
 
