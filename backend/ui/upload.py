@@ -191,11 +191,6 @@ def show_upload():
                 f"Project '{project['project_name']}' generated successfully."
             )
 
-            st.toast(
-                "Backlog generated successfully.",
-                icon="✅"
-            )
-
             st.session_state.page = "Backlog Review"
 
             st.rerun()
