@@ -6,7 +6,7 @@ def render_list(title, items):
     if not items:
         return
 
-    st.markdown(f"**{title}**")
+    st.markdown(f"### {title}")
 
     for item in items:
         st.markdown(f"- {item}")
@@ -16,35 +16,62 @@ def render_list(title, items):
 
 def render_backlog(data):
 
-    st.subheader(data["project_name"])
+    st.subheader(
+        data.get(
+            "project_name",
+            "Generated Project"
+        )
+    )
 
     if data.get("project_description"):
 
-        st.info(data["project_description"])
+        st.info(
+            data["project_description"]
+        )
 
     st.divider()
 
-    for epic in data["epics"]:
+    for epic in data.get("epics", []):
 
         with st.expander(
-            f"Epic • {epic['title']}",
+
+            f"Epic • {epic.get('title','Untitled Epic')}",
+
             expanded=True
+
         ):
 
-            # --------------------------------------------------
-            # EPIC DETAILS
-            # --------------------------------------------------
+            # -------------------------------------------------
+            # BASIC DESCRIPTION
+            # -------------------------------------------------
 
-            st.subheader(epic["title"])
+            if epic.get("description"):
 
-            st.markdown("### Business Objective")
-            st.write(epic["business_objective"])
+                st.markdown("### Description")
 
-            st.markdown("### Business Value")
-            st.write(epic["business_value"])
+                st.write(
+                    epic["description"]
+                )
 
-            st.markdown("### Description")
-            st.write(epic["description"])
+            # -------------------------------------------------
+            # NEW FIELDS (SAFE)
+            # -------------------------------------------------
+
+            if epic.get("business_objective"):
+
+                st.markdown("### Business Objective")
+
+                st.write(
+                    epic["business_objective"]
+                )
+
+            if epic.get("business_value"):
+
+                st.markdown("### Business Value")
+
+                st.write(
+                    epic["business_value"]
+                )
 
             col1, col2 = st.columns(2)
 
@@ -52,108 +79,178 @@ def render_backlog(data):
 
                 render_list(
                     "Scope",
-                    epic["scope"]
+                    epic.get("scope", [])
                 )
 
                 render_list(
                     "Assumptions",
-                    epic["assumptions"]
+                    epic.get("assumptions", [])
                 )
 
                 render_list(
                     "Dependencies",
-                    epic["dependencies"]
+                    epic.get("dependencies", [])
                 )
 
             with col2:
 
                 render_list(
                     "Out of Scope",
-                    epic["out_of_scope"]
+                    epic.get("out_of_scope", [])
                 )
 
                 render_list(
                     "Risks",
-                    epic["risks"]
+                    epic.get("risks", [])
                 )
 
                 render_list(
                     "Acceptance Criteria",
-                    epic["acceptance_criteria"]
+                    epic.get(
+                        "acceptance_criteria",
+                        []
+                    )
                 )
 
             st.divider()
 
-            st.markdown("## User Stories")
+            st.markdown("## Stories")
 
-            # --------------------------------------------------
-            # STORIES
-            # --------------------------------------------------
-
-            for story in epic["stories"]:
+            for story in epic.get("stories", []):
 
                 with st.expander(
-                    story["title"]
+
+                    story.get(
+                        "title",
+                        "Untitled Story"
+                    )
+
                 ):
 
-                    st.markdown("### Description")
+                    if story.get("description"):
 
-                    st.write(
-                        story["description"]
-                    )
+                        st.markdown(
+                            "### Description"
+                        )
 
-                    st.markdown("### User Story")
+                        st.write(
+                            story["description"]
+                        )
 
-                    st.markdown(
-                        f"""
-**As a:** {story["as_a"]}
+                    # -----------------------------------------
 
-**I want:** {story["i_want"]}
+                    if story.get("as_a"):
 
-**So that:** {story["so_that"]}
+                        st.markdown(
+                            "### User Story"
+                        )
+
+                        st.markdown(
+
+f"""
+**As a:** {story.get("as_a","")}
+
+**I want:** {story.get("i_want","")}
+
+**So that:** {story.get("so_that","")}
 """
-                    )
+
+                        )
 
                     c1, c2 = st.columns(2)
 
                     with c1:
 
-                        st.metric(
-                            "Priority",
-                            story["priority"]
-                        )
+                        if "priority" in story:
+
+                            st.metric(
+
+                                "Priority",
+
+                                story.get(
+
+                                    "priority",
+
+                                    "Medium"
+
+                                )
+
+                            )
 
                     with c2:
 
-                        st.metric(
-                            "Story Points",
-                            story["story_points"]
-                        )
+                        if "story_points" in story:
+
+                            st.metric(
+
+                                "Story Points",
+
+                                story.get(
+
+                                    "story_points",
+
+                                    "-"
+
+                                )
+
+                            )
 
                     render_list(
 
                         "Acceptance Criteria",
 
-                        story["acceptance_criteria"]
+                        story.get(
+
+                            "acceptance_criteria",
+
+                            []
+
+                        )
 
                     )
 
-                    st.markdown("### Tasks")
+                    st.markdown(
+                        "### Tasks"
+                    )
 
-                    for task in story["tasks"]:
+                    for task in story.get(
+
+                        "tasks",
+
+                        []
+
+                    ):
 
                         with st.container():
 
                             st.markdown(
-                                f"#### {task['title']}"
+
+                                f"#### {task.get('title','Task')}"
+
                             )
 
-                            st.write(
-                                task["description"]
-                            )
+                            if task.get(
 
-                            st.success(
-                                f"Definition of Done: {task['definition_of_done']}"
-                            )
+                                "description"
+
+                            ):
+
+                                st.write(
+
+                                    task["description"]
+
+                                )
+
+                            if task.get(
+
+                                "definition_of_done"
+
+                            ):
+
+                                st.success(
+
+                                    f"Definition of Done: {task['definition_of_done']}"
+
+                                )
 
                             st.divider()
