@@ -1,7 +1,106 @@
 from backend.integrations.jira_client import JiraClient
 
-
 client = JiraClient()
+
+
+def format_epic_description(epic):
+
+    description = f"""
+Business Objective
+------------------
+{epic["business_objective"]}
+
+Business Value
+--------------
+{epic["business_value"]}
+
+Description
+-----------
+{epic["description"]}
+
+Scope
+-----
+"""
+
+    for item in epic["scope"]:
+        description += f"\n• {item}"
+
+    description += "\n\nOut of Scope\n------------"
+
+    for item in epic["out_of_scope"]:
+        description += f"\n• {item}"
+
+    description += "\n\nAssumptions\n-----------"
+
+    for item in epic["assumptions"]:
+        description += f"\n• {item}"
+
+    description += "\n\nDependencies\n------------"
+
+    for item in epic["dependencies"]:
+        description += f"\n• {item}"
+
+    description += "\n\nRisks\n-----"
+
+    for item in epic["risks"]:
+        description += f"\n• {item}"
+
+    description += "\n\nAcceptance Criteria\n-------------------"
+
+    for item in epic["acceptance_criteria"]:
+        description += f"\n• {item}"
+
+    return description
+
+
+def format_story_description(story):
+
+    description = f"""
+Description
+-----------
+{story["description"]}
+
+User Story
+----------
+
+As a
+{story["as_a"]}
+
+I want
+{story["i_want"]}
+
+So that
+{story["so_that"]}
+
+Priority
+--------
+{story["priority"]}
+
+Story Points
+------------
+{story["story_points"]}
+
+Acceptance Criteria
+-------------------
+"""
+
+    for item in story["acceptance_criteria"]:
+        description += f"\n• {item}"
+
+    return description
+
+
+def format_task_description(task):
+
+    return f"""
+Description
+-----------
+{task["description"]}
+
+Definition of Done
+------------------
+{task["definition_of_done"]}
+"""
 
 
 def push_project(project):
@@ -24,7 +123,7 @@ def push_project(project):
 
             summary=epic["title"],
 
-            description=epic["description"],
+            description=format_epic_description(epic),
 
             issue_type="Epic"
 
@@ -42,7 +141,7 @@ def push_project(project):
 
                 summary=story["title"],
 
-                description=story["description"],
+                description=format_story_description(story),
 
                 issue_type="Story",
 
@@ -62,7 +161,7 @@ def push_project(project):
 
                     summary=task["title"],
 
-                    description=task["description"],
+                    description=format_task_description(task),
 
                     issue_type="Subtask",
 

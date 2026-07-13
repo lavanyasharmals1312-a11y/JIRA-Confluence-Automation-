@@ -10,35 +10,111 @@ class JiraClient:
     def __init__(self):
 
         creds = get_jira_credentials()
-        print("JIRA CREDS:", creds)
 
         self.base_url = creds["base_url"]
-
         self.email = creds["email"]
-
         self.api_token = creds["api_token"]
-
         self.project_key = creds["project_key"]
 
         self.headers = {
-
             "Accept": "application/json",
-
             "Content-Type": "application/json"
-
         }
 
         self.auth = (
-
             self.email,
-
             self.api_token
-
         )
 
-    # ---------------------------------------
+    # -------------------------------------------------
+    # Convert plain text to Jira Document Format (ADF)
+    # -------------------------------------------------
+
+    def build_adf(self, text):
+
+        content = []
+
+        for line in text.split("\n"):
+
+            line = line.strip()
+
+            if not line:
+                continue
+
+            # Bullet list
+            if line.startswith("•"):
+
+                content.append({
+
+                    "type": "bulletList",
+
+                    "content": [
+
+                        {
+
+                            "type": "listItem",
+
+                            "content": [
+
+                                {
+
+                                    "type": "paragraph",
+
+                                    "content": [
+
+                                        {
+
+                                            "type": "text",
+
+                                            "text": line[1:].strip()
+
+                                        }
+
+                                    ]
+
+                                }
+
+                            ]
+
+                        }
+
+                    ]
+
+                })
+
+            else:
+
+                content.append({
+
+                    "type": "paragraph",
+
+                    "content": [
+
+                        {
+
+                            "type": "text",
+
+                            "text": line
+
+                        }
+
+                    ]
+
+                })
+
+        return {
+
+            "type": "doc",
+
+            "version": 1,
+
+            "content": content
+
+        }
+
+    # -------------------------------------------------
     # Test Connection
-    # ---------------------------------------
+    # -------------------------------------------------
 
     def test_connection(self):
 
@@ -60,9 +136,9 @@ class JiraClient:
 
         return False, response.text
 
-    # ---------------------------------------
+    # -------------------------------------------------
     # Get Project
-    # ---------------------------------------
+    # -------------------------------------------------
 
     def get_project(self):
 
@@ -84,16 +160,22 @@ class JiraClient:
 
         raise Exception(response.text)
 
-    # ---------------------------------------
+    # -------------------------------------------------
     # Create Issue
-    # ---------------------------------------
+    # -------------------------------------------------
 
     def create_issue(
+
         self,
+
         summary,
+
         description,
+
         issue_type,
+
         parent_key=None
+
     ):
 
         url = f"{self.base_url}/rest/api/3/issue"
@@ -101,44 +183,20 @@ class JiraClient:
         fields = {
 
             "project": {
+
                 "key": self.project_key
+
             },
 
             "summary": summary,
 
             "issuetype": {
+
                 "name": issue_type
+
             },
 
-            "description": {
-
-                "type": "doc",
-
-                "version": 1,
-
-                "content": [
-
-                    {
-
-                        "type": "paragraph",
-
-                        "content": [
-
-                            {
-
-                                "type": "text",
-
-                                "text": description
-
-                            }
-
-                        ]
-
-                    }
-
-                ]
-
-            }
+            "description": self.build_adf(description)
 
         }
 
