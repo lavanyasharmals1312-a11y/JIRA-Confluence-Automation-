@@ -56,9 +56,20 @@ class AzureProvider:
 
     def generate(self, prompt):
 
-        raise NotImplementedError(
-            "Azure OpenAI integration not implemented."
+        response = self.client.models.generate_content(
+            model=self.model,
+            contents=prompt
         )
+
+        print("\n================ RAW RESPONSE ================\n")
+        print(response)
+        print("\n==============================================\n")
+
+        print("\n================ RESPONSE TEXT ===============\n")
+        print(getattr(response, "text", None))
+        print("\n==============================================\n")
+
+        return response
 
 
 class ClaudeProvider:
