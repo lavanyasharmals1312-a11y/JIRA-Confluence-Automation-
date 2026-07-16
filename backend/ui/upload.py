@@ -196,6 +196,6 @@ def show_upload():
 
         except Exception as e:
 
-            st.error(
-                f"Failed to generate backlog.\n\n{e}"
-            )
+            st.exception(e)
+
+        raise
