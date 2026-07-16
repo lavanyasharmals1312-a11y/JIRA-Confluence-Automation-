@@ -4,16 +4,30 @@ from pathlib import Path
 from dotenv import load_dotenv
 from google import genai
 
-# Load local .env if present
+# --------------------------------------------------
+# Load .env (Local Development)
+# --------------------------------------------------
+
 env_path = Path(__file__).resolve().parents[2] / ".env"
+
 load_dotenv(env_path)
 
-# Try importing Streamlit (works only inside the app)
+# --------------------------------------------------
+# Streamlit (Cloud)
+# --------------------------------------------------
+
 try:
+
     import streamlit as st
+
 except ImportError:
+
     st = None
 
+
+# ==================================================
+# GEMINI PROVIDER
+# ==================================================
 
 class GeminiProvider:
 
@@ -21,13 +35,16 @@ class GeminiProvider:
 
         api_key = os.getenv("GEMINI_API_KEY")
 
-        # If not found locally, try Streamlit secrets
         if (not api_key) and st is not None:
-            api_key = st.secrets.get("GEMINI_API_KEY")
+
+            api_key = st.secrets.get(
+                "GEMINI_API_KEY"
+            )
 
         if not api_key:
+
             raise ValueError(
-                "No Gemini API key found. Configure GEMINI_API_KEY in .env (local) or Streamlit Secrets (cloud)."
+                "No Gemini API key found."
             )
 
         self.client = genai.Client(
@@ -35,42 +52,76 @@ class GeminiProvider:
         )
 
         self.model = (
+
             os.getenv("GEMINI_MODEL")
+
             or (
-                st.secrets.get("GEMINI_MODEL")
+
+                st.secrets.get(
+                    "GEMINI_MODEL"
+                )
+
                 if st is not None
+
                 else None
+
             )
+
             or "gemini-2.5-flash"
+
         )
 
     def generate(self, prompt):
 
-        return self.client.models.generate_content(
+        print("\n================ MODEL ================\n")
+        print(self.model)
+
+        print("\n================ PROMPT LENGTH ================\n")
+        print(len(prompt))
+
+        response = self.client.models.generate_content(
+
             model=self.model,
+
             contents=prompt
+
         )
 
+        print("\n================ RAW RESPONSE ================\n")
+        print(response)
+
+        print("\n================ RESPONSE.TEXT ================\n")
+        print(repr(getattr(response, "text", None)))
+
+        print("\n================ RESPONSE DICT ================\n")
+
+        try:
+            print(response.model_dump())
+
+        except Exception as e:
+            print(e)
+
+        print("\n===============================================\n")
+
+        return response
+
+
+# ==================================================
+# AZURE
+# ==================================================
 
 class AzureProvider:
 
     def generate(self, prompt):
 
-        response = self.client.models.generate_content(
-            model=self.model,
-            contents=prompt
+        raise NotImplementedError(
+            "Azure OpenAI integration not implemented."
         )
 
-        print("\n================ RAW RESPONSE ================\n")
-        print(response)
-        print("\n==============================================\n")
 
-        print("\n================ RESPONSE TEXT ===============\n")
-        print(getattr(response, "text", None))
-        print("\n==============================================\n")
-
-        return response
-
+# ==================================================
+# CLAUDE
+# ==================================================
 
 class ClaudeProvider:
 
@@ -81,15 +132,22 @@ class ClaudeProvider:
         )
 
 
+# ==================================================
+# FACTORY
+# ==================================================
+
 def get_provider(provider_name):
 
     if provider_name == "Gemini":
+
         return GeminiProvider()
 
     if provider_name == "Azure OpenAI":
+
         return AzureProvider()
 
     if provider_name == "Claude":
+
         return ClaudeProvider()
 
     raise ValueError(
