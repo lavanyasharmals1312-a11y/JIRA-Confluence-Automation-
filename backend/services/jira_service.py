@@ -1,106 +1,7 @@
 from backend.integrations.jira_client import JiraClient
 
+
 client = JiraClient()
-
-
-def format_epic_description(epic):
-
-    description = f"""
-Business Objective
-------------------
-{epic["business_objective"]}
-
-Business Value
---------------
-{epic["business_value"]}
-
-Description
------------
-{epic["description"]}
-
-Scope
------
-"""
-
-    for item in epic["scope"]:
-        description += f"\n• {item}"
-
-    description += "\n\nOut of Scope\n------------"
-
-    for item in epic["out_of_scope"]:
-        description += f"\n• {item}"
-
-    description += "\n\nAssumptions\n-----------"
-
-    for item in epic["assumptions"]:
-        description += f"\n• {item}"
-
-    description += "\n\nDependencies\n------------"
-
-    for item in epic["dependencies"]:
-        description += f"\n• {item}"
-
-    description += "\n\nRisks\n-----"
-
-    for item in epic["risks"]:
-        description += f"\n• {item}"
-
-    description += "\n\nAcceptance Criteria\n-------------------"
-
-    for item in epic["acceptance_criteria"]:
-        description += f"\n• {item}"
-
-    return description
-
-
-def format_story_description(story):
-
-    description = f"""
-Description
------------
-{story["description"]}
-
-User Story
-----------
-
-As a
-{story["as_a"]}
-
-I want
-{story["i_want"]}
-
-So that
-{story["so_that"]}
-
-Priority
---------
-{story["priority"]}
-
-Story Points
-------------
-{story["story_points"]}
-
-Acceptance Criteria
--------------------
-"""
-
-    for item in story["acceptance_criteria"]:
-        description += f"\n• {item}"
-
-    return description
-
-
-def format_task_description(task):
-
-    return f"""
-Description
------------
-{task["description"]}
-
-Definition of Done
-------------------
-{task["definition_of_done"]}
-"""
 
 
 def push_project(project):
@@ -109,21 +10,31 @@ def push_project(project):
 
         "epics": [],
 
-        "stories": [],
+        "features": [],
 
-        "subtasks": []
+        "stories": []
 
     }
 
-    for epic in project["epics"]:
+    for epic in project.get("epics", []):
 
-        print(f"Creating Epic: {epic['title']}")
+        print(
+
+            f"Creating Epic : {epic['title']}"
+
+        )
 
         epic_issue = client.create_issue(
 
-            summary=epic["title"],
+            summary=f"{epic['epic_id']} - {epic['title']}",
 
-            description=format_epic_description(epic),
+            description=epic.get(
+
+                "description",
+
+                ""
+
+            ),
 
             issue_type="Epic"
 
@@ -131,17 +42,56 @@ def push_project(project):
 
         epic_key = epic_issue["key"]
 
-        created["epics"].append(epic_key)
+        created["epics"].append(
 
-        for story in epic["stories"]:
+            epic_key
 
-            print(f"Creating Story: {story['title']}")
+        )
 
-            story_issue = client.create_issue(
+        # ------------------------------------------
+        # FEATURES
+        # ------------------------------------------
 
-                summary=story["title"],
+        for feature in epic.get(
 
-                description=format_story_description(story),
+            "features",
+
+            []
+
+        ):
+
+            print(
+
+                f"Creating Feature : {feature['title']}"
+
+            )
+
+            feature_description = f"""
+
+Feature ID : {feature.get('feature_id','')}
+
+Description
+
+{feature.get('description','')}
+
+Feature Type
+
+{feature.get('feature_type','')}
+
+Owner
+
+{feature.get('feature_owner','')}
+
+Estimated Sprint
+
+{feature.get('estimated_sprint','')}
+"""
+
+            feature_issue = client.create_issue(
+
+                summary=f"{feature['feature_id']} - {feature['title']}",
+
+                description=feature_description,
 
                 issue_type="Story",
 
@@ -149,29 +99,117 @@ def push_project(project):
 
             )
 
-            story_key = story_issue["key"]
+            feature_key = feature_issue["key"]
 
-            created["stories"].append(story_key)
+            created["features"].append(
 
-            for task in story["tasks"]:
+                feature_key
 
-                print(f"Creating Subtask: {task['title']}")
+            )
 
-                subtask_issue = client.create_issue(
+            # ------------------------------------------
+            # USER STORIES
+            # ------------------------------------------
 
-                    summary=task["title"],
+            for story in feature.get(
 
-                    description=format_task_description(task),
+                "user_stories",
 
-                    issue_type="Subtask",
+                []
 
-                    parent_key=story_key
+            ):
+
+                print(
+
+                    f"Creating Story : {story['title']}"
 
                 )
 
-                created["subtasks"].append(
+                tasks = ""
 
-                    subtask_issue["key"]
+                for task in story.get(
+
+                    "tasks",
+
+                    []
+
+                ):
+
+                    tasks += f"""
+
+{task.get('task_id','')}
+
+{task.get('title','')}
+
+{task.get('description','')}
+
+Estimated Hours : {task.get('estimated_hours','')}
+
+Definition Of Done :
+
+{task.get('definition_of_done','')}
+
+----------------------------------------
+"""
+
+                story_description = f"""
+
+Story ID
+
+{story.get('story_id','')}
+
+Description
+
+{story.get('description','')}
+
+As a
+
+{story.get('as_a','')}
+
+I want
+
+{story.get('i_want','')}
+
+So that
+
+{story.get('so_that','')}
+
+Priority
+
+{story.get('priority','')}
+
+Story Points
+
+{story.get('story_points','')}
+
+Estimated Effort
+
+{story.get('estimated_effort','')}
+
+Acceptance Criteria
+
+{chr(10).join(story.get('acceptance_criteria',[]))}
+
+Tasks
+
+{tasks}
+"""
+
+                story_issue = client.create_issue(
+
+                    summary=f"{story['story_id']} - {story['title']}",
+
+                    description=story_description,
+
+                    issue_type="Subtask",
+
+                    parent_key=feature_key
+
+                )
+
+                created["stories"].append(
+
+                    story_issue["key"]
 
                 )
 
