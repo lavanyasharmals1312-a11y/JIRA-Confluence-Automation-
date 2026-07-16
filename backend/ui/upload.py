@@ -187,10 +187,9 @@ def show_upload():
 
                 )
 
-            st.success(
-                f"Project '{project['project_name']}' generated successfully."
-            )
-
+                st.success(
+                    f"Project '{project.get('project_name', 'Untitled Project')}' generated successfully."
+                )
             st.session_state.page = "Backlog Review"
 
             st.rerun()

@@ -44,9 +44,19 @@ def generate_project(
     # Override project name
     # -------------------------------
 
-    if project_name.strip():
+    # --------------------------------
+    # Ensure project metadata exists
+    # --------------------------------
 
+    if not isinstance(project, dict):
+        raise ValueError("AI did not return a valid JSON object.")
+
+    project.setdefault("project_name", "")
+
+    if project_name.strip():
         project["project_name"] = project_name
+    elif not project["project_name"]:
+        project["project_name"] = "Untitled Project"
 
     # -------------------------------
     # Save Project
