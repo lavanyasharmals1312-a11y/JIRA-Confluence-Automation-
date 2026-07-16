@@ -43,6 +43,10 @@ Requirement Document
                 full_prompt
             )
 
+            print("\n================ GEMINI =================")
+            print(response.text)
+            print("=========================================\n")
+
             return parse_gemini_response(
                 response.text
             )
