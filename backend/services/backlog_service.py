@@ -39,6 +39,10 @@ def generate_project(
         provider_name=provider
 
     )
+    print("\n==================== PROJECT ====================")
+    print(type(project))
+    print(project)
+    print("=================================================\n")
 
     # -------------------------------
     # Override project name
