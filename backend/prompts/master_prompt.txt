@@ -75,33 +75,36 @@ TASK-003
 IDs must never repeat.
 
 ------------------------------------------------------------
-PROJECT STRUCTURE
+JSON STRUCTURE
 ------------------------------------------------------------
 
-Generate the hierarchy exactly as follows
+Return a SINGLE JSON object.
 
-Project
+The root JSON object MUST contain EXACTLY these keys.
 
-↓
+project_name
 
-Executive Summary
+project_description
 
-↓
+executive_summary
 
-Epics
+document_version
 
-↓
+generated_by
 
-Features
+generated_on
 
-↓
+status
 
-User Stories
+epics
 
-↓
+Do NOT create another object called "Project".
 
-Tasks
+Do NOT rename any keys.
 
+Use snake_case exactly as written.
+
+All nested keys must exactly match the required schema.
 ------------------------------------------------------------
 EXECUTIVE SUMMARY
 ------------------------------------------------------------

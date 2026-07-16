@@ -5,23 +5,19 @@ from dotenv import load_dotenv
 from google import genai
 
 # --------------------------------------------------
-# Load .env (Local Development)
+# Load Local .env
 # --------------------------------------------------
 
 env_path = Path(__file__).resolve().parents[2] / ".env"
-
 load_dotenv(env_path)
 
 # --------------------------------------------------
-# Streamlit (Cloud)
+# Streamlit Support
 # --------------------------------------------------
 
 try:
-
     import streamlit as st
-
 except ImportError:
-
     st = None
 
 
@@ -36,15 +32,11 @@ class GeminiProvider:
         api_key = os.getenv("GEMINI_API_KEY")
 
         if (not api_key) and st is not None:
-
-            api_key = st.secrets.get(
-                "GEMINI_API_KEY"
-            )
+            api_key = st.secrets.get("GEMINI_API_KEY")
 
         if not api_key:
-
             raise ValueError(
-                "No Gemini API key found."
+                "No Gemini API key found. Configure GEMINI_API_KEY in .env or Streamlit Secrets."
             )
 
         self.client = genai.Client(
@@ -52,56 +44,39 @@ class GeminiProvider:
         )
 
         self.model = (
-
             os.getenv("GEMINI_MODEL")
-
             or (
-
-                st.secrets.get(
-                    "GEMINI_MODEL"
-                )
-
+                st.secrets.get("GEMINI_MODEL")
                 if st is not None
-
                 else None
-
             )
-
             or "gemini-2.5-flash"
-
         )
 
     def generate(self, prompt):
-
-        print("\n================ MODEL ================\n")
-        print(self.model)
-
-        print("\n================ PROMPT LENGTH ================\n")
-        print(len(prompt))
 
         response = self.client.models.generate_content(
 
             model=self.model,
 
-            contents=prompt
+            contents=prompt,
+
+            config={
+                "response_mime_type": "application/json"
+            }
 
         )
 
-        print("\n================ RAW RESPONSE ================\n")
+        print("\n================ MODEL ================")
+        print(self.model)
+
+        print("\n================ RESPONSE ================")
         print(response)
 
-        print("\n================ RESPONSE.TEXT ================\n")
-        print(repr(getattr(response, "text", None)))
+        print("\n================ RESPONSE TEXT ================")
+        print(repr(response.text))
 
-        print("\n================ RESPONSE DICT ================\n")
-
-        try:
-            print(response.model_dump())
-
-        except Exception as e:
-            print(e)
-
-        print("\n===============================================\n")
+        print("=========================================\n")
 
         return response
 
@@ -133,21 +108,18 @@ class ClaudeProvider:
 
 
 # ==================================================
-# FACTORY
+# PROVIDER FACTORY
 # ==================================================
 
 def get_provider(provider_name):
 
     if provider_name == "Gemini":
-
         return GeminiProvider()
 
-    if provider_name == "Azure OpenAI":
-
+    elif provider_name == "Azure OpenAI":
         return AzureProvider()
 
-    if provider_name == "Claude":
-
+    elif provider_name == "Claude":
         return ClaudeProvider()
 
     raise ValueError(
