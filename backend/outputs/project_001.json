@@ -1,0 +1,1428 @@
+{
+    "Project": {
+        "Executive Summary": {
+            "Project Overview": "The Employee Leave Management System (ELMS) is a web-based application designed to digitalize and streamline the entire leave management process within the organization. This system will replace existing manual, paper-based procedures, offering a centralized platform for employees to apply for leave, managers to review and approve requests, and HR administrators to manage leave policies and employee accounts.",
+            "Business Problem": "Current leave management relies heavily on manual forms and spreadsheets, leading to inefficiencies, increased administrative overhead, potential data errors, lack of real-time visibility into leave balances, and challenges in enforcing consistent leave policies. This manual process is time-consuming for employees, managers, and HR, often resulting in delayed approvals and difficulties in generating accurate organizational leave reports.",
+            "Business Need": "There is a critical need for a robust, secure, and user-friendly digital system to automate leave requests, approvals, and tracking. The system must provide transparent leave balance information, facilitate efficient decision-making for managers, and empower HR with tools for policy management, employee account provisioning, and comprehensive reporting to ensure compliance and operational efficiency.",
+            "Proposed Solution": "A cloud-native, role-based web application will be developed, providing distinct interfaces and functionalities for Employees, Managers, and HR Administrators. The system will feature secure authentication, intuitive forms for leave applications, automated workflow for approvals, real-time balance updates, and comprehensive reporting capabilities. It will be built with a responsive design to ensure accessibility across various devices.",
+            "Business Benefits": "Implementation of the ELMS is expected to yield significant benefits, including reduced administrative costs and time associated with manual processes, improved accuracy of leave data, enhanced employee satisfaction through simplified application and transparency, quicker decision cycles for leave approvals, better adherence to company leave policies, and improved insights into workforce availability through accurate reporting.",
+            "Expected Outcome": "The successful deployment of the ELMS will result in a fully digital, efficient, and transparent leave management process. Employees will experience a simplified application process; managers will gain tools for swift and informed decisions; and HR will have a powerful platform for policy enforcement, data management, and strategic reporting, contributing to overall operational excellence and employee welfare."
+        },
+        "Epics": [
+            {
+                "Epic ID": "EP-001",
+                "Title": "Employee Self-Service Leave Management",
+                "Business Objective": "To empower employees with a user-friendly and secure platform to independently manage their leave requests, view balances, and track their leave history, thereby reducing reliance on manual HR intervention for routine tasks.",
+                "Business Value": "Enhances employee satisfaction and productivity by providing convenient self-service options, reduces administrative burden on HR and managers, ensures transparency in leave balances and status, and improves overall operational efficiency.",
+                "Detailed Description": "This epic covers all functionalities required for an employee to interact with the leave management system. It includes secure access, viewing personal leave entitlements and balances, applying for various types of leave, providing necessary details and reasons, canceling pending requests, and reviewing their complete historical record of leave applications and statuses. The goal is to make the leave application process intuitive and straightforward for every employee.",
+                "Scope": "Employee login/logout, viewing leave balances, applying for leave (selecting type, dates, reason), cancelling pending leave, viewing leave request status, viewing leave history.",
+                "Out of Scope": "Integration with external payroll systems for automatic leave accrual calculations, direct modification of leave balances by employees, complex leave policy rule creation by employees.",
+                "Assumptions": "Employees have valid user accounts created by HR. Employees understand the different leave types and their respective policies. Internet access is available for employees to use the web application.",
+                "Dependencies": "EP-003: HR Administration & Policy Management (for account creation and leave policy definition). Secure authentication module.",
+                "Risks": "Low user adoption due to poor UI/UX, potential data entry errors by employees, security vulnerabilities if authentication is not robust.",
+                "Success Metrics": "90% of leave applications submitted via the system, average employee login time < 3 seconds, 80% positive feedback on system usability from employees, 95% data accuracy in leave balance display."
+            },
+            {
+                "Epic ID": "EP-002",
+                "Title": "Managerial Leave Approval & Oversight",
+                "Business Objective": "To provide managers with efficient tools to review, approve, or reject employee leave requests, add contextual comments, and access their direct reports' leave history to facilitate informed decision-making and team planning.",
+                "Business Value": "Streamlines the approval workflow, reduces delays in decision-making, improves manager efficiency, ensures proper oversight of team availability, and supports compliance with organizational leave policies. Enables better workforce planning.",
+                "Detailed Description": "This epic focuses on the functionalities critical for managers within the leave management system. It encompasses the ability to view all pending leave requests from their direct reports, review the details of each request, make an informed decision (approve/reject), and provide comments, especially for rejections. Managers will also have access to the leave history of their team members to aid in planning and decision-making, ensuring that team productivity is maintained while accommodating employee needs.",
+                "Scope": "Viewing pending leave requests from direct reports, reviewing leave request details, approving leave requests, rejecting leave requests with comments, viewing individual employee leave history.",
+                "Out of Scope": "Mass approval/rejection of leave requests (batch processing), advanced analytics on team leave patterns, ability for managers to modify employee leave balances directly.",
+                "Assumptions": "Each employee has a designated single reporting manager. Managers have received training on using the system and understanding leave policies. Managers have appropriate access rights configured by HR.",
+                "Dependencies": "EP-001: Employee Self-Service Leave Management (for submitting requests). EP-003: HR Administration & Policy Management (for user roles and hierarchy).",
+                "Risks": "Managers delaying approvals impacting employee morale, lack of clear guidelines for rejection reasons leading to disputes, security breaches if role-based access is misconfigured.",
+                "Success Metrics": "Average leave request approval time < 24 hours, 95% of managers utilizing the system for approvals, reduction in manual follow-ups for leave status by 70%, 100% accurate display of employee leave history for managers."
+            },
+            {
+                "Epic ID": "EP-003",
+                "Title": "HR Administration & Policy Management",
+                "Business Objective": "To equip HR administrators with comprehensive tools for managing employee accounts, configuring organizational leave policies, updating leave balances, and generating system-wide leave reports to ensure compliance, data accuracy, and strategic workforce management.",
+                "Business Value": "Ensures centralized control over employee data and leave policies, improves data accuracy and consistency, facilitates compliance with internal and external regulations, provides valuable insights for strategic workforce planning, and significantly reduces HR's administrative burden.",
+                "Detailed Description": "This epic covers the critical administrative functions required by HR personnel to maintain the integrity and functionality of the leave management system. It includes the ability to create and manage employee user accounts, define and modify various leave types and associated policies (e.g., accrual rates, maximum days), adjust individual employee leave balances when necessary (e.g., carry-over adjustments), and generate insightful reports on organization-wide leave patterns, utilization, and compliance. This epic ensures HR has the necessary control and visibility to manage the system effectively.",
+                "Scope": "Creating new employee user accounts, updating existing employee details, defining and modifying leave types, setting leave accrual rules, updating individual employee leave balances, generating organization-wide leave reports (e.g., leave utilization, pending leaves).",
+                "Out of Scope": "Full-fledged HRIS integration beyond basic employee data, complex payroll system integration, advanced predictive analytics for leave trends.",
+                "Assumptions": "HR administrators are trained on configuring leave policies and managing employee data. HR maintains an accurate source of truth for employee information. The system will rely on HR to correctly interpret and input policy rules.",
+                "Dependencies": "Robust database infrastructure for storing employee data and policies. Secure authentication and authorization framework. Reporting module infrastructure.",
+                "Risks": "Incorrect policy configuration leading to compliance issues, unauthorized access to HR functionalities, data integrity issues if manual balance updates are not properly audited, system performance degradation with large report generation.",
+                "Success Metrics": "100% accuracy of employee accounts in the system, 99% accuracy of configured leave policies, average report generation time < 5 seconds, 50% reduction in manual queries regarding leave policies from employees and managers."
+            }
+        ],
+        "Features": [
+            {
+                "Feature ID": "FEAT-001",
+                "Title": "Employee Secure Authentication",
+                "Description": "Allows employees to securely log into the system using their credentials, ensuring only authorized users can access their leave information.",
+                "Feature Type": "Core",
+                "Feature Owner": "Product Owner",
+                "Functional Requirements": [
+                    "F1.1: The system shall provide a login page for employees.",
+                    "F1.2: Employees shall be able to enter a username and password.",
+                    "F1.3: The system shall validate employee credentials against stored user data.",
+                    "F1.4: Upon successful validation, employees shall be redirected to their dashboard.",
+                    "F1.5: Upon failed validation, an appropriate error message shall be displayed.",
+                    "F1.6: Employees shall be able to log out from the system securely."
+                ],
+                "Non Functional Requirements": [
+                    "NFR1.1: Authentication process must be secure (e.g., password hashing, multi-factor authentication capability).",
+                    "NFR1.2: Login response time must be below 2 seconds.",
+                    "NFR1.3: The login interface shall be responsive across desktop and mobile browsers.",
+                    "NFR1.4: Failed login attempts shall be logged for security auditing."
+                ],
+                "Technical Notes": [
+                    "Database: Stores hashed passwords and user credentials.",
+                    "API: Dedicated authentication endpoint (e.g., /api/auth/login, /api/auth/logout).",
+                    "Architecture: JWT-based token authentication for session management.",
+                    "Security: Implement rate limiting for login attempts, HTTPS for all communication."
+                ],
+                "Dependencies": [
+                    "HR Admin module for creating employee accounts (EP-003)."
+                ],
+                "Acceptance Criteria": [
+                    "Given an employee enters valid credentials, when they click login, then they should be successfully authenticated and redirected to their dashboard.",
+                    "Given an employee enters invalid credentials, when they click login, then an error message 'Invalid username or password' should be displayed, and they should remain on the login page.",
+                    "Given an employee is logged in, when they click the 'Logout' button, then their session should be terminated, and they should be redirected to the login page."
+                ],
+                "Estimated Sprint": "Sprint 1"
+            },
+            {
+                "Feature ID": "FEAT-002",
+                "Title": "Employee Leave Application",
+                "Description": "Enables employees to apply for different types of leave through a guided process, providing all necessary details for review.",
+                "Feature Type": "Core",
+                "Feature Owner": "Product Owner",
+                "Functional Requirements": [
+                    "F2.1: Employees shall be able to access a leave application form.",
+                    "F2.2: The form shall allow selection of available leave types (e.g., Vacation, Sick, Personal).",
+                    "F2.3: Employees shall be able to specify a start date and an end date for the leave request.",
+                    "F2.4: The system shall prevent selection of past dates for new leave requests.",
+                    "F2.5: Employees shall be able to provide a mandatory reason for their leave.",
+                    "F2.6: The system shall display the estimated number of leave days based on selected dates.",
+                    "F2.7: Employees shall be able to submit the leave request for manager approval.",
+                    "F2.8: Upon submission, the system shall confirm the request was sent successfully."
+                ],
+                "Non Functional Requirements": [
+                    "NFR2.1: The leave application form must be intuitive and easy to use.",
+                    "NFR2.2: Form submission response time must be below 2 seconds.",
+                    "NFR2.3: The form interface shall be responsive across desktop and mobile browsers."
+                ],
+                "Technical Notes": [
+                    "Database: Store leave requests (leave_type_id, start_date, end_date, reason, status, employee_id, requested_by_manager_id).",
+                    "API: POST /api/leave-requests endpoint for submission, GET /api/leave-types for available types.",
+                    "Architecture: Client-side validation for date ranges and mandatory fields. Server-side validation for business rules (e.g., sufficient balance).",
+                    "Integration: Potentially integrate with a calendar service to check for public holidays or prior bookings."
+                ],
+                "Dependencies": [
+                    "FEAT-004: Leave Balance Inquiry (for displaying balances on form).",
+                    "EP-003: HR Administration & Policy Management (for defining leave types and policies)."
+                ],
+                "Acceptance Criteria": [
+                    "Given an employee is on the leave application form, when they select 'Vacation' leave type, specify start date 2024-07-01 and end date 2024-07-05, provide a reason 'Family trip', and click 'Submit', then the request should be submitted successfully, and a confirmation message should appear.",
+                    "Given an employee tries to select a start date earlier than today, then the date picker should prevent this selection, or an error message should be displayed.",
+                    "Given an employee submits a leave request without a reason, then the system should prevent submission and display an error message prompting for a reason."
+                ],
+                "Estimated Sprint": "Sprint 2"
+            },
+            {
+                "Feature ID": "FEAT-003",
+                "Title": "Employee Leave Tracking & History",
+                "Description": "Provides employees with a comprehensive view of all their past and pending leave requests, including their current status and approval details.",
+                "Feature Type": "Core",
+                "Feature Owner": "Product Owner",
+                "Functional Requirements": [
+                    "F3.1: Employees shall be able to view a list of their current and past leave requests.",
+                    "F3.2: Each request in the list shall display: leave type, start date, end date, number of days, reason, and current status (Pending, Approved, Rejected, Cancelled).",
+                    "F3.3: For rejected requests, the manager's comments shall be visible.",
+                    "F3.4: Employees shall be able to cancel pending leave requests."
+                ],
+                "Non Functional Requirements": [
+                    "NFR3.1: Leave history view must load within 2 seconds.",
+                    "NFR3.2: The history interface shall be responsive across desktop and mobile browsers.",
+                    "NFR3.3: Data displayed must be 100% accurate and up-to-date."
+                ],
+                "Technical Notes": [
+                    "Database: Retrieve data from leave_requests table, joined with leave_types and possibly employee_managers for manager comments.",
+                    "API: GET /api/employee/{employeeId}/leave-history endpoint, PUT /api/leave-requests/{requestId}/cancel endpoint.",
+                    "Architecture: Pagination for large history lists, client-side filtering/sorting (optional)."
+                ],
+                "Dependencies": [
+                    "FEAT-002: Employee Leave Application (for generating requests)."
+                ],
+                "Acceptance Criteria": [
+                    "Given an employee navigates to their 'Leave History' page, then they should see a table listing all their leave requests, showing leave type, dates, status, and reason.",
+                    "Given a leave request is 'Rejected', when the employee views its details, then the manager's rejection comments should be clearly visible.",
+                    "Given an employee has a 'Pending' leave request, when they click 'Cancel' for that request, then the request status should change to 'Cancelled', and it should no longer be pending manager review."
+                ],
+                "Estimated Sprint": "Sprint 3"
+            },
+            {
+                "Feature ID": "FEAT-004",
+                "Title": "Employee Leave Balance Inquiry",
+                "Description": "Allows employees to view their current available leave balances for each leave type.",
+                "Feature Type": "Core",
+                "Feature Owner": "Product Owner",
+                "Functional Requirements": [
+                    "F4.1: Employees shall be able to view their current available balance for each defined leave type (e.g., Vacation, Sick).",
+                    "F4.2: The system shall clearly display the leave type and its corresponding balance in days or hours.",
+                    "F4.3: The balances displayed shall reflect approved/pending leaves accurately."
+                ],
+                "Non Functional Requirements": [
+                    "NFR4.1: Leave balance display must load within 1 second.",
+                    "NFR4.2: Information must be real-time and accurate.",
+                    "NFR4.3: The display should be clear and easy to understand."
+                ],
+                "Technical Notes": [
+                    "Database: Store leave_balances per employee, per leave_type. Calculate remaining balance by subtracting approved and pending leaves from total accrued/allocated.",
+                    "API: GET /api/employee/{employeeId}/leave-balances endpoint.",
+                    "Architecture: Cache frequent balance queries if performance becomes an issue, ensuring cache invalidation on relevant transactions."
+                ],
+                "Dependencies": [
+                    "EP-003: HR Administration & Policy Management (for initial balance setup and accrual rules)."
+                ],
+                "Acceptance Criteria": [
+                    "Given an employee navigates to their dashboard, then they should see a section clearly listing 'Vacation Leave: 15 days', 'Sick Leave: 8 days', etc.",
+                    "Given an employee has 10 days of vacation, and they apply for 5 days which are pending, then their available balance should reflect 'Vacation Leave: 5 days (5 pending)'.",
+                    "Given an employee's balance is updated by HR, when they view their balances, then the updated balance should be immediately reflected."
+                ],
+                "Estimated Sprint": "Sprint 2"
+            },
+            {
+                "Feature ID": "FEAT-005",
+                "Title": "Manager Leave Request Review & Decision",
+                "Description": "Provides managers with a dedicated interface to view, evaluate, and make decisions on leave requests submitted by their direct reports.",
+                "Feature Type": "Core",
+                "Feature Owner": "Product Owner",
+                "Functional Requirements": [
+                    "F5.1: Managers shall be able to view a list of all pending leave requests from their direct reports.",
+                    "F5.2: Each request in the list shall display key details: employee name, leave type, start/end dates, number of days, and reason.",
+                    "F5.3: Managers shall be able to view an employee's current leave balance when reviewing a request.",
+                    "F5.4: Managers shall be able to 'Approve' a pending leave request.",
+                    "F5.5: Managers shall be able to 'Reject' a pending leave request.",
+                    "F5.6: When rejecting a request, managers shall be able to enter mandatory comments.",
+                    "F5.7: Upon approval or rejection, the system shall update the request status and notify the employee."
+                ],
+                "Non Functional Requirements": [
+                    "NFR5.1: Pending request list must load within 2 seconds.",
+                    "NFR5.2: Decision process (approve/reject) must be quick and responsive (<1 second).",
+                    "NFR5.3: Role-based access control must ensure managers only see their direct reports' requests.",
+                    "NFR5.4: The interface should clearly highlight critical information (e.g., overlapping leaves)."
+                ],
+                "Technical Notes": [
+                    "Database: Query leave_requests where status is 'Pending' and employee_id corresponds to manager's direct reports.",
+                    "API: GET /api/manager/{managerId}/pending-leaves, PUT /api/leave-requests/{requestId}/approve, PUT /api/leave-requests/{requestId}/reject.",
+                    "Architecture: Workflow engine (simple state machine) for leave request status transitions. Notifications service for employee communication.",
+                    "Authentication: Ensure manager_id in API calls is validated against authenticated user and reporting structure."
+                ],
+                "Dependencies": [
+                    "EP-001: Employee Self-Service Leave Management (for submitting requests).",
+                    "EP-003: HR Administration & Policy Management (for defining employee-manager hierarchy)."
+                ],
+                "Acceptance Criteria": [
+                    "Given a manager logs in, when they navigate to their 'Pending Requests' dashboard, then they should see a list of all pending leave requests from their direct reports with essential details.",
+                    "Given a manager reviews a pending request, when they click 'Approve', then the request status should change to 'Approved', and the employee should receive a notification.",
+                    "Given a manager reviews a pending request, when they click 'Reject' and enter 'Insufficient project coverage' as a comment, then the request status should change to 'Rejected', the employee should receive a notification with the comment, and the manager's comment should be saved with the request."
+                ],
+                "Estimated Sprint": "Sprint 3"
+            },
+            {
+                "Feature ID": "FEAT-006",
+                "Title": "Manager Employee Leave History View",
+                "Description": "Allows managers to view the complete leave history of their direct reports, aiding in team planning and performance reviews.",
+                "Feature Type": "Core",
+                "Feature Owner": "Product Owner",
+                "Functional Requirements": [
+                    "F6.1: Managers shall be able to select a direct report from a list.",
+                    "F6.2: Upon selection, managers shall view the selected employee's entire leave history.",
+                    "F6.3: The history shall display all details similar to the employee's view (type, dates, status, reason, manager comments).",
+                    "F6.4: The history view should allow filtering by leave type or date range (optional)."
+                ],
+                "Non Functional Requirements": [
+                    "NFR6.1: Employee leave history for managers must load within 2 seconds.",
+                    "NFR6.2: Data presented must be accurate and up-to-date.",
+                    "NFR6.3: Access must be strictly limited to direct reports."
+                ],
+                "Technical Notes": [
+                    "Database: Query leave_requests for specific employee_id, ensuring manager_id is associated with the employee.",
+                    "API: GET /api/manager/{managerId}/employee/{employeeId}/leave-history endpoint.",
+                    "Architecture: Reuse components from employee leave history view where possible, applying manager-specific access rules."
+                ],
+                "Dependencies": [
+                    "EP-001: Employee Self-Service Leave Management (for creating leave history records).",
+                    "EP-003: HR Administration & Policy Management (for establishing reporting lines)."
+                ],
+                "Acceptance Criteria": [
+                    "Given a manager selects 'John Doe' from their list of direct reports, then they should see a detailed list of all leave requests submitted by John Doe, including past and current statuses.",
+                    "Given a manager views a rejected leave request in John Doe's history, then they should see their own or another manager's (if reporting line changed) rejection comments associated with that request.",
+                    "Given a manager attempts to view the leave history of an employee who is not their direct report, then the system should prevent access and display an unauthorized error message."
+                ],
+                "Estimated Sprint": "Sprint 3"
+            },
+            {
+                "Feature ID": "FEAT-007",
+                "Title": "HR Employee Account Management",
+                "Description": "Enables HR administrators to create, update, and manage employee user accounts within the system, including assigning roles and reporting managers.",
+                "Feature Type": "Core",
+                "Feature Owner": "HR Representative / Product Owner",
+                "Functional Requirements": [
+                    "F7.1: HR administrators shall be able to create new employee accounts.",
+                    "F7.2: Account creation shall require: Employee ID, First Name, Last Name, Email, Department, and Reporting Manager.",
+                    "F7.3: HR shall be able to assign a default password for new accounts (or trigger a password reset).",
+                    "F7.4: HR administrators shall be able to search for existing employee accounts.",
+                    "F7.5: HR administrators shall be able to update employee account details (e.g., department, reporting manager).",
+                    "F7.6: HR administrators shall be able to deactivate/reactivate employee accounts."
+                ],
+                "Non Functional Requirements": [
+                    "NFR7.1: Account management operations must be secure and audited.",
+                    "NFR7.2: Data validation should be robust for all input fields.",
+                    "NFR7.3: The interface for account management should be intuitive for HR staff.",
+                    "NFR7.4: Response time for creating/updating accounts should be below 2 seconds."
+                ],
+                "Technical Notes": [
+                    "Database: Store employee data (id, first_name, last_name, email, department_id, manager_id, status) and user credentials (username, hashed_password, role).",
+                    "API: POST /api/hr/employees, PUT /api/hr/employees/{id}, GET /api/hr/employees for employee management.",
+                    "Architecture: Clear separation of HR admin interface from employee/manager interfaces. Audit logging for all HR actions.",
+                    "Assumptions from BRD: Employees belong to one department, One reporting manager per employee."
+                ],
+                "Dependencies": [
+                    "Secure authentication and authorization module.",
+                    "Department and Role management (if extended beyond basic).",
+                    "EP-001 & EP-002 depend on accounts being created here."
+                ],
+                "Acceptance Criteria": [
+                    "Given an HR administrator navigates to the 'Manage Employees' section, when they click 'Add New Employee' and fill in all mandatory fields (Employee ID: E001, Name: Jane Doe, Email: jane.doe@example.com, Dept: Sales, Manager: M001), then a new employee account should be created, and Jane Doe should be able to log in with initial credentials.",
+                    "Given an HR administrator searches for 'John Smith', then the system should display John Smith's account details.",
+                    "Given an HR administrator updates 'Jane Doe's' Reporting Manager from M001 to M002, then Jane Doe's pending leave requests should now be visible to M002 for approval."
+                ],
+                "Estimated Sprint": "Sprint 1"
+            },
+            {
+                "Feature ID": "FEAT-008",
+                "Title": "HR Leave Policy & Balance Configuration",
+                "Description": "Enables HR administrators to define and modify organizational leave policies, including leave types, accrual rules, and to manually adjust individual employee leave balances.",
+                "Feature Type": "Core",
+                "Feature Owner": "HR Representative / Product Owner",
+                "Functional Requirements": [
+                    "F8.1: HR administrators shall be able to define new leave types (e.g., Maternity Leave, Bereavement Leave).",
+                    "F8.2: For each leave type, HR shall be able to configure: maximum days per year, carry-over rules, and eligibility criteria.",
+                    "F8.3: HR administrators shall be able to modify existing leave policies.",
+                    "F8.4: HR administrators shall be able to update individual employee leave balances for specific leave types.",
+                    "F8.5: The system shall require a reason or justification for manual balance updates.",
+                    "F8.6: All balance adjustments shall be logged for audit purposes."
+                ],
+                "Non Functional Requirements": [
+                    "NFR8.1: Policy configuration changes must be applied consistently and immediately.",
+                    "NFR8.2: Balance update operations must be secure and auditable.",
+                    "NFR8.3: Data integrity of leave balances must be maintained.",
+                    "NFR8.4: The interface should clearly display the impact of policy changes (if applicable)."
+                ],
+                "Technical Notes": [
+                    "Database: Store leave_types (name, max_days, carry_over_rules, eligibility_rules) and leave_balance_adjustments (employee_id, leave_type_id, adjustment_amount, reason, adjusted_by, timestamp).",
+                    "API: POST /api/hr/leave-policies, PUT /api/hr/leave-policies/{id}, PUT /api/hr/employee/{employeeId}/leave-balance-adjustments.",
+                    "Architecture: Policy engine component to apply rules dynamically. Transactions for balance updates to ensure atomicity."
+                ],
+                "Dependencies": [
+                    "Accurate employee data from FEAT-007.",
+                    "System must reflect policy changes in employee/manager views (EP-001, EP-002)."
+                ],
+                "Acceptance Criteria": [
+                    "Given an HR administrator creates a new leave type 'Maternity Leave' with max 90 days and no carry-over, then this leave type should be available for employees to select on their application form.",
+                    "Given an HR administrator updates John Doe's Vacation Leave balance from 10 days to 12 days with reason 'Year-end adjustment', then John Doe's displayed Vacation Leave balance should immediately reflect 12 days, and the adjustment should be recorded in an audit log.",
+                    "Given an HR administrator modifies the 'Sick Leave' policy to allow 5 days carry-over, then any new sick leave accrual calculations should reflect this change for eligible employees."
+                ],
+                "Estimated Sprint": "Sprint 4"
+            },
+            {
+                "Feature ID": "FEAT-009",
+                "Title": "HR Organization-Wide Leave Reporting",
+                "Description": "Enables HR administrators to generate and view reports on organization-wide leave data for analysis and compliance.",
+                "Feature Type": "Core",
+                "Feature Owner": "HR Representative / Product Owner",
+                "Functional Requirements": [
+                    "F9.1: HR administrators shall be able to generate reports on total leave taken by department or organization-wide for a specified period.",
+                    "F9.2: Reports shall include details such as leave type, number of employees on leave, and total leave days utilized.",
+                    "F9.3: HR shall be able to generate reports on pending leave requests across all departments.",
+                    "F9.4: Reports shall be exportable in common formats (e.g., CSV, PDF).",
+                    "F9.5: HR administrators shall be able to view a summary dashboard of key leave metrics (optional)."
+                ],
+                "Non Functional Requirements": [
+                    "NFR9.1: Report generation time must be below 5 seconds for standard reports.",
+                    "NFR9.2: Data in reports must be 100% accurate and reflect real-time information.",
+                    "NFR9.3: Report interface should be user-friendly with filtering options.",
+                    "NFR9.4: Daily database backup should ensure data availability for reporting."
+                ],
+                "Technical Notes": [
+                    "Database: Complex queries joining leave_requests, employees, and departments tables. Potentially use a data warehousing solution or materialized views for performance if reports become very complex or large.",
+                    "API: GET /api/hr/reports/leave-utilization, GET /api/hr/reports/pending-requests with date/department parameters.",
+                    "Architecture: Dedicated reporting module. Background job processing for large reports to prevent UI blocking.",
+                    "Tools: Integration with a reporting library or framework for generating CSV/PDF."
+                ],
+                "Dependencies": [
+                    "All other features that contribute leave request and employee data."
+                ],
+                "Acceptance Criteria": [
+                    "Given an HR administrator selects 'Leave Utilization Report' for Q1 2024, when they click 'Generate', then a report summarizing leave days taken by department for Q1 2024 should be displayed, and an option to export as CSV should be available.",
+                    "Given an HR administrator requests a 'Pending Leave Requests' report, then a list of all currently pending leave requests across the organization, including employee and manager details, should be displayed.",
+                    "Given an HR administrator exports a report as PDF, then the PDF file should contain all the data displayed in the on-screen report in a readable format."
+                ],
+                "Estimated Sprint": "Sprint 5"
+            }
+        ],
+        "UserStories": [
+            {
+                "Story ID": "US-001",
+                "Title": "Secure Employee Login",
+                "Detailed Description": "As an employee, I need a secure way to access my leave management portal using my unique credentials (username and password). This includes a clear login form, validation of my input, and an informative message if my login fails, ensuring that my personal leave information is protected.",
+                "Business Rules": [
+                    "Username and password are required fields for login.",
+                    "Passwords must be hashed and stored securely.",
+                    "Invalid login attempts should be limited (e.g., 5 attempts) before temporary lockout.",
+                    "User session should expire after 30 minutes of inactivity."
+                ],
+                "As a": "Employee",
+                "I want": "to securely log in to the system",
+                "So that": "I can access my personal leave information and functionalities.",
+                "Preconditions": [
+                    "Employee account exists in the system with valid credentials.",
+                    "User is on the login page."
+                ],
+                "Postconditions": [
+                    "Employee is authenticated and redirected to the dashboard.",
+                    "A secure session is established for the employee.",
+                    "If login fails, an error message is displayed, and the user remains on the login page."
+                ],
+                "Priority": "High",
+                "Story Points": 5,
+                "Estimated Effort": "Medium",
+                "Assigned Team": "Authentication Team",
+                "Labels": [
+                    "Authentication",
+                    "Security",
+                    "Employee Portal"
+                ],
+                "Acceptance Criteria": [
+                    "Given I am on the login page, when I enter my valid username and password, then I am logged in successfully and redirected to the employee dashboard.",
+                    "Given I am on the login page, when I enter an invalid username or password, then an error message 'Invalid credentials. Please try again.' is displayed, and I remain on the login page.",
+                    "Given I am logged in, when I click 'Logout', then my session is terminated, and I am redirected to the login page."
+                ]
+            },
+            {
+                "Story ID": "US-002",
+                "Title": "View Available Leave Balances",
+                "Detailed Description": "As an employee, I want to easily see my current available leave balances for different leave types (e.g., Vacation, Sick, Personal) on my dashboard. This helps me understand how many days I have remaining before applying for leave.",
+                "Business Rules": [
+                    "Leave balances are displayed per leave type.",
+                    "Balances are shown in days (or hours, if applicable).",
+                    "Balances must reflect approved, pending, and cancelled leave requests.",
+                    "Leave balances reset annually based on company policy (assumption from BRD)."
+                ],
+                "As a": "Employee",
+                "I want": "to view my current available leave balances",
+                "So that": "I can accurately know how many leave days I have for each type.",
+                "Preconditions": [
+                    "Employee is logged in.",
+                    "Employee has an assigned leave balance for relevant leave types."
+                ],
+                "Postconditions": [
+                    "Employee dashboard displays a list of leave types with their corresponding available balances."
+                ],
+                "Priority": "High",
+                "Story Points": 3,
+                "Estimated Effort": "Small",
+                "Assigned Team": "Frontend Team",
+                "Labels": [
+                    "Dashboard",
+                    "Leave Balance"
+                ],
+                "Acceptance Criteria": [
+                    "Given I am on the employee dashboard, then I see a section listing 'Vacation: X days', 'Sick: Y days', 'Personal: Z days'.",
+                    "Given I have 10 vacation days and 2 days are pending approval, then my dashboard shows 'Vacation: 8 days (2 pending)'.",
+                    "Given HR updates my sick leave balance, when I view my dashboard, then the updated balance is immediately reflected."
+                ]
+            },
+            {
+                "Story ID": "US-003",
+                "Title": "Apply for Vacation Leave",
+                "Detailed Description": "As an employee, I want to apply for vacation leave by selecting a leave type, specifying start and end dates, and providing a reason. The system should calculate the number of days and submit my request to my manager for approval.",
+                "Business Rules": [
+                    "Vacation leave requires a start and end date.",
+                    "Start date cannot be in the past.",
+                    "End date must be on or after the start date.",
+                    "A reason for vacation leave is mandatory.",
+                    "System calculates the number of working days between start and end dates, excluding weekends and public holidays.",
+                    "Applying for leave requires sufficient balance or will trigger an alert/warning."
+                ],
+                "As a": "Employee",
+                "I want": "to apply for vacation leave",
+                "So that": "my manager can review and approve my time off.",
+                "Preconditions": [
+                    "Employee is logged in.",
+                    "Employee has access to the leave application form.",
+                    "Vacation leave type is configured by HR."
+                ],
+                "Postconditions": [
+                    "A new leave request is created with status 'Pending'.",
+                    "Manager is notified of the new pending leave request.",
+                    "Employee receives a confirmation that the request was submitted.",
+                    "Employee's pending balance is updated."
+                ],
+                "Priority": "High",
+                "Story Points": 8,
+                "Estimated Effort": "Medium",
+                "Assigned Team": "Backend Team",
+                "Labels": [
+                    "Leave Application",
+                    "Vacation"
+                ],
+                "Acceptance Criteria": [
+                    "Given I am on the leave application form, when I select 'Vacation', pick start date '2024-08-01' and end date '2024-08-05', and enter 'Family trip to Hawaii' as reason, then the system calculates '5 days' and upon submission, a 'Leave request submitted successfully' message appears.",
+                    "Given I try to submit a vacation request with a start date in the past, then the system prevents submission and shows an error message.",
+                    "Given I submit a vacation request, when my manager logs in, then they see my new request as 'Pending' in their dashboard."
+                ]
+            },
+            {
+                "Story ID": "US-004",
+                "Title": "Apply for Sick Leave",
+                "Detailed Description": "As an employee, I need to apply for sick leave. The process is similar to vacation leave, but the system should clearly identify it as sick leave and route it for approval, potentially with different rules regarding notice period or required documentation (though not covered in BRD, it's a realistic extension).",
+                "Business Rules": [
+                    "Sick leave requires a start and end date.",
+                    "A reason for sick leave is mandatory.",
+                    "System calculates the number of working days between start and end dates.",
+                    "Applying for sick leave requires sufficient balance."
+                ],
+                "As a": "Employee",
+                "I want": "to apply for sick leave",
+                "So that": "I can notify my manager of my absence due to illness.",
+                "Preconditions": [
+                    "Employee is logged in.",
+                    "Employee has access to the leave application form.",
+                    "Sick leave type is configured by HR."
+                ],
+                "Postconditions": [
+                    "A new leave request is created with status 'Pending'.",
+                    "Manager is notified of the new pending leave request.",
+                    "Employee receives a confirmation that the request was submitted.",
+                    "Employee's pending balance is updated."
+                ],
+                "Priority": "Medium",
+                "Story Points": 5,
+                "Estimated Effort": "Medium",
+                "Assigned Team": "Backend Team",
+                "Labels": [
+                    "Leave Application",
+                    "Sick Leave"
+                ],
+                "Acceptance Criteria": [
+                    "Given I am on the leave application form, when I select 'Sick Leave', pick start date '2024-07-15' and end date '2024-07-16', and enter 'Fever' as reason, then the system calculates '2 days' and upon submission, a 'Leave request submitted successfully' message appears.",
+                    "Given I have 0 sick leave days remaining, when I try to apply for 1 day of sick leave, then the system should warn me about insufficient balance or prevent submission based on policy."
+                ]
+            },
+            {
+                "Story ID": "US-005",
+                "Title": "Cancel Pending Leave Request",
+                "Detailed Description": "As an employee, I want to cancel a leave request that I have previously submitted but is still pending approval. This allows me to revoke my request if my plans change before it's finalized by my manager.",
+                "Business Rules": [
+                    "Only leave requests with status 'Pending' can be cancelled by the employee.",
+                    "Cancellation is irreversible from the employee's side.",
+                    "Cancelling a request should update the employee's pending leave balance."
+                ],
+                "As a": "Employee",
+                "I want": "to cancel a pending leave request",
+                "So that": "I can revoke my request if my plans change before it's approved.",
+                "Preconditions": [
+                    "Employee is logged in.",
+                    "Employee has at least one 'Pending' leave request.",
+                    "Employee is viewing their leave history."
+                ],
+                "Postconditions": [
+                    "The selected leave request status is updated to 'Cancelled'.",
+                    "The manager is notified of the cancellation (optional, but good practice).",
+                    "The employee's pending leave balance for that type is reverted."
+                ],
+                "Priority": "Medium",
+                "Story Points": 3,
+                "Estimated Effort": "Small",
+                "Assigned Team": "Backend Team",
+                "Labels": [
+                    "Leave History",
+                    "Cancellation"
+                ],
+                "Acceptance Criteria": [
+                    "Given I have a pending vacation request for 5 days, when I go to my 'Leave History' and click 'Cancel' on that request, then its status changes to 'Cancelled', and my vacation pending balance is reduced by 5 days.",
+                    "Given a leave request has been 'Approved', when I view it in my history, then the 'Cancel' option is not available for that request."
+                ]
+            },
+            {
+                "Story ID": "US-006",
+                "Title": "View My Leave History",
+                "Detailed Description": "As an employee, I want to access a comprehensive list of all my past and current leave requests, including their type, duration, reason, and final status (approved, rejected, cancelled). This helps me keep track of my time off and review manager comments for rejected requests.",
+                "Business Rules": [
+                    "Leave history should display all submitted leave requests.",
+                    "Each entry should show leave type, dates, days, reason, and status.",
+                    "Rejection comments from managers should be visible for 'Rejected' requests."
+                ],
+                "As a": "Employee",
+                "I want": "to view my leave history",
+                "So that": "I can keep track of all my past and current leave requests and their outcomes.",
+                "Preconditions": [
+                    "Employee is logged in.",
+                    "Employee has submitted at least one leave request."
+                ],
+                "Postconditions": [
+                    "A list of all employee's leave requests is displayed with their respective details and statuses."
+                ],
+                "Priority": "High",
+                "Story Points": 5,
+                "Estimated Effort": "Medium",
+                "Assigned Team": "Frontend Team",
+                "Labels": [
+                    "Leave History",
+                    "Transparency"
+                ],
+                "Acceptance Criteria": [
+                    "Given I navigate to my 'Leave History' page, then I see a table with columns for 'Leave Type', 'Start Date', 'End Date', 'Days', 'Reason', and 'Status' for all my requests.",
+                    "Given I have a rejected leave request with manager comments 'Project deadline critical', when I view its details in history, then I see the comment 'Project deadline critical' associated with that request.",
+                    "Given I have multiple leave requests, then the list is ordered by most recent request first."
+                ]
+            },
+            {
+                "Story ID": "US-007",
+                "Title": "View Pending Leave Requests (Manager)",
+                "Detailed Description": "As a manager, I need to see a clear list of all leave requests submitted by my direct reports that are currently awaiting my approval. This overview helps me quickly identify pending actions and manage my team's availability.",
+                "Business Rules": [
+                    "Managers can only view pending requests from their direct reports.",
+                    "Requests should be ordered by submission date (oldest first) or leave start date.",
+                    "Each request summary should include employee name, leave type, dates, and days."
+                ],
+                "As a": "Manager",
+                "I want": "to view all pending leave requests from my direct reports",
+                "So that": "I can efficiently review and act on them.",
+                "Preconditions": [
+                    "Manager is logged in.",
+                    "Manager has direct reports who have submitted pending leave requests."
+                ],
+                "Postconditions": [
+                    "A dashboard or list view displays all pending leave requests from the manager's direct reports."
+                ],
+                "Priority": "High",
+                "Story Points": 5,
+                "Estimated Effort": "Medium",
+                "Assigned Team": "Frontend Team",
+                "Labels": [
+                    "Manager Portal",
+                    "Approval Workflow"
+                ],
+                "Acceptance Criteria": [
+                    "Given I am on the manager dashboard, then I see a 'Pending Leave Requests' section listing requests from my direct reports, showing employee name, leave type, dates, and reason.",
+                    "Given 'Jane Doe' (my direct report) submits a new vacation request, when I refresh my dashboard, then Jane Doe's request appears in my 'Pending Leave Requests' list.",
+                    "Given 'John Smith' (not my direct report) submits a leave request, then I do not see John Smith's request in my pending list."
+                ]
+            },
+            {
+                "Story ID": "US-008",
+                "Title": "Approve Employee Leave Request",
+                "Detailed Description": "As a manager, I want to approve a pending leave request from my direct report. This action should update the request status, deduct days from the employee's balance, and notify the employee of my decision.",
+                "Business Rules": [
+                    "Only 'Pending' requests can be approved.",
+                    "Approval deducts days from the employee's available balance for the respective leave type.",
+                    "Approvals should be logged with manager's ID and timestamp."
+                ],
+                "As a": "Manager",
+                "I want": "to approve a pending leave request",
+                "So that": "my direct report can take their approved time off.",
+                "Preconditions": [
+                    "Manager is logged in.",
+                    "Manager is viewing a pending leave request from a direct report.",
+                    "Employee has sufficient leave balance for the requested duration."
+                ],
+                "Postconditions": [
+                    "The leave request status is updated to 'Approved'.",
+                    "Employee's available leave balance is updated.",
+                    "Employee is notified of the approval.",
+                    "The approved leave request is removed from the manager's pending list."
+                ],
+                "Priority": "High",
+                "Story Points": 8,
+                "Estimated Effort": "Medium",
+                "Assigned Team": "Backend Team",
+                "Labels": [
+                    "Manager Portal",
+                    "Approval Workflow"
+                ],
+                "Acceptance Criteria": [
+                    "Given I am reviewing a pending vacation request from Jane Doe for 5 days, when I click 'Approve', then the request status changes to 'Approved', Jane Doe's vacation balance is updated by -5 days, and Jane Doe receives an email notification of the approval.",
+                    "Given a leave request has status 'Rejected', when I attempt to approve it, then the system prevents this action and indicates the request is not pending."
+                ]
+            },
+            {
+                "Story ID": "US-009",
+                "Title": "Reject Employee Leave Request with Comments",
+                "Detailed Description": "As a manager, I want to reject a pending leave request from my direct report and provide a mandatory comment explaining the reason for rejection. This ensures transparency and helps the employee understand why their request was not approved.",
+                "Business Rules": [
+                    "Only 'Pending' requests can be rejected.",
+                    "A rejection reason/comment is mandatory.",
+                    "Rejection reverts any pending balance deductions.",
+                    "Rejections should be logged with manager's ID, timestamp, and comments."
+                ],
+                "As a": "Manager",
+                "I want": "to reject a pending leave request and provide a reason",
+                "So that": "the employee understands the decision, and I can manage my team's capacity.",
+                "Preconditions": [
+                    "Manager is logged in.",
+                    "Manager is viewing a pending leave request from a direct report."
+                ],
+                "Postconditions": [
+                    "The leave request status is updated to 'Rejected'.",
+                    "The manager's comments are saved with the request.",
+                    "Employee is notified of the rejection with the provided comments.",
+                    "The rejected leave request is removed from the manager's pending list."
+                ],
+                "Priority": "High",
+                "Story Points": 8,
+                "Estimated Effort": "Medium",
+                "Assigned Team": "Backend Team",
+                "Labels": [
+                    "Manager Portal",
+                    "Approval Workflow"
+                ],
+                "Acceptance Criteria": [
+                    "Given I am reviewing a pending sick leave request from John Smith, when I click 'Reject' and enter 'Critical project deadline, cannot approve at this time' as a comment, then the request status changes to 'Rejected', John Smith receives an email notification with the comment, and the comment is visible in John's leave history.",
+                    "Given I click 'Reject' without entering a comment, then the system prevents rejection and prompts me to enter a reason."
+                ]
+            },
+            {
+                "Story ID": "US-010",
+                "Title": "View Direct Report's Leave History",
+                "Detailed Description": "As a manager, I want to view the complete leave history of any of my direct reports. This allows me to track their past absences, understand patterns, and make informed decisions regarding current or future leave requests, while maintaining privacy for other employees.",
+                "Business Rules": [
+                    "Managers can only view leave history for their currently assigned direct reports.",
+                    "The history should include all leave requests (Approved, Rejected, Pending, Cancelled) with full details.",
+                    "Access is read-only for manager viewing history."
+                ],
+                "As a": "Manager",
+                "I want": "to view a direct report's leave history",
+                "So that": "I can make informed decisions about their leave requests and manage team capacity effectively.",
+                "Preconditions": [
+                    "Manager is logged in.",
+                    "Manager has direct reports."
+                ],
+                "Postconditions": [
+                    "A detailed list of the selected direct report's leave requests is displayed to the manager."
+                ],
+                "Priority": "Medium",
+                "Story Points": 5,
+                "Estimated Effort": "Medium",
+                "Assigned Team": "Frontend Team",
+                "Labels": [
+                    "Manager Portal",
+                    "Employee Data"
+                ],
+                "Acceptance Criteria": [
+                    "Given I am on the manager portal, when I select 'View Employee Leave History' and pick 'Jane Doe' (my direct report) from the list, then I see a table showing all of Jane Doe's leave requests with their statuses and details, identical to her own 'My Leave History' view.",
+                    "Given I attempt to view the leave history of 'Mark Johnson' (who is not my direct report), then the system displays an 'Unauthorized Access' message or prevents the selection."
+                ]
+            },
+            {
+                "Story ID": "US-011",
+                "Title": "Create New Employee Account",
+                "Detailed Description": "As an HR Administrator, I want to create new employee accounts, providing essential details like Employee ID, name, email, department, and assigning a reporting manager. This enables new hires to access the system and begin managing their leave.",
+                "Business Rules": [
+                    "Employee ID, First Name, Last Name, Email, Department, and Reporting Manager are mandatory fields.",
+                    "Employee ID and Email must be unique.",
+                    "Default password generation or temporary password setup for new accounts.",
+                    "Reporting Manager must be an existing manager in the system (assumption from BRD: One reporting manager per employee)."
+                ],
+                "As a": "HR Administrator",
+                "I want": "to create new employee accounts",
+                "So that": "new hires can access the leave management system and their leave balances can be managed.",
+                "Preconditions": [
+                    "HR Administrator is logged in.",
+                    "HR Administrator has 'Create Employee' permissions."
+                ],
+                "Postconditions": [
+                    "A new employee record is created in the system.",
+                    "A new user account (with default/temporary password) is created for the employee.",
+                    "The employee is linked to their assigned department and reporting manager."
+                ],
+                "Priority": "High",
+                "Story Points": 8,
+                "Estimated Effort": "Medium",
+                "Assigned Team": "Backend Team",
+                "Labels": [
+                    "HR Admin",
+                    "User Management"
+                ],
+                "Acceptance Criteria": [
+                    "Given I am on the 'Create Employee' form, when I fill in all mandatory fields with valid data (e.g., EID: E005, Name: Sarah Lee, Email: sarah.lee@org.com, Dept: Marketing, Manager: M003) and click 'Save', then a new employee account is successfully created, and Sarah Lee can log in.",
+                    "Given I try to create an employee with an existing Employee ID or Email, then the system prevents creation and displays an error message indicating the duplication.",
+                    "Given a new employee is created, when their assigned manager logs in, then Sarah Lee appears in their list of direct reports."
+                ]
+            },
+            {
+                "Story ID": "US-012",
+                "Title": "Update Employee Account Details",
+                "Detailed Description": "As an HR Administrator, I need to be able to modify existing employee account details such as department, reporting manager, or contact information. This ensures that employee records are kept up-to-date within the system.",
+                "Business Rules": [
+                    "Employee ID cannot be changed once created.",
+                    "Only valid existing managers can be assigned as Reporting Managers.",
+                    "Changes to Reporting Manager should update relevant associations for leave approvals (assumption from BRD: One reporting manager per employee)."
+                ],
+                "As a": "HR Administrator",
+                "I want": "to update employee account details",
+                "So that": "employee records in the system are accurate and up-to-date.",
+                "Preconditions": [
+                    "HR Administrator is logged in.",
+                    "HR Administrator has 'Update Employee' permissions.",
+                    "The employee account to be updated already exists."
+                ],
+                "Postconditions": [
+                    "The employee's details in the system are updated.",
+                    "Relevant system associations (e.g., manager-report relationship) are adjusted if reporting manager is changed."
+                ],
+                "Priority": "Medium",
+                "Story Points": 5,
+                "Estimated Effort": "Medium",
+                "Assigned Team": "Backend Team",
+                "Labels": [
+                    "HR Admin",
+                    "User Management"
+                ],
+                "Acceptance Criteria": [
+                    "Given I select 'John Doe' from the employee list, when I change his 'Department' from 'Sales' to 'Marketing' and click 'Save', then John Doe's department is updated, and this change is reflected in reports.",
+                    "Given I change 'Jane Smith's' 'Reporting Manager' from 'Alice' to 'Bob', then Jane Smith's pending leave requests are now visible to Bob, and no longer to Alice (if Alice hasn't approved them).",
+                    "Given I try to enter an invalid format for email address, then the system displays an error and prevents saving."
+                ]
+            },
+            {
+                "Story ID": "US-013",
+                "Title": "Deactivate Employee Account",
+                "Detailed Description": "As an HR Administrator, I need to deactivate an employee's account when they leave the organization. This prevents unauthorized access to the system and ensures that their leave data is retained for historical purposes but no longer active.",
+                "Business Rules": [
+                    "Deactivated accounts cannot log in.",
+                    "Deactivated employees' pending leave requests are automatically cancelled or escalated.",
+                    "Deactivation retains all historical leave data.",
+                    "HR should be able to reactivate an account if needed."
+                ],
+                "As a": "HR Administrator",
+                "I want": "to deactivate an employee's account",
+                "So that": "departing employees cannot access the system, and their data is secured.",
+                "Preconditions": [
+                    "HR Administrator is logged in.",
+                    "HR Administrator has 'Deactivate Employee' permissions.",
+                    "The employee account to be deactivated exists."
+                ],
+                "Postconditions": [
+                    "The employee's account status is set to 'Inactive'.",
+                    "The employee can no longer log into the system.",
+                    "All pending leave requests for the employee are automatically handled (e.g., cancelled or marked for HR review)."
+                ],
+                "Priority": "Medium",
+                "Story Points": 5,
+                "Estimated Effort": "Medium",
+                "Assigned Team": "Backend Team",
+                "Labels": [
+                    "HR Admin",
+                    "User Management",
+                    "Security"
+                ],
+                "Acceptance Criteria": [
+                    "Given I select 'John Doe' and click 'Deactivate Account', when I confirm the action, then John Doe's account status changes to 'Inactive', and he can no longer log in using his credentials.",
+                    "Given John Doe has a pending leave request, when his account is deactivated, then that pending request is automatically cancelled, and his manager is notified.",
+                    "Given an account is deactivated, when I view their profile, then an option 'Reactivate Account' is available."
+                ]
+            },
+            {
+                "Story ID": "US-014",
+                "Title": "Configure New Leave Type",
+                "Detailed Description": "As an HR Administrator, I want to define new leave types, such as 'Maternity Leave' or 'Bereavement Leave', and set their specific rules like maximum days or carry-over policies. This allows the system to accurately manage diverse leave programs.",
+                "Business Rules": [
+                    "Leave type name must be unique.",
+                    "Maximum days (per year/period) is an optional field.",
+                    "Carry-over rules (e.g., 'No Carry-over', 'Carry-over X days', 'Carry-over up to Y days') can be configured.",
+                    "Eligibility criteria (e.g., 'Requires 1 year of service') can be added (basic text field initially)."
+                ],
+                "As a": "HR Administrator",
+                "I want": "to define new leave types and their policies",
+                "So that": "the system can accurately track and manage various types of employee leave.",
+                "Preconditions": [
+                    "HR Administrator is logged in.",
+                    "HR Administrator has 'Manage Policies' permissions."
+                ],
+                "Postconditions": [
+                    "A new leave type is added to the system.",
+                    "The new leave type is available for employees to select on the application form.",
+                    "The associated policies (max days, carry-over) are stored and applied."
+                ],
+                "Priority": "High",
+                "Story Points": 8,
+                "Estimated Effort": "Medium",
+                "Assigned Team": "Backend Team",
+                "Labels": [
+                    "HR Admin",
+                    "Leave Policy"
+                ],
+                "Acceptance Criteria": [
+                    "Given I am on the 'Manage Leave Types' page, when I click 'Add New Leave Type' and enter 'Maternity Leave', max 90 days, no carry-over, then 'Maternity Leave' appears in the list of available leave types, and employees can select it.",
+                    "Given I try to create a leave type with a name that already exists, then the system displays an error and prevents creation.",
+                    "Given a new leave type 'Paternity Leave' is created with max 10 days, then when an employee applies for 'Paternity Leave' for 15 days, the system indicates they have exceeded the limit."
+                ]
+            },
+            {
+                "Story ID": "US-015",
+                "Title": "Update Employee Leave Balance",
+                "Detailed Description": "As an HR Administrator, I need to manually adjust an individual employee's leave balance (e.g., add or subtract days due to special circumstances or corrections). This allows for flexibility and correction of leave entitlements.",
+                "Business Rules": [
+                    "Manual adjustment requires selecting an employee and a leave type.",
+                    "A positive or negative number of days/hours must be entered.",
+                    "A mandatory reason for adjustment must be provided.",
+                    "All adjustments must be recorded in an audit log, including HR admin's ID and timestamp."
+                ],
+                "As a": "HR Administrator",
+                "I want": "to manually update an employee's leave balance",
+                "So that": "I can correct errors or make special adjustments to their entitlements.",
+                "Preconditions": [
+                    "HR Administrator is logged in.",
+                    "HR Administrator has 'Manage Balances' permissions.",
+                    "The employee and leave type already exist."
+                ],
+                "Postconditions": [
+                    "The selected employee's balance for the specified leave type is updated.",
+                    "An audit trail of the adjustment is recorded.",
+                    "The updated balance is reflected in the employee's dashboard and manager's views."
+                ],
+                "Priority": "High",
+                "Story Points": 8,
+                "Estimated Effort": "Medium",
+                "Assigned Team": "Backend Team",
+                "Labels": [
+                    "HR Admin",
+                    "Leave Balance"
+                ],
+                "Acceptance Criteria": [
+                    "Given I select 'John Doe', choose 'Vacation Leave', enter '+2' days and provide 'Compensation for weekend work' as a reason, when I click 'Apply Adjustment', then John Doe's vacation balance increases by 2 days, and this adjustment is visible in an audit log.",
+                    "Given I select 'Jane Smith', choose 'Sick Leave', enter '-1' day and provide 'Correction for overbooked leave' as a reason, when I click 'Apply Adjustment', then Jane Smith's sick leave balance decreases by 1 day, and the audit log records it.",
+                    "Given I try to apply an adjustment without a reason, then the system prevents submission and prompts for a reason."
+                ]
+            },
+            {
+                "Story ID": "US-016",
+                "Title": "Generate Organization-Wide Leave Utilization Report",
+                "Detailed Description": "As an HR Administrator, I need to generate reports showing overall leave utilization across the organization or per department for a specified period. This helps me analyze trends, manage resources, and ensure compliance with leave policies.",
+                "Business Rules": [
+                    "Report can be generated for a specific date range (e.g., Quarter, Year).",
+                    "Report can be filtered by department or include all departments.",
+                    "Report includes total days taken per leave type, total employees, and average days per employee.",
+                    "Reports can be exported as CSV or PDF."
+                ],
+                "As a": "HR Administrator",
+                "I want": "to generate organization-wide leave utilization reports",
+                "So that": "I can analyze leave trends, manage workforce availability, and ensure policy compliance.",
+                "Preconditions": [
+                    "HR Administrator is logged in.",
+                    "HR Administrator has 'Generate Reports' permissions.",
+                    "Sufficient leave data exists in the system."
+                ],
+                "Postconditions": [
+                    "A comprehensive report on leave utilization is generated and displayed.",
+                    "The report can be exported in selected formats.",
+                    "Data presented is accurate for the specified parameters."
+                ],
+                "Priority": "High",
+                "Story Points": 13,
+                "Estimated Effort": "Large",
+                "Assigned Team": "Reporting Team",
+                "Labels": [
+                    "HR Admin",
+                    "Reporting",
+                    "Analytics"
+                ],
+                "Acceptance Criteria": [
+                    "Given I select 'Leave Utilization Report', set date range 'Jan 1, 2024 - Dec 31, 2024', and select 'All Departments', when I click 'Generate Report', then a table is displayed showing total vacation days, sick days, etc., taken for the year, grouped by department, with an option to download as CSV.",
+                    "Given I generate a report, when I click 'Export as PDF', then a PDF document is downloaded containing the same data and structure as the on-screen report.",
+                    "Given the system processes a large amount of data for the report, then the report generates within 5 seconds for up to 1000 employees."
+                ]
+            },
+            {
+                "Story ID": "US-017",
+                "Title": "Generate Pending Leave Requests Report for HR",
+                "Detailed Description": "As an HR Administrator, I need to generate a report listing all currently pending leave requests across the entire organization. This gives me a complete overview of all outstanding approvals and helps identify potential bottlenecks or delays in the approval process.",
+                "Business Rules": [
+                    "Report includes all leave requests with 'Pending' status.",
+                    "Report details include employee name, manager name, leave type, dates, and days.",
+                    "Report can be filtered by department (optional).",
+                    "Reports can be exported as CSV or PDF."
+                ],
+                "As a": "HR Administrator",
+                "I want": "to generate a report of all pending leave requests",
+                "So that": "I can monitor the overall leave approval pipeline and identify any issues.",
+                "Preconditions": [
+                    "HR Administrator is logged in.",
+                    "HR Administrator has 'Generate Reports' permissions.",
+                    "There are active pending leave requests in the system."
+                ],
+                "Postconditions": [
+                    "A list of all pending leave requests across the organization is generated and displayed.",
+                    "The report can be exported in selected formats.",
+                    "Data presented is accurate and current."
+                ],
+                "Priority": "Medium",
+                "Story Points": 8,
+                "Estimated Effort": "Medium",
+                "Assigned Team": "Reporting Team",
+                "Labels": [
+                    "HR Admin",
+                    "Reporting",
+                    "Approval Workflow"
+                ],
+                "Acceptance Criteria": [
+                    "Given I select 'Pending Leave Requests Report', when I click 'Generate Report', then a list is displayed showing all pending requests with employee name, manager name, leave type, dates, and reason, with an option to download as CSV.",
+                    "Given a new leave request is submitted while I am viewing the report, when I refresh the report, then the new request appears in the list.",
+                    "Given there are no pending requests, then the report displays 'No pending leave requests found'."
+                ]
+            }
+        ],
+        "Tasks": [
+            {
+                "Task ID": "TASK-001",
+                "Title": "Design Employee Login UI/UX",
+                "Description": "Create wireframes and high-fidelity mockups for the employee login page, ensuring responsiveness and adherence to corporate branding guidelines.",
+                "Task Type": "Design",
+                "Estimated Hours": 12,
+                "Definition of Done": "Login page wireframes approved by Product Owner; high-fidelity mockups ready for frontend development."
+            },
+            {
+                "Task ID": "TASK-002",
+                "Title": "Implement Authentication API Endpoint",
+                "Description": "Develop the backend API endpoint for employee login, including username/password validation, password hashing (bcrypt), and JWT token generation for session management.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 20,
+                "Definition of Done": "`/api/auth/login` endpoint implemented with secure validation and JWT generation; unit tests pass; API documentation updated."
+            },
+            {
+                "Task ID": "TASK-003",
+                "Title": "Develop Frontend Login Component",
+                "Description": "Build the frontend login component using React/Angular/Vue, integrating with the authentication API endpoint, handling form submission, error display, and successful redirection.",
+                "Task Type": "Frontend Development",
+                "Estimated Hours": 24,
+                "Definition of Done": "Responsive login UI component developed; successfully interacts with backend API; displays error messages correctly; redirects on success."
+            },
+            {
+                "Task ID": "TASK-004",
+                "Title": "Implement Session Management & Logout",
+                "Description": "Develop functionality for secure session management using JWT (storage, refresh mechanism) and an API endpoint for user logout to invalidate the session.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 16,
+                "Definition of Done": "JWT token handling (creation, validation, refresh) implemented; `/api/auth/logout` endpoint developed; unit tests for session termination pass."
+            },
+            {
+                "Task ID": "TASK-005",
+                "Title": "Write Unit Tests for Authentication Module",
+                "Description": "Create comprehensive unit tests for all backend authentication logic, including valid/invalid credentials, token generation, and logout functionality.",
+                "Task Type": "Testing",
+                "Estimated Hours": 10,
+                "Definition of Done": "Unit test coverage for authentication module > 90%; all tests pass."
+            },
+            {
+                "Task ID": "TASK-006",
+                "Title": "Configure Security Headers & Rate Limiting",
+                "Description": "Implement security best practices such as HSTS, CSP, XSS protection, and rate limiting for login attempts at the API gateway or application level.",
+                "Task Type": "DevOps/Security",
+                "Estimated Hours": 8,
+                "Definition of Done": "Security headers configured for the application; rate limiting applied to login endpoint (e.g., 5 attempts/min); penetration test for common web vulnerabilities passed."
+            },
+            {
+                "Task ID": "TASK-007",
+                "Title": "Design Leave Balance Display Component",
+                "Description": "Create UI wireframes and mockups for the dashboard section displaying employee leave balances per type, ensuring clarity and responsiveness.",
+                "Task Type": "Design",
+                "Estimated Hours": 8,
+                "Definition of Done": "Leave balance display mockups approved by Product Owner; consistent with dashboard design."
+            },
+            {
+                "Task ID": "TASK-008",
+                "Title": "Develop API for Employee Leave Balances",
+                "Description": "Implement a backend API endpoint to retrieve an authenticated employee's current leave balances for all applicable leave types, considering approved, pending, and available days.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 18,
+                "Definition of Done": "`/api/employee/{employeeId}/leave-balances` endpoint developed; returns accurate balances; unit tests pass; API documentation updated."
+            },
+            {
+                "Task ID": "TASK-009",
+                "Title": "Develop Frontend Leave Balance Widget",
+                "Description": "Build the frontend UI component to display leave balances on the employee dashboard, consuming data from the backend API and rendering it clearly.",
+                "Task Type": "Frontend Development",
+                "Estimated Hours": 16,
+                "Definition of Done": "Responsive leave balance widget implemented on dashboard; displays accurate data from API; handles loading states."
+            },
+            {
+                "Task ID": "TASK-010",
+                "Title": "Integrate Leave Balance Widget into Dashboard",
+                "Description": "Integrate the newly developed leave balance widget into the main employee dashboard layout.",
+                "Task Type": "Frontend Development",
+                "Estimated Hours": 6,
+                "Definition of Done": "Leave balance widget successfully integrated into employee dashboard; displayed correctly across screen sizes."
+            },
+            {
+                "Task ID": "TASK-011",
+                "Title": "Design Leave Application Form UI/UX",
+                "Description": "Create wireframes and mockups for the multi-step (if applicable) leave application form, including date pickers, type selection, reason input, and estimated days calculation.",
+                "Task Type": "Design",
+                "Estimated Hours": 16,
+                "Definition of Done": "Leave application form mockups approved by Product Owner; user flow designed for ease of use."
+            },
+            {
+                "Task ID": "TASK-012",
+                "Title": "Implement Leave Application API",
+                "Description": "Develop the backend API endpoint for submitting new leave requests, including validation of dates, leave type, reason, and initial status setting ('Pending'). Calculate working days.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 28,
+                "Definition of Done": "`/api/leave-requests` POST endpoint implemented; performs all server-side validations; calculates working days (excluding weekends/holidays); creates new pending request in DB; unit tests pass."
+            },
+            {
+                "Task ID": "TASK-013",
+                "Title": "Develop Frontend Leave Application Form",
+                "Description": "Build the responsive frontend component for employees to apply for leave, incorporating date pickers, dropdowns for leave types, a reason text area, and real-time calculation of days.",
+                "Task Type": "Frontend Development",
+                "Estimated Hours": 32,
+                "Definition of Done": "Leave application form component fully developed; integrates with backend API; displays validation errors; provides real-time calculated days."
+            },
+            {
+                "Task ID": "TASK-014",
+                "Title": "Create Business Logic for Leave Day Calculation",
+                "Description": "Implement the core business logic module to accurately calculate working days between two dates, considering weekends and a configurable list of public holidays.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 12,
+                "Definition of Done": "Leave day calculation module implemented; unit tests cover various date ranges and holiday scenarios; integrated into leave application process."
+            },
+            {
+                "Task ID": "TASK-015",
+                "Title": "Integrate Leave Type Selection and Balance Check",
+                "Description": "Ensure the leave application form dynamically populates available leave types from HR configurations and performs an initial client-side check against available balances (if applicable).",
+                "Task Type": "Frontend Development",
+                "Estimated Hours": 10,
+                "Definition of Done": "Leave type dropdown populated dynamically; basic client-side balance check/warning implemented; integration with FEAT-004 API."
+            },
+            {
+                "Task ID": "TASK-016",
+                "Title": "Implement Email Notification for New Request",
+                "Description": "Develop a microservice or module to send automated email notifications to the employee's reporting manager upon successful submission of a new leave request.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 14,
+                "Definition of Done": "Email notification for new pending requests implemented; manager receives email with request details; unit tests pass for notification trigger."
+            },
+            {
+                "Task ID": "TASK-017",
+                "Title": "Implement API for Sick Leave Submission",
+                "Description": "Extend the existing leave application API to specifically handle 'Sick Leave' requests, ensuring any specific business rules for sick leave (if different from vacation) are applied.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 16,
+                "Definition of Done": "Leave application API supports 'Sick Leave' type; relevant sick leave rules enforced; unit tests pass."
+            },
+            {
+                "Task ID": "TASK-018",
+                "Title": "Update Frontend Form for Sick Leave",
+                "Description": "Modify the frontend leave application form to allow selection of 'Sick Leave' type, potentially adjusting UI based on specific sick leave requirements (e.g., shorter notice period indication).",
+                "Task Type": "Frontend Development",
+                "Estimated Hours": 8,
+                "Definition of Done": "Frontend form enables sick leave selection; any specific UI adjustments for sick leave implemented."
+            },
+            {
+                "Task ID": "TASK-019",
+                "Title": "Implement Business Logic for Sick Leave Balance Check",
+                "Description": "Ensure the business logic accurately checks and deducts from the sick leave balance, considering any specific policies for sick leave accrual or usage.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 6,
+                "Definition of Done": "Sick leave balance check and deduction logic implemented; adheres to policy; integrated with application API; unit tests pass."
+            },
+            {
+                "Task ID": "TASK-020",
+                "Title": "Design Leave History Table UI",
+                "Description": "Create UI wireframes and mockups for the employee's leave history table, including columns for status, dates, and manager comments for rejections.",
+                "Task Type": "Design",
+                "Estimated Hours": 10,
+                "Definition of Done": "Leave history table mockups approved; consistent with overall UI guidelines."
+            },
+            {
+                "Task ID": "TASK-021",
+                "Title": "Develop API for Employee Leave History",
+                "Description": "Implement a backend API endpoint to retrieve all leave requests (past and present) for an authenticated employee, including their status and manager comments.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 20,
+                "Definition of Done": "`/api/employee/{employeeId}/leave-history` endpoint developed; returns comprehensive leave history data; unit tests pass; API documentation updated."
+            },
+            {
+                "Task ID": "TASK-022",
+                "Title": "Develop Frontend Leave History Table Component",
+                "Description": "Build a responsive frontend table component to display the employee's leave history, consuming data from the backend API and rendering all details, including rejection comments.",
+                "Task Type": "Frontend Development",
+                "Estimated Hours": 28,
+                "Definition of Done": "Leave history table component implemented; displays all required fields; handles pagination/sorting (if applicable); responsive design."
+            },
+            {
+                "Task ID": "TASK-023",
+                "Title": "Implement Cancel Leave Request API",
+                "Description": "Develop the backend API endpoint to update the status of a 'Pending' leave request to 'Cancelled', ensuring only the submitting employee can cancel their own request and update balances.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 18,
+                "Definition of Done": "`/api/leave-requests/{requestId}/cancel` endpoint implemented; changes status to 'Cancelled'; reverts pending balance deduction; unit tests pass; API documentation updated."
+            },
+            {
+                "Task ID": "TASK-024",
+                "Title": "Add Cancel Button to Frontend History",
+                "Description": "Integrate a 'Cancel' button into the frontend leave history table, visible only for 'Pending' requests and triggering the cancellation API.",
+                "Task Type": "Frontend Development",
+                "Estimated Hours": 12,
+                "Definition of Done": "'Cancel' button added to history table; only appears for pending requests; successfully triggers cancellation flow and updates UI."
+            },
+            {
+                "Task ID": "TASK-025",
+                "Title": "Implement Manager Dashboard UI/UX Design",
+                "Description": "Create wireframes and mockups for the manager dashboard, focusing on displaying pending leave requests from direct reports and providing clear actions (Approve/Reject).",
+                "Task Type": "Design",
+                "Estimated Hours": 16,
+                "Definition of Done": "Manager dashboard mockups for pending requests approved by Product Owner; includes clear calls to action."
+            },
+            {
+                "Task ID": "TASK-026",
+                "Title": "Develop API for Manager Pending Requests",
+                "Description": "Implement a backend API endpoint to retrieve all pending leave requests submitted by an authenticated manager's direct reports.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 22,
+                "Definition of Done": "`/api/manager/{managerId}/pending-leaves` endpoint developed; accurately filters requests by direct reports; unit tests pass; API documentation updated."
+            },
+            {
+                "Task ID": "TASK-027",
+                "Title": "Develop Frontend Manager Pending Requests Component",
+                "Description": "Build a responsive frontend component for the manager dashboard to display the list of pending leave requests, including employee details and actions.",
+                "Task Type": "Frontend Development",
+                "Estimated Hours": 30,
+                "Definition of Done": "Manager pending requests component developed; displays all required information; handles loading states; responsive."
+            },
+            {
+                "Task ID": "TASK-028",
+                "Title": "Implement Approve Leave Request API",
+                "Description": "Develop the backend API endpoint for managers to approve a pending leave request, updating its status to 'Approved', deducting from actual balance, and logging the action.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 24,
+                "Definition of Done": "`/api/leave-requests/{requestId}/approve` endpoint implemented; updates status, deducts balance, logs action; unit tests pass; API documentation updated."
+            },
+            {
+                "Task ID": "TASK-029",
+                "Title": "Implement Reject Leave Request API with Comments",
+                "Description": "Develop the backend API endpoint for managers to reject a pending leave request, updating its status to 'Rejected', saving mandatory comments, and logging the action.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 24,
+                "Definition of Done": "`/api/leave-requests/{requestId}/reject` endpoint implemented; updates status, saves comments, logs action; enforces mandatory comments; unit tests pass; API documentation updated."
+            },
+            {
+                "Task ID": "TASK-030",
+                "Title": "Add Approve/Reject Buttons to Manager UI",
+                "Description": "Integrate 'Approve' and 'Reject' buttons into the manager's pending requests list, ensuring the reject action prompts for mandatory comments.",
+                "Task Type": "Frontend Development",
+                "Estimated Hours": 20,
+                "Definition of Done": "Approve/Reject buttons integrated; rejection flow prompts for and saves comments; UI updates upon decision."
+            },
+            {
+                "Task ID": "TASK-031",
+                "Title": "Implement Notification for Manager Actions",
+                "Description": "Extend the notification service to send emails to employees when their leave requests are approved or rejected by their manager, including rejection comments.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 16,
+                "Definition of Done": "Email notifications for approval/rejection implemented; includes status and manager comments; unit tests pass."
+            },
+            {
+                "Task ID": "TASK-032",
+                "Title": "Design Manager's Employee History UI",
+                "Description": "Create wireframes and mockups for managers to view individual employee leave history, reusing existing employee history component design where appropriate.",
+                "Task Type": "Design",
+                "Estimated Hours": 8,
+                "Definition of Done": "Manager's employee history mockups approved; consistent with employee self-service history."
+            },
+            {
+                "Task ID": "TASK-033",
+                "Title": "Develop API for Manager to View Employee History",
+                "Description": "Implement a backend API endpoint that allows an authenticated manager to retrieve the full leave history of a specified direct report, ensuring access control.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 20,
+                "Definition of Done": "`/api/manager/{managerId}/employee/{employeeId}/leave-history` endpoint developed; enforces direct report access; unit tests pass; API documentation updated."
+            },
+            {
+                "Task ID": "TASK-034",
+                "Title": "Develop Frontend Component for Manager's Employee History",
+                "Description": "Build a responsive frontend component for managers to select a direct report and view their detailed leave history, consuming data from the new API.",
+                "Task Type": "Frontend Development",
+                "Estimated Hours": 28,
+                "Definition of Done": "Manager's employee history component implemented; correctly displays selected employee's history; access controlled at UI level."
+            },
+            {
+                "Task ID": "TASK-035",
+                "Title": "Design HR Employee Account Management UI",
+                "Description": "Create wireframes and mockups for HR's employee management interface, including forms for creating/updating accounts and a list view for searching/deactivating.",
+                "Task Type": "Design",
+                "Estimated Hours": 18,
+                "Definition of Done": "HR employee account management mockups approved by HR stakeholders; user flows for create/update/deactivate defined."
+            },
+            {
+                "Task ID": "TASK-036",
+                "Title": "Implement API for HR Employee Creation",
+                "Description": "Develop the backend API endpoint for HR to create new employee records, including personal details, department, reporting manager, and initial system user account.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 28,
+                "Definition of Done": "`/api/hr/employees` POST endpoint implemented; performs all required data validations; creates employee and user records; unit tests pass."
+            },
+            {
+                "Task ID": "TASK-037",
+                "Title": "Develop Frontend HR Employee Creation Form",
+                "Description": "Build the responsive frontend form for HR administrators to create new employee accounts, integrating with the backend API and handling input validation.",
+                "Task Type": "Frontend Development",
+                "Estimated Hours": 32,
+                "Definition of Done": "HR employee creation form developed; submits data to API; displays validation errors; provides success feedback."
+            },
+            {
+                "Task ID": "TASK-038",
+                "Title": "Implement API for HR Employee Update",
+                "Description": "Develop the backend API endpoint for HR to update existing employee details, including changing department or reporting manager, ensuring proper data integrity and referential constraints.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 26,
+                "Definition of Done": "`/api/hr/employees/{id}` PUT endpoint implemented; updates employee and related user/manager data; unit tests pass."
+            },
+            {
+                "Task ID": "TASK-039",
+                "Title": "Develop Frontend HR Employee Update Form/View",
+                "Description": "Build the responsive frontend component allowing HR to view and edit existing employee details, pre-populating fields and submitting updates to the API.",
+                "Task Type": "Frontend Development",
+                "Estimated Hours": 30,
+                "Definition of Done": "HR employee update form/view developed; retrieves and displays existing data; submits updates correctly; handles response."
+            },
+            {
+                "Task ID": "TASK-040",
+                "Title": "Implement API for HR Employee Deactivation",
+                "Description": "Develop the backend API endpoint to deactivate an employee's account, marking it inactive, cancelling pending leaves, and ensuring the employee can no longer log in.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 20,
+                "Definition of Done": "`/api/hr/employees/{id}/deactivate` endpoint implemented; sets employee status to 'Inactive'; triggers pending leave cancellation; unit tests pass."
+            },
+            {
+                "Task ID": "TASK-041",
+                "Title": "Add Deactivate/Reactivate Buttons to HR Employee List",
+                "Description": "Integrate 'Deactivate' and 'Reactivate' buttons into the HR employee list view, ensuring appropriate status changes and UI feedback.",
+                "Task Type": "Frontend Development",
+                "Estimated Hours": 14,
+                "Definition of Done": "Deactivate/Reactivate buttons visible based on employee status; trigger API calls; update UI upon action success."
+            },
+            {
+                "Task ID": "TASK-042",
+                "Title": "Design HR Leave Policy Management UI",
+                "Description": "Create wireframes and mockups for HR's leave policy configuration interface, including forms for creating/editing leave types and setting rules.",
+                "Task Type": "Design",
+                "Estimated Hours": 16,
+                "Definition of Done": "HR leave policy management mockups approved by HR stakeholders; includes fields for max days, carry-over, etc."
+            },
+            {
+                "Task ID": "TASK-043",
+                "Title": "Implement API for Leave Type Creation",
+                "Description": "Develop the backend API endpoint for HR to define new leave types, including name, max days, and carry-over rules.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 24,
+                "Definition of Done": "`/api/hr/leave-types` POST endpoint implemented; creates new leave type record with policies; unit tests pass."
+            },
+            {
+                "Task ID": "TASK-044",
+                "Title": "Develop Frontend HR Leave Type Configuration",
+                "Description": "Build the responsive frontend form for HR administrators to create new leave types and configure their associated policies.",
+                "Task Type": "Frontend Development",
+                "Estimated Hours": 28,
+                "Definition of Done": "HR leave type creation form developed; submits policy data to API; displays success/error messages."
+            },
+            {
+                "Task ID": "TASK-045",
+                "Title": "Implement API for Manual Leave Balance Adjustment",
+                "Description": "Develop the backend API endpoint for HR to manually adjust an individual employee's leave balance, requiring a reason and logging the adjustment.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 26,
+                "Definition of Done": "`/api/hr/employee/{employeeId}/leave-balance-adjustments` PUT endpoint implemented; updates balance; requires and saves reason; creates audit log entry; unit tests pass."
+            },
+            {
+                "Task ID": "TASK-046",
+                "Title": "Develop Frontend HR Balance Adjustment UI",
+                "Description": "Build the responsive frontend component for HR administrators to select an employee and a leave type, input an adjustment amount, and provide a mandatory reason.",
+                "Task Type": "Frontend Development",
+                "Estimated Hours": 22,
+                "Definition of Done": "HR balance adjustment UI developed; allows selection of employee/leave type; captures adjustment and reason; submits to API."
+            },
+            {
+                "Task ID": "TASK-047",
+                "Title": "Implement Audit Log for Balance Adjustments",
+                "Description": "Develop the backend service/database schema to store detailed audit logs for all manual leave balance adjustments, including HR admin ID, timestamp, and reason.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 10,
+                "Definition of Done": "Audit log for balance adjustments implemented and integrated with the adjustment API; log entries are comprehensive and immutable."
+            },
+            {
+                "Task ID": "TASK-048",
+                "Title": "Design HR Reporting Dashboard UI/UX",
+                "Description": "Create wireframes and mockups for HR's reporting dashboard, including report selection, date range filters, department filters, and export options.",
+                "Task Type": "Design",
+                "Estimated Hours": 20,
+                "Definition of Done": "HR reporting dashboard mockups approved; includes design for utilization and pending reports with filters."
+            },
+            {
+                "Task ID": "TASK-049",
+                "Title": "Implement API for Leave Utilization Report",
+                "Description": "Develop the backend API endpoint to generate aggregated leave utilization data by department or organization-wide for a given period.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 36,
+                "Definition of Done": "`/api/hr/reports/leave-utilization` endpoint implemented; returns accurate utilization data; supports date and department filters; unit tests pass."
+            },
+            {
+                "Task ID": "TASK-050",
+                "Title": "Develop Frontend Leave Utilization Report Viewer",
+                "Description": "Build the responsive frontend component to display the leave utilization report data, including data tables, filters, and a 'Generate' button.",
+                "Task Type": "Frontend Development",
+                "Estimated Hours": 32,
+                "Definition of Done": "Leave utilization report viewer developed; displays report data correctly; applies filters; provides export options."
+            },
+            {
+                "Task ID": "TASK-051",
+                "Title": "Implement CSV Export for Reports",
+                "Description": "Add functionality to the backend reporting APIs to export generated reports as a CSV file.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 16,
+                "Definition of Done": "CSV export functionality implemented for both utilization and pending reports; generated CSV files are well-formatted."
+            },
+            {
+                "Task ID": "TASK-052",
+                "Title": "Implement PDF Export for Reports",
+                "Description": "Add functionality to the backend reporting APIs to export generated reports as a PDF file, ensuring proper formatting and pagination.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 24,
+                "Definition of Done": "PDF export functionality implemented for both utilization and pending reports; generated PDF files are readable and formatted correctly."
+            },
+            {
+                "Task ID": "TASK-053",
+                "Title": "Implement API for Pending Leave Requests Report (HR)",
+                "Description": "Develop the backend API endpoint to retrieve a list of all currently pending leave requests across the entire organization, with employee and manager details.",
+                "Task Type": "Backend Development",
+                "Estimated Hours": 28,
+                "Definition of Done": "`/api/hr/reports/pending-requests` endpoint implemented; returns comprehensive list of pending requests; unit tests pass."
+            },
+            {
+                "Task ID": "TASK-054",
+                "Title": "Develop Frontend Pending Leave Requests Report Viewer",
+                "Description": "Build the responsive frontend component to display the pending leave requests report data, including employee/manager details and export options.",
+                "Task Type": "Frontend Development",
+                "Estimated Hours": 26,
+                "Definition of Done": "Pending leave requests report viewer developed; displays all required information; includes export options."
+            },
+            {
+                "Task ID": "TASK-055",
+                "Title": "Optimize Database Queries for Reporting",
+                "Description": "Review and optimize database queries used by reporting APIs to ensure performance requirements are met, especially for large datasets.",
+                "Task Type": "Database",
+                "Estimated Hours": 16,
+                "Definition of Done": "All reporting queries reviewed and optimized; indexes added as needed; report generation times meet NFRs."
+            }
+        ]
+    },
+    "project_name": "Untitled Project"
+}
