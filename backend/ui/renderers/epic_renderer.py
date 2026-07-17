@@ -231,3 +231,4 @@ def render_epic(epic, index):
 
                 )
 
+        divider()

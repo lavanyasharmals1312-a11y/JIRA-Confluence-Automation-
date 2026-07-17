@@ -12,6 +12,8 @@ Return ONLY valid JSON.
 
 Do NOT include markdown.
 
+Do NOT include HTML tags (no <div>, <b>, <ul>, <li>, <br>, <p>, or any other markup). All text fields must be plain text only.
+
 Do NOT wrap the response inside triple backticks.
 
 The generated backlog should be implementation-ready for a software engineering team.
@@ -75,36 +77,33 @@ TASK-003
 IDs must never repeat.
 
 ------------------------------------------------------------
-JSON STRUCTURE
+PROJECT STRUCTURE
 ------------------------------------------------------------
 
-Return a SINGLE JSON object.
+Generate the hierarchy exactly as follows
 
-The root JSON object MUST contain EXACTLY these keys.
+Project
 
-project_name
+↓
 
-project_description
+Executive Summary
 
-executive_summary
+↓
 
-document_version
+Epics
 
-generated_by
+↓
 
-generated_on
+Features
 
-status
+↓
 
-epics
+User Stories
 
-Do NOT create another object called "Project".
+↓
 
-Do NOT rename any keys.
+Tasks
 
-Use snake_case exactly as written.
-
-All nested keys must exactly match the required schema.
 ------------------------------------------------------------
 EXECUTIVE SUMMARY
 ------------------------------------------------------------
@@ -354,5 +353,7 @@ Do not generate explanations.
 Do not generate comments.
 
 Do not generate markdown.
+
+Do not generate HTML tags of any kind. Every text field must be plain, unformatted text.
 
 The generated backlog should be suitable for direct review by Product Managers and immediate import into Jira after approval.

@@ -4,26 +4,16 @@ from pathlib import Path
 from dotenv import load_dotenv
 from google import genai
 
-# --------------------------------------------------
-# Load Local .env
-# --------------------------------------------------
-
+# Load local .env if present
 env_path = Path(__file__).resolve().parents[2] / ".env"
 load_dotenv(env_path)
 
-# --------------------------------------------------
-# Streamlit Support
-# --------------------------------------------------
-
+# Try importing Streamlit (works only inside the app)
 try:
     import streamlit as st
 except ImportError:
     st = None
 
-
-# ==================================================
-# GEMINI PROVIDER
-# ==================================================
 
 class GeminiProvider:
 
@@ -31,12 +21,13 @@ class GeminiProvider:
 
         api_key = os.getenv("GEMINI_API_KEY")
 
+        # If not found locally, try Streamlit secrets
         if (not api_key) and st is not None:
             api_key = st.secrets.get("GEMINI_API_KEY")
 
         if not api_key:
             raise ValueError(
-                "No Gemini API key found. Configure GEMINI_API_KEY in .env or Streamlit Secrets."
+                "No Gemini API key found. Configure GEMINI_API_KEY in .env (local) or Streamlit Secrets (cloud)."
             )
 
         self.client = genai.Client(
@@ -55,48 +46,31 @@ class GeminiProvider:
 
     def generate(self, prompt):
 
-        response = self.client.models.generate_content(
-
+        return self.client.models.generate_content(
             model=self.model,
-
-            contents=prompt,
-
-            config={
-                "response_mime_type": "application/json"
-            }
-
+            contents=prompt
         )
 
-        print("\n================ MODEL ================")
-        print(self.model)
-
-        print("\n================ RESPONSE ================")
-        print(response)
-
-        print("\n================ RESPONSE TEXT ================")
-        print(repr(response.text))
-
-        print("=========================================\n")
-
-        return response
-
-
-# ==================================================
-# AZURE
-# ==================================================
 
 class AzureProvider:
 
     def generate(self, prompt):
 
-        raise NotImplementedError(
-            "Azure OpenAI integration not implemented."
+        response = self.client.models.generate_content(
+            model=self.model,
+            contents=prompt
         )
 
+        print("\n================ RAW RESPONSE ================\n")
+        print(response)
+        print("\n==============================================\n")
 
-# ==================================================
-# CLAUDE
-# ==================================================
+        print("\n================ RESPONSE TEXT ===============\n")
+        print(getattr(response, "text", None))
+        print("\n==============================================\n")
+
+        return response
+
 
 class ClaudeProvider:
 
@@ -107,19 +81,15 @@ class ClaudeProvider:
         )
 
 
-# ==================================================
-# PROVIDER FACTORY
-# ==================================================
-
 def get_provider(provider_name):
 
     if provider_name == "Gemini":
         return GeminiProvider()
 
-    elif provider_name == "Azure OpenAI":
+    if provider_name == "Azure OpenAI":
         return AzureProvider()
 
-    elif provider_name == "Claude":
+    if provider_name == "Claude":
         return ClaudeProvider()
 
     raise ValueError(

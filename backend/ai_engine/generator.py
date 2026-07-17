@@ -28,11 +28,7 @@ def generate_backlog(
     full_prompt = f"""
 {prompt}
 
-------------------------------------------------------------
-
-REQUIREMENT DOCUMENT
-
-------------------------------------------------------------
+Requirement Document
 
 {requirement}
 """
@@ -47,45 +43,13 @@ REQUIREMENT DOCUMENT
                 full_prompt
             )
 
-            if response is None:
-
-                raise ValueError(
-                    "Gemini returned no response."
-                )
-
-            if not hasattr(response, "text"):
-
-                raise ValueError(
-                    "Gemini response has no text attribute."
-                )
-
-            if response.text is None:
-
-                raise ValueError(
-                    "Gemini returned a null response."
-                )
-
-            if not response.text.strip():
-
-                raise ValueError(
-                    "Gemini returned an empty response."
-                )
-
-            print("\n================ RAW GEMINI RESPONSE ================\n")
+            print("\n================ GEMINI =================")
             print(response.text)
-            print("\n=====================================================\n")
+            print("=========================================\n")
 
-            project = parse_gemini_response(
+            return parse_gemini_response(
                 response.text
             )
-
-            if not isinstance(project, dict):
-
-                raise ValueError(
-                    "Parsed response is not a JSON object."
-                )
-
-            return project
 
         except ServerError:
 
