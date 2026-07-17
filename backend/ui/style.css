@@ -1,0 +1,188 @@
+/* ------------------------------
+   Google Font
+-------------------------------*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+html,
+body,
+[class*="css"]{
+    font-family: "Inter", sans-serif;
+}
+
+/* ------------------------------
+   Background
+-------------------------------*/
+
+.stApp{
+
+    background:#F4F7FC;
+
+}
+
+/* ------------------------------
+   Sidebar
+-------------------------------*/
+
+section[data-testid="stSidebar"]{
+
+    background:white;
+    border-right:1px solid #E5E7EB;
+
+}
+
+/* ------------------------------
+   Buttons
+-------------------------------*/
+
+.stButton>button{
+
+    border-radius:10px;
+
+    border:none;
+
+    background:#2563EB;
+
+    color:white;
+
+    font-weight:600;
+
+    padding:10px 18px;
+
+    transition:.25s;
+
+}
+
+.stButton>button:hover{
+
+    background:#1D4ED8;
+
+    transform:translateY(-1px);
+
+}
+
+/* ------------------------------
+   Expanders
+-------------------------------*/
+
+div[data-testid="stExpander"]{
+
+    border-radius:14px;
+
+    border:1px solid #E2E8F0;
+
+    background:white;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.05);
+
+    margin-bottom:14px;
+
+}
+
+/* ------------------------------
+   Text Inputs
+-------------------------------*/
+
+input{
+
+    border-radius:8px !important;
+
+}
+
+/* ------------------------------
+   Text Areas
+-------------------------------*/
+
+textarea{
+
+    border-radius:8px !important;
+
+}
+
+/* ------------------------------
+   Metrics
+-------------------------------*/
+
+div[data-testid="metric-container"]{
+
+    background:white;
+
+    border-radius:14px;
+
+    padding:18px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.05);
+
+    border:1px solid #E2E8F0;
+
+}
+
+/* ------------------------------
+   Info Boxes
+-------------------------------*/
+
+div[data-baseweb="notification"]{
+
+    border-radius:10px;
+
+}
+
+/* ------------------------------
+   Horizontal Rule
+-------------------------------*/
+
+hr{
+
+    margin-top:25px;
+
+    margin-bottom:25px;
+
+}
+
+/* ------------------------------
+   Scrollbar
+-------------------------------*/
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#CBD5E1;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#94A3B8;
+
+}
+
+/* ------------------------------
+   Headers
+-------------------------------*/
+
+h1{
+
+    color:#1E3A8A;
+
+    font-weight:700;
+
+}
+
+h2{
+
+    color:#1E3A8A;
+
+}
+
+h3{
+
+    color:#334155;
+
+}
