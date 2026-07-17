@@ -194,15 +194,39 @@ def render_list(
 
         st.markdown(f"**{label}**")
 
-        if len(values) == 0:
+        if not values:
 
             st.caption("None")
 
         else:
 
-            for item in values:
+            bullet_html = """
+    <ul style="
+    padding-left:24px;
+    margin-top:8px;
+    margin-bottom:12px;
+    line-height:1.8;
+    ">
+    """
 
-                st.markdown(f"- {item}")
+            for item in values:
+                bullet_html += f"""
+    <li style="
+    white-space:normal;
+    word-break:normal;
+    overflow-wrap:break-word;
+    margin-bottom:8px;
+    ">
+    {item}
+    </li>
+    """
+
+            bullet_html += "</ul>"
+
+            st.markdown(
+                bullet_html,
+                unsafe_allow_html=True
+            )
 
 
 # ---------------------------------------------------
