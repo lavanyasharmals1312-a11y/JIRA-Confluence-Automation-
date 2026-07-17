@@ -1,7 +1,4 @@
 /* ---------- MAIN ---------- */
-body{
-    background:red !important;
-}
 .main {
     background: #5eabc9;
 }
@@ -176,18 +173,9 @@ hr{
 
 /* ---------- EXPANDERS ---------- */
 
-.streamlit-expanderHeader{
-
+[data-testid="stExpander"] summary{
     font-weight:600;
     border:1px solid #035c88;
-
     border-radius:16px;
-
-    box-shadow:0 6px 18px rgba(0,0,0,.06);
-
-    margin-bottom:18px;
-
-    overflow:hidden;
-
 }
 
