@@ -1,4 +1,5 @@
 /* ---------- MAIN ---------- */
+
 .main {
     background: #5eabc9;
 }
@@ -176,11 +177,11 @@ hr{
 .streamlit-expanderHeader{
 
     font-weight:600;
-    border:1px solid #035c88;
+    border:1px solid #1a6184;
 
     border-radius:16px;
 
-    box-shadow:0 6px 18px rgba(26, 158, 215, 0.507);
+    box-shadow:0 6px 18px rgba(0,0,0,.06);
 
     margin-bottom:18px;
 
