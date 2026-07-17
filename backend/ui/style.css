@@ -1,5 +1,7 @@
 /* ---------- MAIN ---------- */
-
+body{
+    background:red !important;
+}
 .main {
     background: #5eabc9;
 }
