@@ -57,7 +57,7 @@ font-size:34px;
 font-weight:800;
 color:white;
 ">
-RequirementsAI
+Requirement Studio
 </h1>
 
 <p style="
