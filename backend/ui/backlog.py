@@ -16,7 +16,6 @@ from backend.ui.renderers.project_renderer import (
     render_project
 )
 
-st.error("THIS IS THE NEW BACKLOG.PY")
 def show_backlog():
 
     st.title("Backlog Review")

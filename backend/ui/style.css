@@ -1,8 +1,9 @@
 /* ---------- MAIN ---------- */
 
-.stApp {
-    background-color: #00435d !important;
+.main {
+    background: #5eabc9;
 }
+
 
 /* ---------- HEADINGS ---------- */
 
@@ -23,7 +24,7 @@ h3 {
 
 [data-testid="metric-container"] {
 
-    background:rgb(249, 248, 248);
+    background:rgb(248, 245, 245);
 
     border:1px solid #E5E7EB;
 
