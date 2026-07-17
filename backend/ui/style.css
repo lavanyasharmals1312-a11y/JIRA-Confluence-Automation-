@@ -1,92 +1,48 @@
-/* ==========================================================
-   REQUIREMENTSAI - MODERN SAAS THEME
-   ========================================================== */
-
-
 /* ---------- MAIN ---------- */
 
-.stApp{
-    background:#F6F8FC;
+.main {
+    background: #5eabc9;
 }
 
 
 /* ---------- HEADINGS ---------- */
 
-h1{
+h1 {
     font-weight:700 !important;
-    color:#243447;
 }
 
-h2{
+h2 {
     font-weight:650 !important;
-    color:#243447;
 }
 
-h3{
+h3 {
     font-weight:600 !important;
-    color:#243447;
 }
 
 
-/* ---------- METRIC CARDS ---------- */
+/* ---------- METRICS ---------- */
 
-[data-testid="metric-container"]{
+[data-testid="metric-container"] {
 
-    background:white;
+    background:rgb(248, 245, 245);
 
-    border-left:6px solid #4A85BD;
+    border:1px solid #E5E7EB;
 
-    border-radius:16px;
+    border-radius:14px;
 
-    padding:20px;
+    padding:18px;
 
-    box-shadow:0 8px 18px rgba(0,0,0,.06);
-
-    border-top:none;
-    border-right:none;
-    border-bottom:none;
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
 
 }
 
 
-/* Metric Labels */
-
-[data-testid="metric-container"] [data-testid="stMetricLabel"]{
-
-    color:#6B7280;
-
-    font-size:14px;
-
-    font-weight:600;
-
-}
-
-
-/* Metric Values */
-
-[data-testid="metric-container"] [data-testid="stMetricValue"]{
-
-    color:#4A85BD;
-
-    font-size:40px;
-
-    font-weight:700;
-
-}
-
-
-/* ---------- TEXT INPUTS ---------- */
+/* ---------- TEXT INPUT ---------- */
 
 .stTextInput input,
-.stTextArea textarea,
-.stSelectbox div,
-.stNumberInput input{
+.stTextArea textarea{
 
-    border-radius:12px !important;
-
-    border:1px solid #D9E2EC !important;
-
-    background:white !important;
+    border-radius:10px !important;
 
 }
 
@@ -95,73 +51,56 @@ h3{
 
 .stButton>button{
 
-    border-radius:12px;
+    border-radius:10px;
 
-    height:46px;
+    height:45px;
 
     border:none;
 
     font-weight:600;
 
-    transition:all .25s ease;
-
 }
 
 .stButton>button:hover{
 
-    transform:translateY(-2px);
+    transform:translateY(-1px);
 
 }
 
 
-/* ==========================================================
-   SIDEBAR
-   ========================================================== */
+/* ---------- SIDEBAR ---------- */
+
+/* ---------- SIDEBAR ---------- */
 
 [data-testid="stSidebar"]{
-
     background:#4A85BD !important;
-
 }
 
 [data-testid="stSidebar"]>div:first-child{
-
     background:#4A85BD !important;
-
 }
-
 
 /* Divider */
 
 [data-testid="stSidebar"] hr{
-
     border-color:rgba(255,255,255,.18);
-
 }
 
-
-/* Sidebar Text */
+/* Sidebar text */
 
 [data-testid="stSidebar"] *{
-
     color:white;
-
 }
 
-
-/* Sidebar Buttons */
+/* Buttons */
 
 [data-testid="stSidebar"] .stButton{
-
     margin-bottom:10px;
-
 }
 
 [data-testid="stSidebar"] .stButton>button{
 
     width:100%;
-
-    height:48px;
 
     background:rgba(255,255,255,.12);
 
@@ -171,6 +110,8 @@ h3{
 
     border-radius:12px;
 
+    height:48px;
+
     font-weight:600;
 
     transition:all .25s ease;
@@ -179,21 +120,19 @@ h3{
 
 }
 
-
 /* Hover */
 
 [data-testid="stSidebar"] .stButton>button:hover{
 
     background:rgba(255,255,255,.22);
 
-    border-color:rgba(255,255,255,.30);
+    border-color:rgba(255,255,255,.28);
 
     transform:translateX(3px);
 
 }
 
-
-/* Click */
+/* Active click */
 
 [data-testid="stSidebar"] .stButton>button:active{
 
@@ -201,8 +140,7 @@ h3{
 
 }
 
-
-/* Focus */
+/* Keyboard focus */
 
 [data-testid="stSidebar"] .stButton>button:focus{
 
@@ -212,6 +150,7 @@ h3{
 
 }
 
+/* Labels */
 
 [data-testid="stSidebar"] label{
 
@@ -230,8 +169,6 @@ hr{
 
     margin-bottom:28px;
 
-    border-color:#E5E7EB;
-
 }
 
 
@@ -240,85 +177,5 @@ hr{
 .streamlit-expanderHeader{
 
     font-weight:600;
-
-}
-
-
-/* ---------- FILE UPLOADER ---------- */
-
-[data-testid="stFileUploader"]{
-
-    border:2px dashed #4A85BD;
-
-    border-radius:16px;
-
-    background:white;
-
-    padding:16px;
-
-}
-
-
-/* ---------- TABLES ---------- */
-
-table{
-
-    border-collapse:collapse;
-
-}
-
-thead{
-
-    background:#4A85BD;
-
-    color:white;
-
-}
-
-tbody tr:nth-child(even){
-
-    background:#F8FAFC;
-
-}
-
-
-/* ---------- TABS ---------- */
-
-.stTabs [role="tab"]{
-
-    border-radius:10px;
-
-    padding:10px 18px;
-
-}
-
-.stTabs [aria-selected="true"]{
-
-    background:#4A85BD;
-
-    color:white;
-
-}
-
-
-/* ---------- SCROLLBAR ---------- */
-
-::-webkit-scrollbar{
-
-    width:10px;
-
-}
-
-::-webkit-scrollbar-thumb{
-
-    background:#C7D4E6;
-
-    border-radius:10px;
-
-}
-
-::-webkit-scrollbar-thumb:hover{
-
-    background:#4A85BD;
 
 }
