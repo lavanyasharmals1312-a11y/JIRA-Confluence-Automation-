@@ -1,134 +1,303 @@
-/* ---------- MAIN ---------- */
+/* =====================================================
+   REQUIREMENTSAI - MODERN SAAS THEME
+   ===================================================== */
 
-.stApp {
-    background-color: #006e99 !important;
+:root{
+    --primary:#4A85BD;
+    --primary-dark:#3F79B1;
+    --primary-light:#6EA8DD;
+
+    --background:#F3F6FA;
+    --card:#FFFFFF;
+
+    --text:#243447;
+    --text-light:#6B7280;
+
+    --border:#E3E8EF;
+
+    --shadow:0 6px 20px rgba(0,0,0,.06);
+    --radius:16px;
 }
 
-/* ---------- HEADINGS ---------- */
+/* =====================================================
+   APP
+   ===================================================== */
 
-h1 {
-    font-weight:700 !important;
+.stApp{
+    background:var(--background);
+    color:var(--text);
 }
 
-h2 {
-    font-weight:650 !important;
+/* =====================================================
+   SIDEBAR
+   ===================================================== */
+
+section[data-testid="stSidebar"]{
+    background:var(--primary);
+    border:none;
 }
 
-h3 {
-    font-weight:600 !important;
+section[data-testid="stSidebar"] *{
+    color:white;
 }
 
+/* Sidebar buttons */
 
-/* ---------- METRICS ---------- */
+section[data-testid="stSidebar"] .stButton>button{
 
-[data-testid="metric-container"] {
+    width:100%;
 
-    background:rgb(249, 248, 248);
+    background:transparent;
 
-    border:1px solid #E5E7EB;
-
-    border-radius:14px;
-
-    padding:18px;
-
-    box-shadow:0 2px 10px rgba(0,0,0,.05);
-
-}
-
-
-/* ---------- TEXT INPUT ---------- */
-
-.stTextInput input,
-.stTextArea textarea{
-
-    border-radius:10px !important;
-
-}
-
-
-/* ---------- BUTTONS ---------- */
-
-.stButton>button{
-
-    border-radius:10px;
-
-    height:45px;
+    color:white;
 
     border:none;
 
+    border-radius:12px;
+
+    padding:12px;
+
     font-weight:600;
 
+    transition:.25s;
+}
+
+section[data-testid="stSidebar"] .stButton>button:hover{
+
+    background:rgba(255,255,255,.18);
+
+    transform:translateX(3px);
+}
+
+/* =====================================================
+   MAIN CONTENT
+   ===================================================== */
+
+[data-testid="stMain"]{
+
+    background:var(--background);
+
+    padding:2rem;
+}
+
+/* =====================================================
+   HEADINGS
+   ===================================================== */
+
+h1{
+
+    color:var(--text);
+
+    font-weight:800;
+
+    font-size:2.2rem;
+}
+
+h2{
+
+    color:var(--text);
+
+    font-weight:700;
+}
+
+h3{
+
+    color:var(--text);
+
+    font-weight:700;
+}
+
+/* =====================================================
+   CARDS
+   ===================================================== */
+
+div[data-testid="stVerticalBlock"]>div{
+
+    border-radius:var(--radius);
+}
+
+/* =====================================================
+   BUTTONS
+   ===================================================== */
+
+.stButton>button{
+
+    background:var(--primary);
+
+    color:white;
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:.65rem 1rem;
+
+    font-weight:600;
+
+    transition:.25s;
+
+    box-shadow:var(--shadow);
 }
 
 .stButton>button:hover{
 
-    transform:translateY(-1px);
+    background:var(--primary-dark);
 
+    transform:translateY(-2px);
 }
 
+/* =====================================================
+   INPUTS
+   ===================================================== */
 
-/* ---------- SIDEBAR ---------- */
+.stTextInput input,
 
-[data-testid="stSidebar"]{
+.stTextArea textarea,
 
-    background:#111827 !important;
+.stSelectbox div,
 
+.stNumberInput input{
+
+    border-radius:12px !important;
+
+    border:1px solid var(--border) !important;
+
+    background:white !important;
 }
 
-[data-testid="stSidebar"]>div:first-child{
+/* =====================================================
+   FILE UPLOADER
+   ===================================================== */
 
-    background:#111827 !important;
+[data-testid="stFileUploader"]{
 
+    border:2px dashed var(--primary);
+
+    border-radius:18px;
+
+    background:white;
+
+    padding:18px;
 }
 
-[data-testid="stSidebar"] hr{
+/* =====================================================
+   TABS
+   ===================================================== */
 
-    border-color:rgba(255,255,255,.12);
+.stTabs [role="tab"]{
 
-}
+    border-radius:12px;
 
-[data-testid="stSidebar"] .stButton>button{
-
-    width:100%;
-
-    background:#232733;
-
-    color:white;
-
-    border:1px solid #383d4b;
-
-    border-radius:10px;
-
-}
-
-[data-testid="stSidebar"] .stButton>button:hover{
-
-    background:#2d3445;
-
-}
-
-[data-testid="stSidebar"] label{
-
-    color:white;
-
-}
-
-
-/* ---------- DIVIDERS ---------- */
-
-hr{
-
-    margin-top:28px;
-
-    margin-bottom:28px;
-
-}
-
-
-/* ---------- EXPANDERS ---------- */
-
-.streamlit-expanderHeader{
+    padding:10px 20px;
 
     font-weight:600;
+}
 
+.stTabs [aria-selected="true"]{
+
+    background:var(--primary);
+
+    color:white;
+}
+
+/* =====================================================
+   TABLES
+   ===================================================== */
+
+table{
+
+    border-collapse:collapse;
+
+    border-radius:12px;
+
+    overflow:hidden;
+}
+
+thead{
+
+    background:var(--primary);
+
+    color:white;
+}
+
+tbody tr:nth-child(even){
+
+    background:#F8FAFC;
+}
+
+/* =====================================================
+   METRICS
+   ===================================================== */
+
+[data-testid="stMetric"]{
+
+    background:white;
+
+    padding:18px;
+
+    border-radius:16px;
+
+    box-shadow:var(--shadow);
+
+    border:1px solid var(--border);
+}
+
+/* =====================================================
+   EXPANDERS
+   ===================================================== */
+
+details{
+
+    border-radius:14px;
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    margin-bottom:10px;
+}
+
+/* =====================================================
+   ALERTS
+   ===================================================== */
+
+.stSuccess{
+
+    border-radius:12px;
+}
+
+.stInfo{
+
+    border-radius:12px;
+}
+
+.stWarning{
+
+    border-radius:12px;
+}
+
+.stError{
+
+    border-radius:12px;
+}
+
+/* =====================================================
+   SCROLLBAR
+   ===================================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#BFCFE4;
+
+    border-radius:10px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:var(--primary);
 }
