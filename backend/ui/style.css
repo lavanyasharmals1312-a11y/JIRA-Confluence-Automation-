@@ -189,3 +189,6 @@ hr{
 
 }
 
+[data-testid="stVerticalBlock"]{
+    border-left: 4px solid #4A85BD;
+}
