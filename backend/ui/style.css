@@ -22,17 +22,17 @@ h3 {
 
 /* ---------- METRICS ---------- */
 
-[data-testid="metric-container"] {
+[data-testid="metric-container"]{
 
-    background:rgb(248, 245, 245);
+    background:white;
 
-    border:1px solid #E5E7EB;
+    border-left:6px solid #4A85BD;
 
-    border-radius:14px;
+    border-radius:16px;
 
     padding:18px;
 
-    box-shadow:0 2px 10px rgba(0,0,0,.05);
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
 
 }
 
