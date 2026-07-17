@@ -70,47 +70,93 @@ h3 {
 
 /* ---------- SIDEBAR ---------- */
 
+/* ---------- SIDEBAR ---------- */
+
 [data-testid="stSidebar"]{
-
-    background:#111827 !important;
-
+    background:#4A85BD !important;
 }
 
 [data-testid="stSidebar"]>div:first-child{
-
-    background:#111827 !important;
-
+    background:#4A85BD !important;
 }
 
+/* Divider */
+
 [data-testid="stSidebar"] hr{
+    border-color:rgba(255,255,255,.18);
+}
 
-    border-color:rgba(255,255,255,.12);
+/* Sidebar text */
 
+[data-testid="stSidebar"] *{
+    color:white;
+}
+
+/* Buttons */
+
+[data-testid="stSidebar"] .stButton{
+    margin-bottom:10px;
 }
 
 [data-testid="stSidebar"] .stButton>button{
 
     width:100%;
 
-    background:#232733;
+    background:rgba(255,255,255,.12);
 
     color:white;
 
-    border:1px solid #383d4b;
+    border:1px solid rgba(255,255,255,.18);
 
-    border-radius:10px;
+    border-radius:12px;
+
+    height:48px;
+
+    font-weight:600;
+
+    transition:all .25s ease;
+
+    box-shadow:0 3px 10px rgba(0,0,0,.08);
 
 }
+
+/* Hover */
 
 [data-testid="stSidebar"] .stButton>button:hover{
 
-    background:#2d3445;
+    background:rgba(255,255,255,.22);
+
+    border-color:rgba(255,255,255,.28);
+
+    transform:translateX(3px);
 
 }
+
+/* Active click */
+
+[data-testid="stSidebar"] .stButton>button:active{
+
+    transform:scale(.98);
+
+}
+
+/* Keyboard focus */
+
+[data-testid="stSidebar"] .stButton>button:focus{
+
+    outline:none;
+
+    box-shadow:0 0 0 3px rgba(255,255,255,.25);
+
+}
+
+/* Labels */
 
 [data-testid="stSidebar"] label{
 
     color:white;
+
+    font-weight:500;
 
 }
 
