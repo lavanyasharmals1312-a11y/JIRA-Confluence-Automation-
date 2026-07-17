@@ -41,17 +41,33 @@ if "page" not in st.session_state:
 
 with st.sidebar:
     st.markdown(
-    """<div style="text-align:center;padding-top:10px;padding-bottom:10px;">
-    <div style="font-size:34px;font-weight:800;color:white;">
-    RequirementsAI
-    </div>
+"""
+<div style="
+text-align:center;
+padding:10px 0 20px 0;
+">
 
-    <div style="font-size:14px;color:rgba(255,255,255,.85);margin-top:6px;">
-    AI Requirements Intelligence Platform
-    </div>
-    </div>""",
-    unsafe_allow_html=True,
-    )
+<h1 style="
+margin:0;
+font-size:34px;
+font-weight:800;
+color:white;
+">
+RequirementsAI
+</h1>
+
+<p style="
+margin:6px 0 0 0;
+font-size:14px;
+color:rgba(255,255,255,.85);
+">
+AI Requirements Intelligence Platform
+</p>
+
+</div>
+""",
+unsafe_allow_html=True,
+)
 
     st.markdown("---")
 
