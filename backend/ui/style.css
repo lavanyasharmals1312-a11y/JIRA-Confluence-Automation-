@@ -173,9 +173,18 @@ hr{
 
 /* ---------- EXPANDERS ---------- */
 
-[data-testid="stExpander"] summary{
+.streamlit-expanderHeader{
+
     font-weight:600;
     border:1px solid #035c88;
+
     border-radius:16px;
+
+    box-shadow:0 6px 18px rgba(26, 158, 215, 0.507);
+
+    margin-bottom:18px;
+
+    overflow:hidden;
+
 }
 
