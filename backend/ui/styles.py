@@ -45,7 +45,11 @@ def load_css():
     --------------------------------------------------- */
 
     [data-testid="stSidebar"] {
-        background-color: #111827;
+    background: #111827 !important;
+    }
+
+    [data-testid="stSidebar"] > div:first-child {
+        background: #111827 !important;
     }
 
     /* Native Streamlit buttons (Dashboard, Upload, etc.) */

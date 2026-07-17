@@ -1,5 +1,6 @@
 import streamlit as st
-
+import os
+st.sidebar.write(os.path.abspath(__file__))
 # ---------------------------------------------------
 # PAGE CONFIG
 # ---------------------------------------------------
