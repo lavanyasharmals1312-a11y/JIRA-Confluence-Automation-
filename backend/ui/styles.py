@@ -4,13 +4,16 @@ from pathlib import Path
 
 def load_css():
 
-    css_path = Path(__file__).parent / "style.css"
+    css_file = Path(__file__).parent / "style.css"
 
-    if css_path.exists():
-        with open(css_path, encoding="utf-8") as f:
-            css = f.read()
+    if css_file.exists():
 
-        st.markdown(
-            f"<style>{css}</style>",
-            unsafe_allow_html=True
-        )
+        with open(css_file, encoding="utf-8") as f:
+
+            st.markdown(
+
+                f"<style>{f.read()}</style>",
+
+                unsafe_allow_html=True
+
+            )

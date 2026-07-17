@@ -5,8 +5,8 @@ import streamlit as st
 # ---------------------------------------------------
 
 st.set_page_config(
-    page_title="AI Requirements Intelligence Platform",
-    page_icon="📋",
+    page_title="RequirementsAI",
+    page_icon="🚀",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -23,7 +23,7 @@ from backend.ui.backlog import show_backlog
 from backend.ui.settings import show_settings
 
 # ---------------------------------------------------
-# LOAD CUSTOM CSS
+# LOAD CSS
 # ---------------------------------------------------
 
 load_css()
@@ -43,17 +43,45 @@ with st.sidebar:
 
     st.markdown(
         """
-        <h2 style='margin-bottom:0;'>📋 RequirementsAI</h2>
-        <p style='color:#64748B;margin-top:0;'>
-        AI Requirements Intelligence Platform
-        </p>
+        <div style="text-align:center;padding-top:10px;padding-bottom:10px;">
+
+            <div style="
+            font-size:34px;
+            font-weight:800;
+            color:white;
+            ">
+                RequirementsAI
+            </div>
+
+            <div style="
+            font-size:14px;
+            color:rgba(255,255,255,.85);
+            margin-top:6px;
+            ">
+                AI Requirements Intelligence Platform
+            </div>
+
+        </div>
         """,
         unsafe_allow_html=True,
     )
 
-    st.divider()
+    st.markdown("---")
 
-    st.markdown("### Workspace")
+    st.markdown(
+        """
+        <div style="
+        font-size:13px;
+        font-weight:700;
+        letter-spacing:1px;
+        color:rgba(255,255,255,.75);
+        margin-bottom:10px;
+        ">
+        WORKSPACE
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     if st.button("Dashboard", use_container_width=True):
         st.session_state.page = "Dashboard"
@@ -67,18 +95,73 @@ with st.sidebar:
     if st.button("Backlog Review", use_container_width=True):
         st.session_state.page = "Backlog Review"
 
-    st.divider()
+    st.markdown("<br>", unsafe_allow_html=True)
 
-    st.markdown("### System")
+    st.markdown(
+        """
+        <div style="
+        font-size:13px;
+        font-weight:700;
+        letter-spacing:1px;
+        color:rgba(255,255,255,.75);
+        margin-bottom:10px;
+        ">
+        SYSTEM
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     if st.button("Settings", use_container_width=True):
         st.session_state.page = "Settings"
 
-    st.divider()
+    st.markdown("---")
 
-    st.success(f"Current Page\n\n**{st.session_state.page}**")
+    st.markdown(
+        f"""
+        <div style="
+        background:rgba(255,255,255,.12);
+        padding:16px;
+        border-radius:14px;
+        ">
 
-    st.caption("Version 1.0.0")
+        <div style="
+        font-size:12px;
+        color:rgba(255,255,255,.75);
+        ">
+        CURRENT PAGE
+        </div>
+
+        <div style="
+        font-size:20px;
+        font-weight:700;
+        margin-top:6px;
+        color:white;
+        ">
+        {st.session_state.page}
+        </div>
+
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    st.markdown(
+        """
+        <div style="
+        text-align:center;
+        font-size:12px;
+        color:rgba(255,255,255,.65);
+        ">
+
+        Version 1.0.0
+
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 # ---------------------------------------------------
 # PAGE ROUTING
@@ -87,21 +170,16 @@ with st.sidebar:
 page = st.session_state.page
 
 if page == "Dashboard":
-
     show_dashboard()
 
 elif page == "Upload Document":
-
     show_upload()
 
 elif page == "Project History":
-
     show_project_history()
 
 elif page == "Backlog Review":
-
     show_backlog()
 
 elif page == "Settings":
-
     show_settings()

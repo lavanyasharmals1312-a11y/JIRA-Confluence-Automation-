@@ -16,23 +16,25 @@ def is_edit_mode():
 def section_heading(title):
     st.markdown(
         f"""
-<div style="
-padding:14px 18px;
-margin-top:20px;
-margin-bottom:12px;
-background:#EEF4FF;
-border-left:6px solid #2563EB;
-border-radius:10px;
-font-size:24px;
-font-weight:700;
-color:#1E3A8A;
-">
-📌 {title}
-</div>
-""",
+        <div style="
+            padding:16px 20px;
+            margin:24px 0 18px 0;
+            background:#F8FAFC;
+            border:1px solid #E2E8F0;
+            border-left:5px solid #2563EB;
+            border-radius:12px;
+        ">
+            <div style="
+                font-size:22px;
+                font-weight:700;
+                color:#0F172A;
+            ">
+                {title}
+            </div>
+        </div>
+        """,
         unsafe_allow_html=True,
     )
-
 
 def sub_heading(title):
     st.markdown(
@@ -226,23 +228,22 @@ margin-bottom:8px;
 
         else:
 
-            for item in values:
-
+           for item in values:
                 st.markdown(
                     f"""
-<div style="
-background:#F8FAFC;
-padding:10px 14px;
-border-left:4px solid #3B82F6;
-border-radius:8px;
-margin-bottom:8px;
-">
-✔ {item}
-</div>
-""",
+                    <div style="
+                        background:white;
+                        border:1px solid #E2E8F0;
+                        border-radius:10px;
+                        padding:12px 16px;
+                        margin-bottom:10px;
+                        box-shadow:0 2px 8px rgba(0,0,0,.03);
+                    ">
+                        {item}
+                    </div>
+                    """,
                     unsafe_allow_html=True,
                 )
-
 
 # ---------------------------------------------------
 # STATUS
@@ -251,16 +252,13 @@ margin-bottom:8px;
 def render_status():
 
     if st.session_state.get("approved", False):
-
-        st.success("✅ Approved")
+        st.success("Approved")
 
     elif st.session_state.get("edit_mode", False):
-
-        st.warning("✏ Editing")
+        st.warning("Editing")
 
     else:
-
-        st.info("📝 Draft")
+        st.info("Draft")
 
 
 # ---------------------------------------------------
