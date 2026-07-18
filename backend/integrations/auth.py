@@ -12,7 +12,9 @@ load_dotenv(env_path)
 def get_value(key):
 
     if key in st.secrets:
-        print(f"{key} loaded from Streamlit Secrets")
+        value = st.secrets[key]
+        print(f"{key} loaded from Streamlit Secrets: {value}")
+        return value
         return st.secrets[key]
 
     value = os.getenv(key)
