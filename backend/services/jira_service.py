@@ -113,10 +113,10 @@ Estimated Sprint
 
             for story in feature.get(
 
-                "user_stories",
+                "stories",
 
                 []
-
+                
             ):
 
                 print(
