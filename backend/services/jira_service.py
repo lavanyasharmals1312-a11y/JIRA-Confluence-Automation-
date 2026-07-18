@@ -7,14 +7,11 @@ client = JiraClient()
 def push_project(project):
 
     created = {
-
-        "epics": [],
-
-        "features": [],
-
-        "stories": []
-
-    }
+    "epics": [],
+    "features": [],
+    "stories": [],
+    "subtasks": []
+}
 
     for epic in project.get("epics", []):
 
@@ -116,7 +113,7 @@ Estimated Sprint
                 "stories",
 
                 []
-                
+
             ):
 
                 print(
@@ -207,10 +204,7 @@ Tasks
 
                 )
 
-                created["stories"].append(
-
-                    story_issue["key"]
-
-                )
+                created["stories"].append(story_issue["key"])
+                created["subtasks"].append(story_issue["key"])
 
     return created
