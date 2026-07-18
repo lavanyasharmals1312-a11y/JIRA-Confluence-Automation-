@@ -26,11 +26,8 @@ def push_project(project):
             summary=f"{epic['epic_id']} - {epic['title']}",
 
             description=epic.get(
-
-                "description",
-
+                "detailed_description",
                 ""
-
             ),
 
             issue_type="Epic"
