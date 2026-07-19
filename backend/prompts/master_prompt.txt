@@ -94,7 +94,7 @@ Expected Outcome
 EPICS
 ------------------------------------------------------------
 
-Generate between 2 and 6 Epics.
+Generate between 2 and 4 Epics.
 
 Each Epic must contain:
 
@@ -124,7 +124,7 @@ Success Metrics
 FEATURES
 ------------------------------------------------------------
 
-Each Epic must contain between 2 and 5 Features.
+Each Epic must contain 2 Features.
 
 Each Feature must contain:
 
@@ -154,7 +154,7 @@ Estimated Sprint
 USER STORIES
 ------------------------------------------------------------
 
-Each Feature must contain between 3 and 6 User Stories.
+Each Feature must contain 2 User Stories.
 
 Each Story must contain:
 
@@ -192,7 +192,7 @@ Acceptance Criteria
 TASKS
 ------------------------------------------------------------
 
-Each Story must contain between 3 and 6 Tasks.
+Each Story must contain 2 Tasks.
 
 Each Task must contain:
 
