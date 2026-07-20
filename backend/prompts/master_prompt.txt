@@ -239,8 +239,7 @@ Error Rate
 ============================================================
 EPICS
 ============================================================
-
-Exactly 2 Epics.
+Exactly 2 Epics
 
 Each Epic contains
 
@@ -250,6 +249,8 @@ Title
 
 Description
 
+Business Objective
+
 Business Value
 
 Priority
@@ -258,10 +259,21 @@ Owner
 
 Estimated Duration
 
+Scope
+
+Out Of Scope
+
+Assumptions
+
+Dependencies
+
+Risks
+
+Success Metrics
+
 Acceptance Criteria
 
 Features
-
 ============================================================
 FEATURES
 ============================================================
@@ -284,12 +296,19 @@ Owner
 
 Estimated Sprint
 
+Functional Requirements
+
+Non Functional Requirements
+
+Technical Notes
+
+Dependencies
+
 Business Rules
 
 Acceptance Criteria
 
 User Stories
-
 ============================================================
 USER STORIES
 ============================================================
@@ -316,6 +335,14 @@ Story Points
 
 Estimated Effort
 
+Assigned Team
+
+Labels
+
+Preconditions
+
+Postconditions
+
 Business Rules
 
 Acceptance Criteria
@@ -336,6 +363,8 @@ Task ID
 Title
 
 Description
+
+Task Type
 
 Estimated Hours
 
@@ -465,6 +494,20 @@ Return ONLY JSON.
 
       "estimated_duration": "",
 
+      "business_objective": "",
+
+      "scope": [],
+
+      "out_of_scope": [],
+
+      "assumptions": [],
+
+      "dependencies": [],
+
+      "risks": [],
+
+      "success_metrics": [],
+
       "acceptance_criteria": [],
 
       "features": [
@@ -484,6 +527,14 @@ Return ONLY JSON.
           "owner": "",
 
           "estimated_sprint": "",
+
+          "functional_requirements": [],
+
+          "non_functional_requirements": [],
+
+          "technical_notes": [],
+
+          "dependencies": [],
 
           "business_rules": [],
 
@@ -511,6 +562,14 @@ Return ONLY JSON.
 
               "estimated_effort": "",
 
+              "assigned_team": "",
+
+              "labels": [],
+
+              "preconditions": [],
+
+              "postconditions": [],
+
               "business_rules": [],
 
               "acceptance_criteria": [],
@@ -526,6 +585,8 @@ Return ONLY JSON.
                   "title": "",
 
                   "description": "",
+
+                  "task_type": "",
 
                   "estimated_hours": 0,
 
@@ -551,6 +612,25 @@ Return ONLY JSON.
 
 }
 
+============================================================
+SCHEMA RULES
+============================================================
+
+Every field defined in the JSON schema is mandatory.
+
+Never omit any key.
+
+If information cannot be inferred, generate a realistic value.
+
+Never return null.
+
+Never remove arrays.
+
+Never replace arrays with empty strings.
+
+Return all keys exactly as defined in the schema.
+
+Populate every field with meaningful content whenever possible.
 ============================================================
 VALIDATION RULES
 ============================================================
