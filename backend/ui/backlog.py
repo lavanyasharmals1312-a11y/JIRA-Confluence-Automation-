@@ -316,16 +316,18 @@ Tasks : {tasks}
                     )
 
                 st.success(
-                    f"""
+    f"""
 Backlog Published Successfully
 
 Epics : {len(result['epics'])}
 
+Features : {len(result['features'])}
+
 Stories : {len(result['stories'])}
 
-Tasks : {len(result['subtasks'])}
+Tasks : {len(result['tasks'])}
 """
-                )
+            )
 
                 st.session_state.confirm_push = False
 
