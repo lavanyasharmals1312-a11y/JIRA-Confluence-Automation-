@@ -3,6 +3,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 from google import genai
+from google.genai import types
 
 # Load local .env if present
 env_path = Path(__file__).resolve().parents[2] / ".env"
@@ -23,16 +24,17 @@ class GeminiProvider:
 
         # If not found locally, try Streamlit secrets
         if (not api_key) and st is not None:
-            api_key = st.secrets.get("GEMINI_API_KEY")
+            try:
+                api_key = st.secrets.get("GEMINI_API_KEY")
+            except Exception:
+                pass
 
         if not api_key:
             raise ValueError(
                 "No Gemini API key found. Configure GEMINI_API_KEY in .env (local) or Streamlit Secrets (cloud)."
             )
 
-        self.client = genai.Client(
-            api_key=api_key
-        )
+        self.client = genai.Client(api_key=api_key)
 
         self.model = (
             os.getenv("GEMINI_MODEL")
@@ -46,10 +48,76 @@ class GeminiProvider:
 
     def generate(self, prompt):
 
-        return self.client.models.generate_content(
+        print("\n================ GEMINI MODEL ================\n")
+        print(self.model)
+
+        print("\n================ PROMPT LENGTH ================\n")
+        print(len(prompt))
+
+        response = self.client.models.generate_content(
             model=self.model,
-            contents=prompt
+            contents=prompt,
+            config=types.GenerateContentConfig(
+                temperature=0.2,
+                response_mime_type="application/json"
+            )
         )
+
+        print("\n================ RESPONSE LENGTH ================\n")
+
+        try:
+            print(len(response.text))
+        except Exception:
+            print("Unable to determine response length.")
+
+        print("\n================ RESPONSE TEXT ================\n")
+
+        try:
+            print(response.text)
+        except Exception as e:
+            print("Unable to print response.text")
+            print(e)
+
+        print("\n================ FULL RESPONSE OBJECT ================\n")
+
+        print(response)
+
+        print("\n================ CANDIDATES ================\n")
+
+        try:
+            print(response.candidates)
+        except Exception as e:
+            print(e)
+
+        print("\n================ USAGE METADATA ================\n")
+
+        try:
+            print(response.usage_metadata)
+        except Exception as e:
+            print(e)
+
+        print("\n================ FINISH REASON ================\n")
+
+        try:
+            print(response.candidates[0].finish_reason)
+        except Exception as e:
+            print(e)
+
+        # Save raw response to disk
+        try:
+            with open(
+                "gemini_raw_response.json",
+                "w",
+                encoding="utf-8"
+            ) as f:
+                f.write(response.text)
+
+            print("\nSaved raw response to gemini_raw_response.json\n")
+
+        except Exception as e:
+            print("Could not save response:", e)
+
+        return response
 
 
 class AzureProvider:

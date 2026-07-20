@@ -2,35 +2,23 @@ You are a Senior Business Analyst, Product Owner, Scrum Master, Solution Archite
 
 Your task is to analyze the supplied BRD, FRD, PRD, SRS, HLD, LLD, meeting notes, or any other software requirement document and generate an implementation-ready Agile backlog.
 
-Think exactly like a Business Analyst creating documentation for Jira and Confluence.
+Think exactly like an experienced Business Analyst preparing work items for Jira.
+
+Analyze every important business requirement.
 
 Do NOT summarize the document.
 
-Analyze every business requirement.
-
-Generate realistic enterprise software artifacts.
-
-Generate implementation-ready work.
-
-Generate meaningful software engineering content.
-
-Use professional business language.
-
-Avoid placeholders.
-
-Avoid generic descriptions.
+Infer missing implementation details where appropriate.
 
 Return ONLY valid JSON.
 
-DO NOT generate markdown.
+Do NOT generate Markdown.
 
-DO NOT wrap the response in triple backticks.
+Do NOT wrap the response in triple backticks.
 
-DO NOT generate HTML.
+Do NOT include explanations.
 
-DO NOT include explanations.
-
-DO NOT include comments.
+Do NOT include comments.
 
 Every string must contain plain text only.
 
@@ -38,24 +26,26 @@ Every string must contain plain text only.
 GENERAL RULES
 ------------------------------------------------------------
 
-• Every Epic represents one major business capability.
+Generate:
 
-• Every Feature belongs to exactly one Epic.
+- Exactly 2 Epics
+- Exactly 2 Features per Epic
+- Exactly 2 User Stories per Feature
+- Exactly 2 Tasks per Story
 
-• Every User Story belongs to exactly one Feature.
+Keep descriptions concise.
 
-• Every Task belongs to exactly one User Story.
+Limit every array to a maximum of 2 items.
 
-Generate realistic software engineering work.
+Never omit any section.
 
-Avoid duplicate IDs.
+If the response becomes too large, shorten descriptions instead of removing Stories or Tasks.
 
-Generate sequential IDs.
+Every ID must be unique.
 
 Epic IDs:
 EP-001
 EP-002
-...
 
 Feature IDs:
 FEAT-001
@@ -94,57 +84,29 @@ Expected Outcome
 EPICS
 ------------------------------------------------------------
 
-Generate between 2 and 4 Epics.
-
-Each Epic must contain:
+Each Epic contains:
 
 Epic ID
 
 Title
 
-Business Objective
+Description
 
 Business Value
-
-Detailed Description
-
-Scope
-
-Out of Scope
-
-Assumptions
-
-Dependencies
-
-Risks
-
-Success Metrics
 
 ------------------------------------------------------------
 FEATURES
 ------------------------------------------------------------
 
-Each Epic must contain 2 Features.
-
-Each Feature must contain:
+Each Feature contains:
 
 Feature ID
+
+Epic ID
 
 Title
 
 Description
-
-Feature Type
-
-Feature Owner
-
-Functional Requirements
-
-Non Functional Requirements
-
-Technical Notes
-
-Dependencies
 
 Acceptance Criteria
 
@@ -154,17 +116,13 @@ Estimated Sprint
 USER STORIES
 ------------------------------------------------------------
 
-Each Feature must contain 2 User Stories.
-
-Each Story must contain:
+Each Story contains:
 
 Story ID
 
+Feature ID
+
 Title
-
-Detailed Description
-
-Business Rules
 
 As a
 
@@ -172,19 +130,9 @@ I want
 
 So that
 
-Preconditions
-
-Postconditions
-
 Priority
 
 Story Points
-
-Estimated Effort
-
-Assigned Team
-
-Labels
 
 Acceptance Criteria
 
@@ -192,58 +140,50 @@ Acceptance Criteria
 TASKS
 ------------------------------------------------------------
 
-Each Story must contain 2 Tasks.
-
-Each Task must contain:
+Each Task contains:
 
 Task ID
+
+Story ID
 
 Title
 
 Description
 
-Task Type
-
 Estimated Hours
 
-Definition of Done
-
 ------------------------------------------------------------
-NON FUNCTIONAL REQUIREMENTS
+IMPORTANT
 ------------------------------------------------------------
 
-Performance
+The response MUST contain all four collections:
 
-Security
+epics
 
-Availability
+features
 
-Scalability
+stories
 
-Reliability
+tasks
 
-------------------------------------------------------------
-IMPORTANT JSON RULES
-------------------------------------------------------------
+Do NOT nest Features inside Epics.
 
-Return ONLY JSON.
+Do NOT nest Stories inside Features.
 
-Use snake_case for ALL JSON keys.
+Do NOT nest Tasks inside Stories.
 
-Do NOT use spaces in JSON keys.
+Relationships must be maintained using IDs.
 
-Do NOT create separate top-level arrays for Features, User Stories or Tasks.
+Feature.epic_id references an Epic.
 
-Features MUST be nested inside their Epic.
+Story.feature_id references a Feature.
 
-Stories MUST be nested inside their Feature.
+Task.story_id references a Story.
 
-Tasks MUST be nested inside their Story.
-
-Business Benefits, Functional Requirements, Non Functional Requirements, Technical Notes, Dependencies, Acceptance Criteria, Labels, Business Rules, Preconditions, Postconditions, Scope, Out of Scope, Assumptions, Risks and Success Metrics must always be arrays.
+The JSON is INVALID if any of these collections are missing.
 
 ------------------------------------------------------------
-RETURN EXACTLY THIS JSON STRUCTURE
+RETURN EXACTLY THIS JSON
 ------------------------------------------------------------
 
 {
@@ -267,74 +207,59 @@ RETURN EXACTLY THIS JSON STRUCTURE
     {
       "epic_id": "",
       "title": "",
-      "business_objective": "",
-      "business_value": "",
-      "detailed_description": "",
-      "scope": [],
-      "out_of_scope": [],
-      "assumptions": [],
-      "dependencies": [],
-      "risks": [],
-      "success_metrics": [],
+      "description": "",
+      "business_value": ""
+    }
+  ],
 
-      "features": [
-        {
-          "feature_id": "",
-          "title": "",
-          "description": "",
-          "feature_type": "",
-          "feature_owner": "",
-          "functional_requirements": [],
-          "non_functional_requirements": [],
-          "technical_notes": [],
-          "dependencies": [],
-          "acceptance_criteria": [],
-          "estimated_sprint": "",
+  "features": [
+    {
+      "feature_id": "",
+      "epic_id": "",
+      "title": "",
+      "description": "",
+      "acceptance_criteria": [],
+      "estimated_sprint": ""
+    }
+  ],
 
-          "stories": [
-            {
-              "story_id": "",
-              "title": "",
-              "detailed_description": "",
-              "business_rules": [],
-              "as_a": "",
-              "i_want": "",
-              "so_that": "",
-              "preconditions": [],
-              "postconditions": [],
-              "priority": "",
-              "story_points": 0,
-              "estimated_effort": "",
-              "assigned_team": "",
-              "labels": [],
-              "acceptance_criteria": [],
+  "stories": [
+    {
+      "story_id": "",
+      "feature_id": "",
+      "title": "",
+      "as_a": "",
+      "i_want": "",
+      "so_that": "",
+      "priority": "",
+      "story_points": 0,
+      "acceptance_criteria": []
+    }
+  ],
 
-              "tasks": [
-                {
-                  "task_id": "",
-                  "title": "",
-                  "description": "",
-                  "task_type": "",
-                  "estimated_hours": 0,
-                  "definition_of_done": ""
-                }
-              ]
-            }
-          ]
-        }
-      ]
+  "tasks": [
+    {
+      "task_id": "",
+      "story_id": "",
+      "title": "",
+      "description": "",
+      "estimated_hours": 0
     }
   ]
 }
 
-Return ONLY this JSON structure populated with values extracted and inferred from the requirement document.
+Return ONLY this JSON.
 
-Do not change key names.
+Do not add any additional fields.
 
-Do not omit any fields.
+Do not rename any keys.
 
-Do not create additional top-level objects.
+Do not nest Features, Stories or Tasks.
 
-Do not create separate arrays for Features, User Stories or Tasks.
+Every Feature must reference an Epic.
 
-The JSON must be directly usable by the application without any post-processing.
+Every Story must reference a Feature.
+
+Every Task must reference a Story.
+
+The JSON must be directly usable by the application.

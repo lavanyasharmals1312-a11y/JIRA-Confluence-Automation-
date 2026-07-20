@@ -232,17 +232,26 @@ class JiraClient:
 
         raise Exception(response.text)
     
-def get_create_metadata(self):
-    url = (
-        f"{self.base_url}/rest/api/3/issue/createmeta"
-        f"?projectKeys={self.project_key}&expand=projects.issuetypes"
-    )
+        raise Exception(response.text)
 
-    response = requests.get(
-        url,
-        headers=self.headers,
-        auth=self.auth
-    )
+    # -------------------------------------------------
+    # Get Create Metadata
+    # -------------------------------------------------
 
-    print("Status:", response.status_code)
-    print(response.text)
+    def get_create_metadata(self):
+
+        url = (
+            f"{self.base_url}/rest/api/3/issue/createmeta"
+            f"?projectKeys={self.project_key}&expand=projects.issuetypes"
+        )
+
+        response = requests.get(
+            url,
+            headers=self.headers,
+            auth=self.auth
+        )
+
+        print("Status:", response.status_code)
+        print(response.text)
+
+        return response.json()
