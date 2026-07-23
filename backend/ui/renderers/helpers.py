@@ -19,7 +19,19 @@ def is_edit_mode():
 
 def section_heading(title):
 
-    st.markdown(f"## {title}")
+    st.markdown(
+        f"""
+<h3 style="
+margin-top:10px;
+margin-bottom:10px;
+font-size:28px;
+font-weight:700;
+">
+{title}
+</h3>
+""",
+        unsafe_allow_html=True,
+    )
 
 
 def sub_heading(title):
@@ -59,9 +71,20 @@ def render_text(
 
     else:
 
-        st.markdown(f"**{label}**")
+        st.markdown(
+    f"""
+<div style="margin-bottom:10px;">
+    <div style="font-weight:600;font-size:15px;">
+        {label}
+    </div>
+    <div style="font-size:15px;margin-top:2px;">
+        {value}
+    </div>
+</div>
+""",
+    unsafe_allow_html=True,
+)
 
-        st.write(value)
 
 
 # ---------------------------------------------------
@@ -102,9 +125,6 @@ def render_textarea(
 
         st.markdown(f"**{label}**")
 
-        st.write(value)
-
-
 # ---------------------------------------------------
 # NUMBER
 # ---------------------------------------------------
@@ -138,9 +158,6 @@ def render_number(
     else:
 
         st.markdown(f"**{label}**")
-
-        st.write(value)
-
 
 # ---------------------------------------------------
 # LIST
@@ -202,10 +219,10 @@ def render_list(
 
             bullet_html = """
     <ul style="
-    padding-left:24px;
-    margin-top:8px;
-    margin-bottom:12px;
-    line-height:1.8;
+    padding-left:20px;
+    margin-top:4px;
+    margin-bottom:6px;
+    line-height:1.4;
     ">
     """
 
@@ -215,7 +232,7 @@ def render_list(
     white-space:normal;
     word-break:normal;
     overflow-wrap:break-word;
-    margin-bottom:8px;
+    margin-bottom:4px;
     ">
     {item}
     </li>
@@ -278,4 +295,5 @@ def render_status():
 
 def divider():
 
+    st.markdown("<div style='margin:10px 0'></div>", unsafe_allow_html=True)
     st.divider()

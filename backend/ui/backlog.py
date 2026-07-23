@@ -166,6 +166,31 @@ def show_backlog():
 
                 st.rerun()
 
+
+    # -------------------------------------------------
+    # DOWNLOAD PDF
+    # -------------------------------------------------
+
+    st.divider()
+
+    pdf_path = generate_pdf(project)
+
+    with open(pdf_path, "rb") as pdf:
+
+        st.download_button(
+
+            "Download PDF",
+
+            data=pdf,
+
+            file_name=pdf_path.name,
+
+            mime="application/pdf",
+
+            width="stretch"
+
+        )
+
     # -------------------------------------------------
     # SAVE CHANGES
     # -------------------------------------------------
@@ -174,65 +199,33 @@ def show_backlog():
 
         st.divider()
 
-        c1, c2 = st.columns(2)
+        if st.button(
 
-        with c1:
+            "Save Changes",
 
-            if st.button(
+            type="primary",
 
-                "Save Changes",
+            width="stretch"
 
-                type="primary",
+        ):
 
-                width="stretch"
+            save_existing_project(
 
-            ):
+                project,
 
-                save_existing_project(
+                filepath
 
-                    project,
+            )
 
-                    filepath
+            st.success(
 
-                )
+                "Changes saved successfully."
 
-                st.success(
+            )
 
-                    "Changes saved successfully."
+            st.session_state.edit_mode = False
 
-                )
-
-                st.session_state.edit_mode = False
-
-                st.rerun()
-
-        with c2:
-
-            pdf_path = generate_pdf(project)
-
-            with open(
-
-                pdf_path,
-
-                "rb"
-
-            ) as pdf:
-
-                st.download_button(
-
-                    "Download PDF",
-
-                    data=pdf,
-
-                    file_name=pdf_path.name,
-
-                    mime="application/pdf",
-
-                    width="stretch"
-
-                )
-
-    st.divider()
+            st.rerun()
     # -------------------------------------------------
     # APPROVED
     # -------------------------------------------------
@@ -248,32 +241,32 @@ def show_backlog():
         )
 
         st.info(
-            f"""
-Project : {project.get('project_name','Project')}
+                f"""
+    Project : {project.get('project_name','Project')}
 
-Epics : {epics}
+    Epics : {epics}
 
-Features : {features}
+    Features : {features}
 
-Stories : {stories}
+    Stories : {stories}
 
-Tasks : {tasks}
-"""
-        )
+    Tasks : {tasks}
+    """
+            )
 
         if st.button(
 
-            "Push to Jira",
+                "Push to Jira",
 
-            type="primary",
+                type="primary",
 
-            width="stretch"
+                width="stretch"
 
-        ):
+            ):
 
-            st.session_state.confirm_push = True
+                st.session_state.confirm_push = True
 
-            st.rerun()
+                st.rerun()
 
     # -------------------------------------------------
     # CONFIRMATION

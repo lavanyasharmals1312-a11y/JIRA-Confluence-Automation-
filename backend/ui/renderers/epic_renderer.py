@@ -19,7 +19,7 @@ def render_epic(epic, index):
 
         f"{epic.get('epic_id','EP')} • {epic.get('title','Epic')}",
 
-        expanded=True
+        expanded=False
 
     ):
 
