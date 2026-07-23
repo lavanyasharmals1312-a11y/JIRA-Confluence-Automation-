@@ -15,6 +15,43 @@ from backend.services.pdf_service import (
 from backend.ui.renderers.project_renderer import (
     render_project
 )
+@st.dialog("Confirm Publish")
+def confirm_publish_dialog(project):
+
+    st.write(
+        "Are you sure you want to publish this backlog to Jira?"
+    )
+
+    c1, c2 = st.columns(2)
+
+    with c1:
+
+        if st.button("Publish", type="primary"):
+
+            from backend.services.jira_service import push_project
+
+            with st.spinner("Publishing backlog..."):
+
+                result = push_project(project)
+
+            st.success(
+                f"""
+Backlog Published Successfully
+
+Epics : {len(result['epics'])}
+Features : {len(result['features'])}
+Stories : {len(result['stories'])}
+Tasks : {len(result['tasks'])}
+"""
+            )
+
+            st.rerun()
+
+    with c2:
+
+        if st.button("Cancel"):
+
+            st.rerun()
 
 def show_backlog():
 
@@ -45,10 +82,6 @@ def show_backlog():
     if "approved" not in st.session_state:
 
         st.session_state.approved = False
-
-    if "confirm_push" not in st.session_state:
-
-        st.session_state.confirm_push = False
 
     # -------------------------------------------------
     # METRICS
@@ -255,90 +288,12 @@ def show_backlog():
             )
 
         if st.button(
+            "Push to Jira",
+            type="primary",
+            width="stretch"
+        ):
 
-                "Push to Jira",
-
-                type="primary",
-
-                width="stretch"
-
-            ):
-
-                st.session_state.confirm_push = True
-
-                st.rerun()
-
-    # -------------------------------------------------
-    # CONFIRMATION
-    # -------------------------------------------------
-
-    if st.session_state.confirm_push:
-
-        st.warning(
-
-            "Are you sure you want to publish this backlog to Jira?"
-
-        )
-
-        c1, c2 = st.columns(2)
-
-        with c1:
-
-            if st.button(
-
-                "Confirm",
-
-                type="primary",
-
-                width="stretch"
-
-            ):
-
-                from backend.services.jira_service import (
-                    push_project
-                )
-
-                with st.spinner(
-
-                    "Publishing backlog..."
-
-                ):
-
-                    result = push_project(
-                        project
-                    )
-
-                st.success(
-    f"""
-Backlog Published Successfully
-
-Epics : {len(result['epics'])}
-
-Features : {len(result['features'])}
-
-Stories : {len(result['stories'])}
-
-Tasks : {len(result['tasks'])}
-"""
-            )
-
-                st.session_state.confirm_push = False
-
-        with c2:
-
-            if st.button(
-
-                "Cancel",
-
-                width="stretch"
-
-            ):
-
-                st.session_state.confirm_push = False
-
-                st.rerun()
-
-    st.divider()
+            confirm_publish_dialog(project)
 
     # -------------------------------------------------
     # GENERATE NEW BACKLOG
@@ -355,8 +310,6 @@ Tasks : {len(result['tasks'])}
         st.session_state.edit_mode = False
 
         st.session_state.approved = False
-
-        st.session_state.confirm_push = False
 
         st.session_state.page = "Upload Document"
 

@@ -123,8 +123,19 @@ def render_textarea(
 
     else:
 
-        st.markdown(f"**{label}**")
-
+        st.markdown(
+            f"""
+    <div style="margin-bottom:10px;">
+        <div style="font-weight:600;font-size:15px;">
+            {label}
+        </div>
+        <div style="font-size:15px;margin-top:2px;line-height:1.5;">
+            {value}
+        </div>
+    </div>
+    """,
+            unsafe_allow_html=True,
+        )
 # ---------------------------------------------------
 # NUMBER
 # ---------------------------------------------------
@@ -157,7 +168,19 @@ def render_number(
 
     else:
 
-        st.markdown(f"**{label}**")
+        st.markdown(
+            f"""
+    <div style="margin-bottom:10px;">
+        <div style="font-weight:600;font-size:15px;">
+            {label}
+        </div>
+        <div style="font-size:15px;margin-top:2px;">
+            {value}
+        </div>
+    </div>
+    """,
+            unsafe_allow_html=True,
+        )
 
 # ---------------------------------------------------
 # LIST
