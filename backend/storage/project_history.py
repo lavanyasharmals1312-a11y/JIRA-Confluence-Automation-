@@ -1,8 +1,6 @@
-import os
 import json
-
-
 from pathlib import Path
+from datetime import datetime
 
 OUTPUT_FOLDER = (
     Path(__file__).resolve().parents[1] / "outputs"
@@ -13,25 +11,17 @@ def get_project_history():
 
     history = []
 
-    if not os.path.exists(OUTPUT_FOLDER):
+    if not OUTPUT_FOLDER.exists():
         return history
 
-    files = sorted(
-        os.listdir(OUTPUT_FOLDER)
-    )
-
-    for file in files:
-
-        if not file.endswith(".json"):
-            continue
-
-        path = os.path.join(
-            OUTPUT_FOLDER,
-            file
-        )
+    for file in sorted(
+        OUTPUT_FOLDER.glob("project_*.json"),
+        key=lambda f: f.stat().st_mtime,
+        reverse=True
+    ):
 
         with open(
-            path,
+            file,
             "r",
             encoding="utf-8"
         ) as f:
@@ -40,14 +30,20 @@ def get_project_history():
 
         history.append(
             {
-                "file": file,
-                "project_name": data.get(
+                "Project": data.get(
                     "project_name",
-                    "Untitled"
+                    "Untitled Project"
                 ),
-                "epics": len(
+                "Status": data.get(
+                    "status",
+                    "Generated"
+                ),
+                "Epics": len(
                     data.get("epics", [])
-                )
+                ),
+                "Last Updated": datetime.fromtimestamp(
+                    file.stat().st_mtime
+                ).strftime("%d %b %Y %H:%M")
             }
         )
 

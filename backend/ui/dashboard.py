@@ -2,7 +2,9 @@ import streamlit as st
 from backend.storage.latest_project import (
     load_latest_project
 )
-
+from backend.storage.project_history import (
+    get_project_history
+)
 from backend.utils.backlog_metrics import (
     get_backlog_metrics
 )
@@ -45,23 +47,10 @@ def show_dashboard():
 
     st.subheader("Recent Projects")
 
+    history = get_project_history()
+
     st.dataframe(
-        [
-            {
-                "Project":"Banking Portal",
-                "Status":"Generated",
-                "Last Updated":"Today"
-            },
-            {
-                "Project":"Healthcare Platform",
-                "Status":"Reviewed",
-                "Last Updated":"Yesterday"
-            },
-            {
-                "Project":"ERP System",
-                "Status":"Pending Approval",
-                "Last Updated":"2 Days Ago"
-            }
-        ],
-        use_container_width=True
+        history,
+        use_container_width=True,
+        hide_index=True
     )

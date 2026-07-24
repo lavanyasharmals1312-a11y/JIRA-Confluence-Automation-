@@ -9,7 +9,10 @@ class JiraClient:
 
     def __init__(self):
 
-        creds = get_jira_credentials()
+       def __init__(self, creds=None):
+
+        if creds is None:
+            creds = get_jira_credentials()
 
         self.base_url = creds["base_url"]
         self.email = creds["email"]

@@ -1,6 +1,5 @@
 import streamlit as st
 import os
-st.sidebar.write(os.path.abspath(__file__))
 # ---------------------------------------------------
 # PAGE CONFIG
 # ---------------------------------------------------
@@ -24,8 +23,7 @@ from backend.ui.dashboard import show_dashboard
 from backend.ui.upload import show_upload
 from backend.ui.project_history import show_project_history
 from backend.ui.backlog import show_backlog
-from backend.ui.settings import show_settings
-
+from backend.ui.integrations import show_integrations
 # ---------------------------------------------------
 # LOAD CSS
 # ---------------------------------------------------
@@ -119,8 +117,8 @@ unsafe_allow_html=True,
         unsafe_allow_html=True,
     )
 
-    if st.button("Settings", use_container_width=True):
-        st.session_state.page = "Settings"
+    if st.button("Integrations", use_container_width=True):
+        st.session_state.page = "Integrations"
 
     st.markdown("---")
 
@@ -188,5 +186,5 @@ elif page == "Project History":
 elif page == "Backlog Review":
     show_backlog()
 
-elif page == "Settings":
-    show_settings()
+elif page == "Integrations":
+    show_integrations()
