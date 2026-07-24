@@ -117,17 +117,17 @@ def render_project(project):
 
     render_textarea(
 
-        summary,
+    summary,
 
-        "proposed_solution",
+    "project_vision",
 
-        "Proposed Solution",
+    "Project Vision",
 
-        "proposed_solution",
+    "project_vision",
 
-        height=120
+    height=120
 
-    )
+)
 
     render_list(
 

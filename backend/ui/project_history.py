@@ -1,23 +1,22 @@
 import streamlit as st
 
+from backend.storage.project_history import (
+    get_project_history
+)
+
+
 def show_project_history():
 
-    st.title(
-        "Project History"
-    )
+    st.title("Project History")
+
+    history = get_project_history()
+
+    if not history:
+        st.info("No projects have been generated yet.")
+        return
 
     st.dataframe(
-        [
-            {
-                "Project":"Banking Portal",
-                "Status":"Approved",
-                "Date":"23 Jun 2026"
-            },
-            {
-                "Project":"Healthcare Platform",
-                "Status":"Generated",
-                "Date":"22 Jun 2026"
-            }
-        ],
-        use_container_width=True
+        history,
+        hide_index=True,
+        width="stretch"
     )

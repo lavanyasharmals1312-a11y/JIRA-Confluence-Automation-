@@ -1,3 +1,4 @@
+import html
 import streamlit as st
 
 
@@ -6,11 +7,7 @@ import streamlit as st
 # ---------------------------------------------------
 
 def is_edit_mode():
-
-    return st.session_state.get(
-        "edit_mode",
-        False
-    )
+    return st.session_state.get("edit_mode", False)
 
 
 # ---------------------------------------------------
@@ -27,7 +24,7 @@ margin-bottom:10px;
 font-size:28px;
 font-weight:700;
 ">
-{title}
+{html.escape(str(title))}
 </h3>
 """,
         unsafe_allow_html=True,
@@ -35,173 +32,122 @@ font-weight:700;
 
 
 def sub_heading(title):
-
-    st.markdown(f"### {title}")
+    st.markdown(f"### {html.escape(str(title))}")
 
 
 # ---------------------------------------------------
 # TEXT
 # ---------------------------------------------------
 
-def render_text(
+def render_text(obj, field, label, key):
 
-    obj,
-
-    field,
-
-    label,
-
-    key
-
-):
-
-    value = obj.get(field, "")
+    raw_value = obj.get(field, "")
 
     if is_edit_mode():
 
         obj[field] = st.text_input(
-
             label,
-
-            value,
-
+            raw_value,
             key=key
-
         )
 
     else:
 
+        value = html.escape(str(raw_value))
+
         st.markdown(
-    f"""
+            f"""
 <div style="margin-bottom:10px;">
     <div style="font-weight:600;font-size:15px;">
-        {label}
+        {html.escape(label)}
     </div>
     <div style="font-size:15px;margin-top:2px;">
         {value}
     </div>
 </div>
 """,
-    unsafe_allow_html=True,
-)
-
+            unsafe_allow_html=True,
+        )
 
 
 # ---------------------------------------------------
 # TEXT AREA
 # ---------------------------------------------------
 
-def render_textarea(
+def render_textarea(obj, field, label, key, height=120):
 
-    obj,
-
-    field,
-
-    label,
-
-    key,
-
-    height=120
-
-):
-
-    value = obj.get(field, "")
+    raw_value = obj.get(field, "")
 
     if is_edit_mode():
 
         obj[field] = st.text_area(
-
             label,
-
-            value,
-
+            raw_value,
             height=height,
-
             key=key
-
         )
 
     else:
 
+        value = html.escape(str(raw_value)).replace("\n", "<br>")
+
         st.markdown(
             f"""
-    <div style="margin-bottom:10px;">
-        <div style="font-weight:600;font-size:15px;">
-            {label}
-        </div>
-        <div style="font-size:15px;margin-top:2px;line-height:1.5;">
-            {value}
-        </div>
+<div style="margin-bottom:10px;">
+    <div style="font-weight:600;font-size:15px;">
+        {html.escape(label)}
     </div>
-    """,
+    <div style="font-size:15px;margin-top:2px;line-height:1.5;">
+        {value}
+    </div>
+</div>
+""",
             unsafe_allow_html=True,
         )
+
+
 # ---------------------------------------------------
 # NUMBER
 # ---------------------------------------------------
 
-def render_number(
-
-    obj,
-
-    field,
-
-    label,
-
-    key
-
-):
+def render_number(obj, field, label, key):
 
     value = obj.get(field, 0)
 
     if is_edit_mode():
 
         obj[field] = st.number_input(
-
             label,
-
             value=int(value),
-
             key=key
-
         )
 
     else:
 
         st.markdown(
             f"""
-    <div style="margin-bottom:10px;">
-        <div style="font-weight:600;font-size:15px;">
-            {label}
-        </div>
-        <div style="font-size:15px;margin-top:2px;">
-            {value}
-        </div>
+<div style="margin-bottom:10px;">
+    <div style="font-weight:600;font-size:15px;">
+        {html.escape(label)}
     </div>
-    """,
+    <div style="font-size:15px;margin-top:2px;">
+        {value}
+    </div>
+</div>
+""",
             unsafe_allow_html=True,
         )
+
 
 # ---------------------------------------------------
 # LIST
 # ---------------------------------------------------
 
-def render_list(
-
-    obj,
-
-    field,
-
-    label,
-
-    key
-
-):
+def render_list(obj, field, label, key):
 
     values = obj.get(field, [])
 
     if values is None:
-
         values = []
 
     if is_edit_mode():
@@ -209,30 +155,21 @@ def render_list(
         text = "\n".join(values)
 
         updated = st.text_area(
-
             label,
-
             text,
-
             height=130,
-
             key=key
-
         )
 
         obj[field] = [
-
             line.strip()
-
             for line in updated.split("\n")
-
             if line.strip()
-
         ]
 
     else:
 
-        st.markdown(f"**{label}**")
+        st.markdown(f"**{html.escape(label)}**")
 
         if not values:
 
@@ -241,25 +178,25 @@ def render_list(
         else:
 
             bullet_html = """
-    <ul style="
-    padding-left:20px;
-    margin-top:4px;
-    margin-bottom:6px;
-    line-height:1.4;
-    ">
-    """
+<ul style="
+padding-left:20px;
+margin-top:4px;
+margin-bottom:6px;
+line-height:1.4;
+">
+"""
 
             for item in values:
                 bullet_html += f"""
-    <li style="
-    white-space:normal;
-    word-break:normal;
-    overflow-wrap:break-word;
-    margin-bottom:4px;
-    ">
-    {item}
-    </li>
-    """
+<li style="
+white-space:normal;
+word-break:normal;
+overflow-wrap:break-word;
+margin-bottom:4px;
+">
+{html.escape(str(item))}
+</li>
+"""
 
             bullet_html += "</ul>"
 
@@ -275,41 +212,17 @@ def render_list(
 
 def render_status():
 
-    if st.session_state.get(
+    if st.session_state.get("approved", False):
 
-        "approved",
+        st.success("Status : Approved")
 
-        False
+    elif st.session_state.get("edit_mode", False):
 
-    ):
-
-        st.success(
-
-            "Status : Approved"
-
-        )
-
-    elif st.session_state.get(
-
-        "edit_mode",
-
-        False
-
-    ):
-
-        st.warning(
-
-            "Status : Editing"
-
-        )
+        st.warning("Status : Editing")
 
     else:
 
-        st.info(
-
-            "Status : Draft"
-
-        )
+        st.info("Status : Draft")
 
 
 # ---------------------------------------------------
