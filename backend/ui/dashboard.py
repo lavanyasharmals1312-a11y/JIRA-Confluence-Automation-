@@ -1,5 +1,11 @@
 import streamlit as st
+from backend.storage.latest_project import (
+    load_latest_project
+)
 
+from backend.utils.backlog_metrics import (
+    get_backlog_metrics
+)
 def show_dashboard():
 
     st.markdown(
@@ -11,35 +17,29 @@ def show_dashboard():
         "<div class='page-subtitle'>AI-generated backlog pipeline status across all projects</div>",
         unsafe_allow_html=True
     )
+    project, _ = load_latest_project()
 
-    c1,c2,c3,c4 = st.columns(4)
+    if project is not None:
+
+        epics, features, stories, tasks = get_backlog_metrics(project)
+
+    else:
+
+        epics = features = stories = tasks = 0
+
+    c1, c2, c3, c4 = st.columns(4)
 
     with c1:
-        st.metric(
-            "Projects",
-            "12",
-            "+3"
-        )
+        st.metric("Epics", epics)
 
     with c2:
-        st.metric(
-            "Backlogs Generated",
-            "27",
-            "+5"
-        )
+        st.metric("Features", features)
 
     with c3:
-        st.metric(
-            "Requirements Processed",
-            "84",
-            "+12"
-        )
+        st.metric("Stories", stories)
 
     with c4:
-        st.metric(
-            "Integrations",
-            "2"
-        )
+        st.metric("Tasks", tasks)
 
     st.divider()
 

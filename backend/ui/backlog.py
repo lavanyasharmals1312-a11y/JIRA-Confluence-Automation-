@@ -11,7 +11,9 @@ from backend.storage.save_project import (
 from backend.services.pdf_service import (
     generate_pdf
 )
-
+from backend.utils.backlog_metrics import (
+    get_backlog_metrics
+)
 from backend.ui.renderers.project_renderer import (
     render_project
 )
@@ -87,66 +89,30 @@ def show_backlog():
     # METRICS
     # -------------------------------------------------
 
-    epics = len(
-
-        project.get("epics", [])
-
-    )
-
-    features = sum(
-
-        len(epic.get("features", []))
-
-        for epic in project.get("epics", [])
-
-    )
-
-    stories = sum(
-
-        len(feature.get("user_stories", []))
-
-        for epic in project.get("epics", [])
-
-        for feature in epic.get("features", [])
-
-    )
-
-    tasks = sum(
-
-        len(story.get("tasks", []))
-
-        for epic in project.get("epics", [])
-
-        for feature in epic.get("features", [])
-
-        for story in feature.get("user_stories", [])
-
-    )
-
+    epics, features, stories, tasks = get_backlog_metrics(project)
     c1, c2, c3, c4 = st.columns(4)
 
     with c1:
-
         st.metric("Epics", epics)
 
     with c2:
-
         st.metric("Features", features)
 
     with c3:
-
         st.metric("Stories", stories)
 
     with c4:
-
         st.metric("Tasks", tasks)
+
 
     st.divider()
 
     # -------------------------------------------------
     # RENDER PROJECT
     # -------------------------------------------------
-
+    st.info(
+    "Expand each Epic to reveal its Features, User Stories, and Tasks."
+    )
     render_project(project)
 
     st.divider()
@@ -274,18 +240,37 @@ def show_backlog():
         )
 
         st.info(
-                f"""
-    Project : {project.get('project_name','Project')}
+            f"""
+Project : {project.get('project_name', 'Project')}
 
-    Epics : {epics}
+Epics : {epics}
 
-    Features : {features}
+Features : {features}
 
-    Stories : {stories}
+Stories : {stories}
 
-    Tasks : {tasks}
-    """
-            )
+Tasks : {tasks}
+"""
+        )
+
+        st.subheader("Select Epics to Publish")
+
+        selected_epics = []
+
+        for epic in project.get("epics", []):
+
+            if st.checkbox(
+                epic.get("title", "Untitled Epic"),
+                value=True,
+                key=f"epic_{epic.get('title')}"
+            ):
+
+                selected_epics.append(epic)
+
+        filtered_project = {
+            **project,
+            "epics": selected_epics
+        }
 
         if st.button(
             "Push to Jira",
@@ -293,8 +278,15 @@ def show_backlog():
             width="stretch"
         ):
 
-            confirm_publish_dialog(project)
+            if not selected_epics:
 
+                st.error(
+                    "Please select at least one Epic to publish."
+                )
+
+            else:
+
+                confirm_publish_dialog(filtered_project)
     # -------------------------------------------------
     # GENERATE NEW BACKLOG
     # -------------------------------------------------
