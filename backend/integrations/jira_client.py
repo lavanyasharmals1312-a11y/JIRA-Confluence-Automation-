@@ -7,9 +7,7 @@ from backend.integrations.auth import (
 
 class JiraClient:
 
-    def __init__(self):
-
-       def __init__(self, creds=None):
+    def __init__(self, creds=None):
 
         if creds is None:
             creds = get_jira_credentials()
