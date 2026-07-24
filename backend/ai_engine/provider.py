@@ -4,6 +4,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
+from backend.config.config_manager import load_config
 
 # Load local .env if present
 env_path = Path(__file__).resolve().parents[2] / ".env"
@@ -20,9 +21,15 @@ class GeminiProvider:
 
     def __init__(self):
 
-        api_key = os.getenv("GEMINI_API_KEY")
+        config = load_config()
 
-        # If not found locally, try Streamlit secrets
+        api_key = config.get("gemini_api_key")
+
+        # Fall back to .env
+        if not api_key:
+            api_key = os.getenv("GEMINI_API_KEY")
+
+        # Fall back to Streamlit Secrets
         if (not api_key) and st is not None:
             try:
                 api_key = st.secrets.get("GEMINI_API_KEY")

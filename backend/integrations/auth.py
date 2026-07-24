@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
+from backend.config.config_manager import load_config
 
 # Load .env
 env_path = Path(__file__).resolve().parents[2] / ".env"
@@ -45,11 +46,26 @@ def get_value(key):
 
 def get_jira_credentials():
 
+    config = load_config()
+
     return {
-        "base_url": get_value("JIRA_BASE_URL"),
-        "email": get_value("JIRA_EMAIL"),
-        "api_token": get_value("JIRA_API_TOKEN"),
-        "project_key": get_value("JIRA_PROJECT_KEY")
+
+        "base_url":
+            config.get("jira_base_url")
+            or get_value("JIRA_BASE_URL"),
+
+        "email":
+            config.get("jira_email")
+            or get_value("JIRA_EMAIL"),
+
+        "api_token":
+            config.get("jira_api_token")
+            or get_value("JIRA_API_TOKEN"),
+
+        "project_key":
+            config.get("jira_project_key")
+            or get_value("JIRA_PROJECT_KEY")
+
     }
 
 
