@@ -58,7 +58,7 @@ def render_story(story, index):
 
             story,
 
-            "description",
+            "detailed_description",
 
             "Description",
 
