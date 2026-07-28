@@ -55,7 +55,7 @@ font-size:34px;
 font-weight:800;
 color:white;
 ">
-Requirement Studio
+BA Assist
 </h1>
 
 <p style="
