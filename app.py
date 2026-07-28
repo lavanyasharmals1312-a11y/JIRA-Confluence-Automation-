@@ -5,7 +5,7 @@ import os
 # ---------------------------------------------------
 
 st.set_page_config(
-    page_title="Requirement Studio",
+    page_title="BA Assist",
     layout="wide",
     initial_sidebar_state="expanded"
 )
